@@ -359,14 +359,18 @@ export class LoginComponent implements AfterViewInit {
         shape: 'dot',
         size: 16,
       },
+      interaction: {
+        dragView: false,
+        zoomView: false,
+      },
       physics: {
         forceAtlas2Based: {
-          gravitationalConstant: -26,
-          centralGravity: 0.005,
-          springLength: 230,
+          gravitationalConstant: -260,
+          centralGravity: 0.2,
+          springLength: 30,
           springConstant: 0.18,
         },
-        maxVelocity: 146,
+        maxVelocity: 50,
         solver: 'forceAtlas2Based',
         timestep: 0.35,
         stabilization: { iterations: 150 },
