@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Network, DataSet, Node, Edge } from 'vis';
+import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +8,8 @@ import { Network, DataSet, Node, Edge } from 'vis';
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
-  private networkInstance?: Network;
+
+  constructor(private networkInstance: Network) {}
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -351,10 +352,10 @@ export class LoginComponent implements AfterViewInit {
       { from: 76, to: 58 },
     ] as Edge[]);
 
-    const data = { nodes, edges };
+    const data: Data = { nodes, edges };
 
     // create a network
-    const options = {
+    const options: Options = {
       nodes: {
         shape: 'dot',
         size: 16,
