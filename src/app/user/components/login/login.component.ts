@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Network, DataSet } from 'vis';
+import { Network, DataSet, Node, Edge } from 'vis';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements AfterViewInit {
   ngAfterViewInit() {
     const container = this.el.nativeElement;
     // create some nodes
-    const nodes = new DataSet<any>([
+    const nodes = new DataSet<Node>([
       { id: 0, label: 'Myriel', group: 1 },
       { id: 1, label: 'Napoleon', group: 1 },
       { id: 2, label: 'Mlle.Baptistine', group: 1 },
@@ -91,10 +91,10 @@ export class LoginComponent implements AfterViewInit {
       { id: 74, label: 'Child2', group: 10 },
       { id: 75, label: 'Brujon', group: 4 },
       { id: 76, label: 'Mme.Hucheloup', group: 8 },
-    ]);
+    ] as unknown as Node[]);
 
     // create some edges
-    const edges = new DataSet<any>([
+    const edges = new DataSet<Edge>([
       { from: 1, to: 0 },
       { from: 2, to: 0 },
       { from: 3, to: 0 },
@@ -349,7 +349,7 @@ export class LoginComponent implements AfterViewInit {
       { from: 76, to: 62 },
       { from: 76, to: 48 },
       { from: 76, to: 58 },
-    ]);
+    ] as Edge[]);
 
     const data = { nodes, edges };
 
