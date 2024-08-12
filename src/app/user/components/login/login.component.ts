@@ -8,7 +8,7 @@ import { Network, DataSet } from 'vis';
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
-  private networkInstance: any;
+  private networkInstance?: Network;
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -354,7 +354,7 @@ export class LoginComponent implements AfterViewInit {
     const data = { nodes, edges };
 
     // create a network
-    var options = {
+    const options = {
       nodes: {
         shape: 'dot',
         size: 16,
