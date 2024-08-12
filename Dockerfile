@@ -26,26 +26,22 @@ COPY . .
 
 RUN npm test --watch=false --browsers=ChromeHeadlessNoSandbox 
 
-FROM base as dev
+
+FROM base as build
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm ci --include=dev
-
 COPY . .
 
-CMD npm run dev
+RUN npm ci
 
-FROM base as prod
+RUN npm run build
 
-WORKDIR /app
 
-COPY package*.json ./
+FROM nginx:latest
 
-RUN npm ci --omit=dev
+COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY . .
+COPY --from=build /app/dist/nginx-example-app /usr/share/nginx/html
 
-CMD node src/index.js
+
