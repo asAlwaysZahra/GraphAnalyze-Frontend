@@ -30,10 +30,11 @@ module.exports = function (config) {
       reporters: [{ type: "html" }, { type: "text-summary" }],
     },
     reporters: ["progress", "kjhtml"],
-    browsers: ["Chrome", "ChromeHeadlessNoSandbox"],
+    browsers: ["Chrome"],
     restartOnFileChange: true,
+    // headless chrome test
     customLaunchers: {
-      ChromeHeadlessNoSandbox: {
+      ChromeHeadlessCustom: {
         base: "ChromeHeadless",
         flags: ["--no-sandbox", "--disable-gpu"],
       },

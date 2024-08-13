@@ -1,11 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  signal,
-  ViewChild,
-} from '@angular/core';
-import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +9,7 @@ import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
 
-  private networkInstance!: Network;
-  checked = false;
+  constructor(private networkInstance: Network) {}
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -386,11 +379,5 @@ export class LoginComponent implements AfterViewInit {
     };
 
     this.networkInstance = new Network(container, data, options);
-  }
-
-  hide = signal(true);
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
   }
 }
