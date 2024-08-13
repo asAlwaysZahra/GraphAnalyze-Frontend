@@ -1,17 +1,42 @@
 <div class="container">
   <div class="login-container">
     <div class="form-container">
+      <div class="logo">
+        <img
+          src="https://www.creativefabrica.com/wp-content/uploads/2018/11/Analytics-graph-logo-by-meisuseno.jpg"
+          alt="logo"
+        />
+        <h2 class="">StarData</h2>
+      </div>
       <h2>Login</h2>
-      <form action="" method="post" class="form">
+      <form action="" method="post">
         <mat-form-field appearance="fill" class="login-field">
           <mat-label>Username</mat-label>
           <input matInput />
         </mat-form-field>
-        <mat-form-field appearance="fill" class="login-field">
+        <mat-form-field class="login-field">
           <mat-label>Password</mat-label>
-          <input matInput type="password" />
+          <input
+            placeholder="at least 8 chracters"
+            matInput
+            [type]="hide() ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
         </mat-form-field>
+        <mat-checkbox [(ngModel)]="checked">Remember me</mat-checkbox>
         <button type="submit" mat-flat-button>Login</button>
+        <p class="forget">
+          <span>Forget password?</span>
+          <span class="recover">Recover it</span>
+        </p>
       </form>
     </div>
     <div class="vertical-line"></div>
