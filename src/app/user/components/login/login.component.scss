@@ -23,7 +23,7 @@
         display: flex;
 
         > h2 {
-          color: #616161;
+          color: var(--text-color-secondary);
           font-size: 1.6rem;
         }
 
@@ -34,6 +34,7 @@
       }
 
       > h2 {
+        color: var(--text-color-primary);
         font-weight: 600;
         font-size: 2rem;
       }
@@ -55,8 +56,8 @@
           width: 100%;
           height: 3.3rem;
           border-radius: 4rem;
-          background-color: rgba(38, 103, 255, 0.1);
-          color: #2667ff;
+          background-color: var(--button-background-color);
+          color: var(--button-text-color);
           margin-block: 1.6rem;
         }
 
@@ -66,7 +67,8 @@
           font-size: 0.8rem;
 
           .recover {
-            color: #2667ff;
+            text-decoration: none;
+            color: var(--link-text-color);
             font-weight: 550;
             cursor: pointer;
             position: relative;
@@ -79,7 +81,7 @@
               height: 1px;
               bottom: 0;
               left: 0;
-              background-color: #2667ff;
+              background-color: var(--link-text-color);
               transform-origin: bottom right;
               transition: transform 0.25s ease-out;
             }
@@ -93,10 +95,12 @@
       }
     }
   }
+
   .vertical-line {
     height: 600px;
-    border-left: 1px solid #aaa;
+    border-left: 1px solid var(--text-color-secondary);
   }
+
   #network {
     height: 100%;
     width: 100%;

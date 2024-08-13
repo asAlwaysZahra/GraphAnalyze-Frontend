@@ -252,12 +252,12 @@ video {
 html,
 body {
   height: 100%;
+  background-color: var(--background-color-primary);
 }
 
 body,
 .mat-internal-form-field > label {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: #424242;
 }
 
 .login-field {
@@ -273,4 +273,34 @@ body,
   .mat-mdc-form-field-infix {
     width: 70%;
   }
+}
+
+p,
+h2,
+.mdc-label {
+  color: var(--text-color-primary);
+}
+
+[data-set="light"] {
+  --background-color-primary: #fff;
+  --background-color-secondary: red;
+  --text-color-primary: #424242;
+  --text-color-secondary: #bdbdbd;
+
+  --button-background-color: rgba(46, 110, 253, 0.5);
+  --button-text-color: #fff;
+
+  --link-text-color: #2667ff;
+}
+
+[data-set="dark"] {
+  --background-color-primary: #1e1e2f;
+  --background-color-secondary: #2a2a3c;
+  --text-color-primary: #fff;
+  --text-color-secondary: rgba(255, 255, 255, 0.75);
+
+  --button-background-color: rgba(38, 103, 255, 0.1);
+  --button-text-color: #2667ff;
+
+  --link-text-color: #2667ff;
 }
