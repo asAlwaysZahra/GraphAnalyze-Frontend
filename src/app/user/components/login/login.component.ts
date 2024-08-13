@@ -14,8 +14,7 @@ import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
-
-  constructor(private networkInstance: Network) {}
+  private networkInstance!: Network;
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -385,6 +384,11 @@ export class LoginComponent implements AfterViewInit {
     };
 
     this.networkInstance = new Network(container, data, options);
+
+    this.networkInstance.moveTo({
+      animation: true,
+      scale: 0.1,
+    });
   }
 
   hide = signal(true);
