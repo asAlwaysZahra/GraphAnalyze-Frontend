@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
 
-  constructor(private networkInstance: Network) {}
+  private networkInstance!: Network;
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;

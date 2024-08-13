@@ -4,18 +4,22 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.login-form {
+
+.login-field {
   .mdc-text-field {
     background: none !important;
     padding: 0;
   }
+
   .mdc-text-field:hover * {
     background: none;
   }
+
   .mat-mdc-form-field-infix {
     width: 70%;
   }
