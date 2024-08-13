@@ -31,7 +31,9 @@
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
         </mat-form-field>
-        <mat-checkbox [(ngModel)]="checked">Remember me</mat-checkbox>
+        <mat-checkbox [(ngModel)]="checked" name="rememberMe"
+          >Remember me</mat-checkbox
+        >
         <button type="submit" mat-flat-button>Login</button>
         <p class="forget">
           <span>Forget password?</span>
