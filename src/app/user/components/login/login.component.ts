@@ -388,6 +388,7 @@ export class LoginComponent implements AfterViewInit {
   }
 
   hide = signal(true);
+  checked = false;
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
