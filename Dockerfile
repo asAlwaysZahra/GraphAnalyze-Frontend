@@ -24,7 +24,7 @@ ENV CHROME_BIN="/usr/bin/google-chrome"
 
 COPY . .
 
-RUN npm test --watch=false --browsers=ChromeHeadlessNoSandbox 
+RUN ng test --watch=false --browsers=ChromeHeadlessNoSandbox 
 
 
 FROM base as build
