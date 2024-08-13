@@ -22,6 +22,7 @@
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
+      gap: 2.5rem;
       width: 80%;
 
       .form {
@@ -36,12 +37,13 @@
         }
 
         button {
-          font-size: 1.2rem;
+          font-size: 1rem;
           width: 60%;
-          height: 4.5rem;
+          height: 3rem;
           border-radius: 1rem;
           background-color: rgba(38, 103, 255, 0.1);
           color: #2667ff;
+          margin-block-start: 2.5rem;
         }
       }
     }
