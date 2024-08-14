@@ -16,6 +16,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AddUserComponent } from './components/dashboard/add-user/add-user.compo
     MatRippleModule,
     AppRoutingModule,
     SharedModule,
+    MatRadioModule,
   ],
 })
 export class UserModule {}
