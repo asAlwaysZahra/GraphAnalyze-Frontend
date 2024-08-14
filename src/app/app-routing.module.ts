@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
+import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -12,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: LoginComponent,
+        component: MainPageComponent,
         title: 'StarData | Dashboard',
       },
       {
