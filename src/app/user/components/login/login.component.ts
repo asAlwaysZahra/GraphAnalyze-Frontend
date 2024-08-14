@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  signal,
+} from '@angular/core';
 import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 
 @Component({
@@ -8,8 +14,7 @@ import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
-
-  constructor(private networkInstance: Network) {}
+  private networkInstance!: Network;
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -376,8 +381,32 @@ export class LoginComponent implements AfterViewInit {
         timestep: 0.35,
         stabilization: { iterations: 150 },
       },
+      groups: {
+        1: { color: { background: '#0d47a1', border: '#0d47a1' } },
+        2: { color: { background: '#1565c0', border: '#1565c0' } },
+        3: { color: { background: '#1976d2', border: '#1976d2' } },
+        4: { color: { background: '#1e88e5', border: '#1e88e5' } },
+        5: { color: { background: '#2196f3', border: '#2196f3' } },
+        6: { color: { background: '#42a5f5', border: '#42a5f5' } },
+        7: { color: { background: '#64b5f6', border: '#64b5f6' } },
+        8: { color: { background: '#90caf9', border: '#90caf9' } },
+        9: { color: { background: '#bbdefb', border: '#bbdefb' } },
+        10: { color: { background: '#2962ff', border: '#2962ff' } },
+      },
     };
 
     this.networkInstance = new Network(container, data, options);
+
+    this.networkInstance.moveTo({
+      animation: true,
+      scale: 0.1,
+    });
+  }
+
+  hide = signal(true);
+  checked = false;
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
   }
 }

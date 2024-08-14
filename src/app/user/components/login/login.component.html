@@ -1,17 +1,43 @@
-<div class="login-container">
-  <div class="form-container">
-    <h2>Login</h2>
-    <form action="" method="post" class="form">
-      <mat-form-field appearance="fill" class="login-form">
-        <mat-label>Username</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="login-form">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" />
-      </mat-form-field>
-      <button type="submit" mat-flat-button>Sign in</button>
-    </form>
+<div class="container">
+  <div class="login-container">
+    <div class="form-container">
+      <div class="logo">
+        <img src="logo.png" alt="logo" class="logo-image" />
+        <h2 class="logo-text">StarData</h2>
+      </div>
+      <h2>Login</h2>
+      <form action="" method="post">
+        <mat-form-field appearance="fill" class="login-field">
+          <mat-label>Username</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <mat-form-field class="login-field">
+          <mat-label>Password</mat-label>
+          <input
+            placeholder="at least 8 chracters"
+            matInput
+            [type]="hide() ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="checked" name="rememberMe"
+          >Remember me</mat-checkbox
+        >
+        <button type="submit" mat-flat-button>Login</button>
+        <p class="forget">
+          <span>Forget password?</span>
+          <a class="recover">Recover it</a>
+        </p>
+      </form>
+    </div>
   </div>
   <div class="vertical-line"></div>
   <div #network id="network"></div>

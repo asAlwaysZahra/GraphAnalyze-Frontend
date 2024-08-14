@@ -1,0 +1,81 @@
+@import "@angular/material/theming";
+@import "node_modules/@angular/material/theming";
+
+@import "@angular/material/_theming.scss";
+
+// 2. Define your custom color palettes
+
+// Define the primary color palette
+$my-primary: mat-palette(
+  $mat-indigo
+); // Replace with your desired primary color palette
+
+// Define the accent color palette
+$my-accent: mat-palette(
+  $mat-pink,
+  A200,
+  A100,
+  A400
+); // Customize the shades as needed
+
+// Define the warn color palette
+$my-warn: mat-palette($mat-red); // Customize the warn color if necessary
+
+// 3. Define your theme object
+
+// Create a theme using the palettes defined above
+$my-theme: mat-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography: mat-typography-config(),
+    // Use default typography config, or customize it
+  )
+);
+
+// 4. Include Angular Material's core styles
+
+// This includes styles like the baseline Material Design typographic styles and more.
+@include mat-core();
+
+// 5. Apply the theme
+
+// Apply the custom theme globally in your application
+@include angular-material-theme($my-theme);
+
+// 6. Optionally, include component-specific themes
+
+// For example, if you want to apply specific styles for Material components,
+// you can include them here:
+
+// Include styles for all Angular Material components (optional)
+@include mat-all-component-themes($my-theme);
+
+// Optionally, you can include a dark theme variation
+$my-dark-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+  )
+);
+
+// Apply the dark theme (optional)
+// .dark-theme {
+//   @include angular-material-theme($my-dark-theme);
+// }
+
+// 7. Custom component-specific styles (optional)
+
+// If you have custom styling for specific components, you can include it here.
+// For example, custom button styles:
+
+// .mat-button {
+//   background-color: mat-color($my-primary);
+//   color: mat-color($my-primary, default-contrast);
+// }
