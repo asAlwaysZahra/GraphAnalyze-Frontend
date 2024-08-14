@@ -16,9 +16,10 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
 import { AppComponent } from '../app.component';
 import { SharedModule } from '../shared/shared.module';
+import { AddUserComponent } from './components/dashbaord/add-user/add-user.component';
 
 @NgModule({
-  declarations: [LoginComponent, DashboardComponent, MainPageComponent],
+  declarations: [LoginComponent, DashboardComponent, MainPageComponent, AddUserComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
