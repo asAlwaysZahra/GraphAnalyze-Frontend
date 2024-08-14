@@ -4,11 +4,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './user/user.module';
-import { CardComponent } from './components/card/card.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent],
-  imports: [BrowserModule, AppRoutingModule, UserModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, UserModule, SharedModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
