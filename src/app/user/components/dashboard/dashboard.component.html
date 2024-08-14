@@ -4,21 +4,25 @@
   </button>
 
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav
-      #snav
-      [mode]="'side'"
-      [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56"
-      class="sidenav"
-      opened
-    >
+    <mat-sidenav #snav [mode]="'side'" fixedTopGap="56" class="sidenav" opened>
       <h2 class="title">StarData</h2>
       <mat-nav-list class="nav-link-list">
-        <a routerLink="." class="nav-link active" matRipple>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['/dashboard/']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <mat-icon>home</mat-icon>
           Dashboard
         </a>
-        <a routerLink="." class="nav-link" matRipple>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['add-user']"
+          routerLinkActive="active"
+        >
           <mat-icon>person_add</mat-icon>
           Add User
         </a>
@@ -26,9 +30,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="content">
-      <p>che khabar</p>
-      <p>che khabar</p>
-      <p>che khabar</p>
+      <router-outlet> </router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
