@@ -287,10 +287,11 @@ h2,
   --text-color-primary: #424242;
   --text-color-secondary: #bdbdbd;
 
-  --button-background-color: rgba(46, 110, 253, 0.5);
+  --button-background-color: rgba(46, 110, 253, 1);
   --button-text-color: #fff;
 
   --link-text-color: #2667ff;
+  --logo-filter: invert(75%);
 }
 
 [data-set="dark"] {
@@ -303,4 +304,6 @@ h2,
   --button-text-color: #2667ff;
 
   --link-text-color: #2667ff;
+
+  --logo-filter: invert(75%);
 }

@@ -1,4 +1,3 @@
-import { group } from '@angular/animations';
 import {
   Component,
   AfterViewInit,
