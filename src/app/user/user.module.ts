@@ -19,7 +19,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, DashboardComponent, MainPageComponent],
-  providers: [AppComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
