@@ -1,1 +1,34 @@
-<p>dashboard-main works!</p>
+<div class="container">
+  <button mat-fab (click)="snav.toggle()" class="menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #snav
+      [mode]="'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      class="sidenav"
+      opened
+    >
+      <h2 class="title">StarData</h2>
+      <mat-nav-list class="nav-link-list">
+        <a routerLink="." class="nav-link active" matRipple>
+          <mat-icon>home</mat-icon>
+          Dashboard
+        </a>
+        <a routerLink="." class="nav-link" matRipple>
+          <mat-icon>person_add</mat-icon>
+          Add User
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content">
+      <p>che khabar</p>
+      <p>che khabar</p>
+      <p>che khabar</p>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

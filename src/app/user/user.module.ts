@@ -6,8 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [LoginComponent, DashboardMainComponent],
@@ -19,7 +23,11 @@ import { DashboardMainComponent } from './components/dashboard-main/dashboard-ma
     MatButtonModule,
     MatCheckboxModule,
     FormsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatListModule,
+    MatRippleModule,
   ],
-  exports: [MatFormFieldModule, MatInputModule, MatIconModule],
 })
 export class UserModule {}

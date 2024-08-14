@@ -290,8 +290,13 @@ h2,
   --button-background-color: rgba(46, 110, 253, 1);
   --button-text-color: #fff;
 
+  --nav-link-text-color: #424242;
+  --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
+  --nav-link-text-color-active: rgba(27, 89, 248, 1);
+
   --link-text-color: #2667ff;
   --logo-filter: invert(75%);
+  --content-background-color: #f9f9f9;
 }
 
 [data-set="dark"] {
@@ -303,7 +308,11 @@ h2,
   --button-background-color: rgba(38, 103, 255, 0.1);
   --button-text-color: #2667ff;
 
-  --link-text-color: #2667ff;
+  --nav-link-text-color: #424242;
+  --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
+  --nav-link-text-color-active: rgba(27, 89, 248, 1);
 
+  --link-text-color: #2667ff;
   --logo-filter: invert(75%);
+  --content-background-color: #f9f9f9;
 }
