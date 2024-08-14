@@ -6,9 +6,8 @@ import {
   signal,
 } from '@angular/core';
 import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
-import { LoginService } from '../../services/login/login.service';
-import { Router } from '@angular/router';
-import { LoginRequest } from '../../services/login/login.model';
+import { AuthService } from '../../services/auth/auth.service';
+import { LoginRequest } from '../../services/auth/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +22,7 @@ export class LoginComponent implements AfterViewInit {
   username = '';
   password = '';
 
-  constructor(private loginService: LoginService) {}
+  constructor(private authService: AuthService) {}
 
   onSubmit() {
     const loginRequest: LoginRequest = {
@@ -31,7 +30,9 @@ export class LoginComponent implements AfterViewInit {
       password: this.password,
       rememberMe: this.checked,
     };
-    this.loginService.login(loginRequest);
+    this.authService.login(loginRequest).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   clickEvent(event: MouseEvent) {
