@@ -12,6 +12,8 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
+    console.log(loginRequest);
+
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<LoginResponse>(this.apiUrl + '/login', loginRequest, {
       headers,

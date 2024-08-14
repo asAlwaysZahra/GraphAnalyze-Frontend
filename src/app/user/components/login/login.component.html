@@ -6,15 +6,16 @@
         <h2 class="logo-text">StarData</h2>
       </div>
       <h2>Login</h2>
-      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <form (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Username</mat-label>
-          <input matInput name="userName" />
+          <input [(ngModel)]="username" matInput name="userName" />
         </mat-form-field>
         <mat-form-field class="form-field">
           <mat-label>Password</mat-label>
           <input
             placeholder="at least 8 chracters"
+            [(ngModel)]="password"
             matInput
             [type]="hide() ? 'password' : 'text'"
             name="password"
@@ -29,12 +30,9 @@
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
         </mat-form-field>
-        <mat-checkbox
-          [(ngModel)]="checked"
-          name="rememberMe"
-          formControlName="rememberMe"
-          >Remember me
-        </mat-checkbox>
+        <mat-checkbox [(ngModel)]="checked" name="rememberMe"
+          >Remember me</mat-checkbox
+        >
         <button type="submit" mat-flat-button>Login</button>
         <p class="forget">
           <span>Forget password?</span>

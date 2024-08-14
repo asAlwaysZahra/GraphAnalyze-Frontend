@@ -6,9 +6,9 @@ import {
   signal,
 } from '@angular/core';
 import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
+import { LoginRequest } from '../../services/login/login.model';
 
 @Component({
   selector: 'app-login',
@@ -20,40 +20,18 @@ export class LoginComponent implements AfterViewInit {
   private networkInstance!: Network;
   hide = signal(true);
   checked = false;
-  loginForm!: FormGroup;
+  username = '';
+  password = '';
 
-  // constructor(
-  //   private fb: FormBuilder,
-  //   private loginService: LoginService,
-  //   private router: Router
-  // ) {
-  //   this.loginForm = this.fb.group({
-  //     username: ['', Validators.required],
-  //     password: ['', Validators.required],
-  //     rememberMe: [false],
-  //   });
-  // }
+  constructor(private loginService: LoginService) {}
 
   onSubmit() {
-    //   if (this.loginForm.valid) {
-    //     const loginData = this.loginForm.value;
-    //     this.loginService.login(loginData).subscribe(
-    //       (response) => {
-    //         // Handle successful login
-    //         console.log('Login successful:', response);
-    //         // Store user information (including role)
-    //         if (loginData.rememberMe) {
-    //           localStorage.setItem('user', JSON.stringify(response));
-    //         }
-    //         // Navigate to home page or dashboard
-    //         this.router.navigate(['/dashboard']);
-    //       },
-    //       (error) => {
-    //         // Handle login error
-    //         console.error('Login failed:', error);
-    //       }
-    //     );
-    //   }
+    const loginRequest: LoginRequest = {
+      username: this.username,
+      password: this.password,
+      rememberMe: this.checked,
+    };
+    this.loginService.login(loginRequest);
   }
 
   clickEvent(event: MouseEvent) {
