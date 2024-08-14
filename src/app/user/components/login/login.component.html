@@ -6,17 +6,19 @@
         <h2 class="logo-text">StarData</h2>
       </div>
       <h2>Login</h2>
-      <form action="" method="post">
+      <form (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Username</mat-label>
-          <input matInput />
+          <input [(ngModel)]="username" matInput name="userName" />
         </mat-form-field>
         <mat-form-field class="form-field">
           <mat-label>Password</mat-label>
           <input
             placeholder="at least 8 chracters"
+            [(ngModel)]="password"
             matInput
             [type]="hide() ? 'password' : 'text'"
+            name="password"
           />
           <button
             mat-icon-button

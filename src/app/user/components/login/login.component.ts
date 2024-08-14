@@ -15,6 +15,21 @@ import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
   private networkInstance!: Network;
+  username: string = '';
+  password: string = '';
+  hide = signal(true);
+  checked = false;
+
+  onSubmit() {
+    console.log('Username:', this.username);
+    console.log('Password:', this.password);
+    console.log('RememberMe:', this.checked);
+  }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -401,12 +416,5 @@ export class LoginComponent implements AfterViewInit {
       animation: true,
       scale: 0.1,
     });
-  }
-
-  hide = signal(true);
-  checked = false;
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
   }
 }
