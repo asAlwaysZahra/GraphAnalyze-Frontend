@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
+import { AddUserComponent } from './user/components/dashboard/add-user/add-user.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -18,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'add-user',
-        component: LoginComponent,
+        component: AddUserComponent,
         title: 'StarData | Add User',
       },
     ],

@@ -14,12 +14,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { AppRoutingModule } from '../app-routing.module';
 import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
-import { AppComponent } from '../app.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddUserComponent } from './components/dashbaord/add-user/add-user.component';
+import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
 
 @NgModule({
-  declarations: [LoginComponent, DashboardComponent, MainPageComponent, AddUserComponent],
+  declarations: [
+    LoginComponent,
+    DashboardComponent,
+    MainPageComponent,
+    AddUserComponent,
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
