@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MainPageComponent } from './main-page.component';
+import { CardComponent } from '../../../../shared/components/card/card.component';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -8,9 +8,8 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MainPageComponent]
-    })
-    .compileComponents();
+      declarations: [MainPageComponent, CardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainPageComponent);
     component = fixture.componentInstance;
