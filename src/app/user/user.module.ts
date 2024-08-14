@@ -7,9 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, DashboardMainComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
