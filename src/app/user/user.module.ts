@@ -13,9 +13,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { AppRoutingModule } from '../app-routing.module';
+import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
 
 @NgModule({
-  declarations: [LoginComponent, DashboardComponent],
+  declarations: [LoginComponent, DashboardComponent, MainPageComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
