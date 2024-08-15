@@ -1,0 +1,50 @@
+<app-card>
+  <form action="" method="post" class="add-user-form">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>First Name</mat-label>
+      <input matInput name="FirstName" id="FirstName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Last Name</mat-label>
+      <input matInput name="LastName" id="LastName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>User Name</mat-label>
+      <input matInput name="Username" id="Username" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Password</mat-label>
+      <input
+        placeholder="at least 8 chracters"
+        matInput
+        type="password"
+        name="Password"
+        id="Password"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" name="Password" id="Password" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput name="Email" id="Email" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Phone Number</mat-label>
+      <input matInput name="PhoneNumber" id="PhoneNumber" />
+    </mat-form-field>
+    <mat-radio-group aria-label="Select an option" class="radio-buttons">
+      <label for="role">Select role : </label>
+      <mat-radio-button name="role" value="admin">Admin</mat-radio-button>
+      <mat-radio-button name="role" value="2">Option 2</mat-radio-button>
+      <mat-radio-button name="role" value="3">Option 3</mat-radio-button>
+    </mat-radio-group>
+    <button type="submit" mat-flat-button>Add user</button>
+  </form>
+</app-card>
+<!--
+fields :
+
+RoleName>string
+-->
