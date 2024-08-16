@@ -48,6 +48,9 @@ jobs:
       working-directory: .  
       run: npm ci  
 
+    - name: lint scan
+      run: npm lint
+
     - name: Build project  
       working-directory: .  
       run: npm run build --if-present
