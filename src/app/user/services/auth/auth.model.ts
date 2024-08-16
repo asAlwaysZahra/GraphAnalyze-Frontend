@@ -6,16 +6,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  roles: {
-    result: string[];
-    id: number;
-    exception: null;
-    status: 5;
-    isCanceled: false;
-    isCompleted: true;
-    isCompletedSuccessfully: true;
-    creationOptions: 0;
-    asyncState: null;
-    isFaulted: false;
-  };
+  firstName: string;
+  lastName: string;
+  imageURL: string | null;
 }

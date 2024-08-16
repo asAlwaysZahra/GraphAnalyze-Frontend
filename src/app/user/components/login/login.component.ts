@@ -8,6 +8,7 @@ import {
 import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginRequest } from '../../services/auth/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,17 +22,25 @@ export class LoginComponent implements AfterViewInit {
   checked = false;
   username = '';
   password = '';
+  isLoading = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
+    this.isLoading = true;
     const loginRequest: LoginRequest = {
       username: this.username,
       password: this.password,
       rememberMe: this.checked,
     };
-    this.authService.login(loginRequest).subscribe((data) => {
-      console.log(data);
+    this.authService.login(loginRequest).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.isLoading = false;
+        console.log('error');
+      },
     });
   }
 

@@ -33,7 +33,9 @@
         <mat-checkbox [(ngModel)]="checked" name="rememberMe"
           >Remember me</mat-checkbox
         >
-        <button type="submit" mat-flat-button>Login</button>
+        <button type="submit" mat-flat-button [disabled]="isLoading">
+          @if(isLoading){ Logging in... }@else { Login }
+        </button>
         <p class="forget">
           <span>Forget password?</span>
           <a class="recover">Recover it</a>
