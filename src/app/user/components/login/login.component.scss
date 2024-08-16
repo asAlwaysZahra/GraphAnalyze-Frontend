@@ -62,6 +62,10 @@
           background-color: var(--button-background-color);
           color: var(--button-text-color);
           margin-block: 1.6rem;
+
+          &:disabled {
+            background-color: var(--button-background-color-disabled);
+          }
         }
 
         > .forget {

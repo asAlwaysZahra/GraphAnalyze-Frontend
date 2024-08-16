@@ -6,6 +6,9 @@ import {
   signal,
 } from '@angular/core';
 import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
+import { AuthService } from '../../services/auth/auth.service';
+import { LoginRequest } from '../../services/auth/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +18,36 @@ import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
   private networkInstance!: Network;
+  hide = signal(true);
+  checked = false;
+  username = '';
+  password = '';
+  isLoading = false;
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onSubmit() {
+    this.isLoading = true;
+    const loginRequest: LoginRequest = {
+      username: this.username,
+      password: this.password,
+      rememberMe: this.checked,
+    };
+    this.authService.login(loginRequest).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.isLoading = false;
+        console.log('error');
+      },
+    });
+  }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -401,12 +434,5 @@ export class LoginComponent implements AfterViewInit {
       animation: true,
       scale: 0.1,
     });
-  }
-
-  hide = signal(true);
-  checked = false;
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
   }
 }

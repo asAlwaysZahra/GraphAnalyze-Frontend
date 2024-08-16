@@ -288,6 +288,7 @@ h2,
   --text-color-secondary: #bdbdbd;
 
   --button-background-color: rgba(46, 110, 253, 1);
+  --button-background-color-disabled: rgba(46, 110, 253, 0.3);
   --button-text-color: #fff;
 
   --nav-link-text-color: #424242;
@@ -307,7 +308,8 @@ h2,
   --text-color-primary: #fff;
   --text-color-secondary: rgba(255, 255, 255, 0.75);
 
-  --button-background-color: rgba(38, 103, 255, 0.1);
+  --button-background-color: rgba(38, 103, 255, 0.2);
+  --button-background-color-disabled: rgba(38, 103, 255, 0.1);
   --button-text-color: #2667ff;
 
   --nav-link-text-color: #424242;
