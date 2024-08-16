@@ -24,6 +24,8 @@ ENV CHROME_BIN="/usr/bin/google-chrome"
 
 COPY . .
 
+RUN ng lint
+
 RUN ng test --watch=false --browsers=ChromeHeadlessNoSandbox 
 
 
