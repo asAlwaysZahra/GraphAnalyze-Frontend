@@ -35,10 +35,10 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     // create some edges
     const edges = new DataSet<Edge>([
-      { from: 1, to: 0, label: '100 toman' },
-      { from: 1, to: 2, label: '150 toman' },
-      { from: 2, to: 0, label: '200 toman' },
-      { from: 50, to: 0, label: '250 toman' },
+      { from: 1, to: 0, label: '100,000 تومان' },
+      { from: 1, to: 2, label: '150,000 تومان' },
+      { from: 2, to: 0, label: '250,000 تومان' },
+      { from: 50, to: 0, label: '3,000,000 تومان' },
     ] as Edge[]);
 
     const data: Data = { nodes, edges };
