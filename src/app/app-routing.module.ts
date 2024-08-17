@@ -5,6 +5,7 @@ import { DashboardComponent } from './user/components/dashboard/dashboard.compon
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { AddUserComponent } from './user/components/dashboard/add-user/add-user.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
+import { AuthGuard } from './user/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -12,6 +13,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     title: 'StarData | Dashboard',
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

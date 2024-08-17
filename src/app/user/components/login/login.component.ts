@@ -1,11 +1,11 @@
 import {
-  Component,
   AfterViewInit,
+  Component,
   ElementRef,
-  ViewChild,
   signal,
+  ViewChild,
 } from '@angular/core';
-import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
+import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginRequest } from '../../services/auth/auth.model';
 import { Router } from '@angular/router';
@@ -24,9 +24,12 @@ export class LoginComponent implements AfterViewInit {
   password = '';
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
-  onSubmit() {
+  loginClick() {
     this.isLoading = true;
     const loginRequest: LoginRequest = {
       username: this.username,

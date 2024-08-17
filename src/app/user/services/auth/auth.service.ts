@@ -7,9 +7,9 @@ import { LoginRequest, LoginResponse } from './auth.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/User';
+  private apiUrl = 'https://localhost:44322/api/User';
 
-  private userData = new Subject<unknown>();
+  private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedIn.asObservable();
@@ -24,11 +24,11 @@ export class AuthService {
         tap((response) => {
           this.userData.next(response);
           this.isLoggedIn.next(true);
-        })
+        }),
       );
   }
 
   getUserData() {
-    // return this.userData$;
+    return this.userData$;
   }
 }
