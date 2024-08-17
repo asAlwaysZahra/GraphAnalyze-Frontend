@@ -4,6 +4,7 @@ import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { AddUserComponent } from './user/components/dashboard/add-user/add-user.component';
+import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -21,6 +22,11 @@ const routes: Routes = [
         path: 'add-user',
         component: AddUserComponent,
         title: 'StarData | Add User',
+      },
+      {
+        path: 'manage-account',
+        component: ManageAccountComponent,
+        title: 'StarData | Manage Account',
       },
     ],
   },

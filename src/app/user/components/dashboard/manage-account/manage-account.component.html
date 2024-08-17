@@ -1,0 +1,23 @@
+<app-card>
+  <form action="" method="post" class="add-user-form">
+    <mat-form-field class="form-field">
+      <mat-label>Old Password</mat-label>
+      <input matInput type="password" name="oldPassword" id="oldPassword" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Password</mat-label>
+      <input
+        placeholder="at least 8 chracters"
+        matInput
+        type="password"
+        name="Password"
+        id="Password"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" name="Password" id="Password" />
+    </mat-form-field>
+    <button type="submit" mat-flat-button>Reset password</button>
+  </form>
+</app-card>
