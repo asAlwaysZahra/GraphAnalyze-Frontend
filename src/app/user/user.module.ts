@@ -17,6 +17,7 @@ import { MainPageComponent } from './components/dashboard/main-page/main-page.co
 import { SharedModule } from '../shared/shared.module';
 import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { ManageAccountComponent } from './components/dashboard/manage-account/manage-account.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
     DashboardComponent,
     MainPageComponent,
     AddUserComponent,
+    ManageAccountComponent,
   ],
   imports: [
     CommonModule,

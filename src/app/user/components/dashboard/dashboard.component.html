@@ -20,11 +20,29 @@
         <a
           class="nav-link"
           matRipple
+          [routerLink]="['data-analysis']"
+          routerLinkActive="active"
+        >
+          <mat-icon>query_stats</mat-icon>
+          Data Analysis
+        </a>
+        <a
+          class="nav-link"
+          matRipple
           [routerLink]="['add-user']"
           routerLinkActive="active"
         >
           <mat-icon>person_add</mat-icon>
           Add User
+        </a>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['manage-account']"
+          routerLinkActive="active"
+        >
+          <mat-icon>manage_accounts</mat-icon>
+          Manage Account
         </a>
       </mat-nav-list>
     </mat-sidenav>
