@@ -5,6 +5,7 @@ import { DashboardComponent } from './user/components/dashboard/dashboard.compon
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { AddUserComponent } from './user/components/dashboard/add-user/add-user.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
+import { DataAnalysisComponent } from './graph/data-analysis/data-analysis.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -27,6 +28,11 @@ const routes: Routes = [
         path: 'manage-account',
         component: ManageAccountComponent,
         title: 'StarData | Manage Account',
+      },
+      {
+        path: 'data-analysis',
+        component: DataAnalysisComponent,
+        title: 'StarData | Data Analysis',
       },
     ],
   },
