@@ -322,3 +322,10 @@ h2,
 
   --card-background-color: #fff;
 }
+.mat-mdc-notch-piece {
+  border-right: 0;
+  border-left: 0;
+}
+.mat-mdc-paginator {
+  background-color: white !important;
+}
