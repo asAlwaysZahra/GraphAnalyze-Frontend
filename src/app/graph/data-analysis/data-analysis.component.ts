@@ -64,7 +64,7 @@ export class DataAnalysisComponent implements AfterViewInit {
         font: {
           align: 'center',
           color: 'rgba(27, 89, 248, 1)',
-          face: 'IRANRounded',
+          face: 'MyCustomFont',
         },
       },
     };

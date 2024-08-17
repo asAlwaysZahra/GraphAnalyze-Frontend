@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("../assets/Vazir.ttf") format("truetype"),
+    url("../assets/Vazir.woff") format("woff"),
+    url("../assets/Vazir.woff2") format("woff2"),
+    url("../assets/Vazir.eot") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 *,
 ::before,
 ::after {
