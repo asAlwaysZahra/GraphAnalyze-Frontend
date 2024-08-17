@@ -28,6 +28,15 @@ jobs:
       working-directory: .  
       run: npm run build --if-present  
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: test in container
+        run: docker build -t node-docker-image-test --no-cache --target test .
     # - name: Run tests  
     #   working-directory: phase11  
     #   run: npm test  
