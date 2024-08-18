@@ -309,7 +309,7 @@ h2,
   --logo-filter: invert(75%);
   --content-background-color: #f9f9f9;
 
-  --card-background-color: #fff;
+  --card-background-color: #fdfbff;
 }
 
 [data-set="dark"] {
@@ -336,6 +336,10 @@ h2,
   border-right: 0;
   border-left: 0;
 }
-.mat-mdc-paginator {
-  background-color: white !important;
+.mat-mdc-dialog-surface {
+  border-radius: 1rem !important;
+}
+
+.mat-mdc-paginator-container {
+  justify-content: center !important;
 }
