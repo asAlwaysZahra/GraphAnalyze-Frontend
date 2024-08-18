@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { LoginRequest, LoginResponse } from './auth.model';
+import { LoginRequest, LoginResponse, UserPermissions } from './auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +11,11 @@ export class AuthService {
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
+  private permissions = new Subject<UserPermissions>();
 
   isLoggedIn$ = this.isLoggedIn.asObservable();
   userData$ = this.userData.asObservable();
+  permissions$ = this.permissions.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +26,21 @@ export class AuthService {
         tap((response) => {
           this.userData.next(response);
           this.isLoggedIn.next(true);
+        }),
+      );
+  }
+
+  getPermissions() {
+    return this.http
+      .post<UserPermissions>(this.apiUrl + '/permissions', null)
+      .pipe(
+        tap((response) => {
+          if (response.username == null) this.isLoggedIn.next(false);
+          else {
+            this.isLoggedIn.next(true);
+            this.permissions.next(response);
+            console.log(response);
+          }
         }),
       );
   }

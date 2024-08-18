@@ -10,3 +10,10 @@ export interface LoginResponse {
   lastName: string;
   imageURL: string | null;
 }
+
+export interface UserPermissions {
+  username: string;
+  firstName: string;
+  lastName: string;
+  permission: string;
+}
