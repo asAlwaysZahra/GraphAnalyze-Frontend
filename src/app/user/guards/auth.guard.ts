@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.authService.getPermissions().pipe(
       map((permissions) => {
-        if (permissions) {
+        if (permissions.permission !== '') {
           return true;
         } else {
           this.router.navigate(['/login']);
