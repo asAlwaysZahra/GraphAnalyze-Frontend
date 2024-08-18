@@ -18,6 +18,9 @@ import { SharedModule } from '../shared/shared.module';
 import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ManageAccountComponent } from './components/dashboard/manage-account/manage-account.component';
+import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { ManageAccountComponent } from './components/dashboard/manage-account/ma
     MainPageComponent,
     AddUserComponent,
     ManageAccountComponent,
+    ManageUsersComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +47,8 @@ import { ManageAccountComponent } from './components/dashboard/manage-account/ma
     AppRoutingModule,
     SharedModule,
     MatRadioModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class UserModule {}

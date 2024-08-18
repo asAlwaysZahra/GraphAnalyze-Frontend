@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
-import { AddUserComponent } from './user/components/dashboard/add-user/add-user.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
 import { DataAnalysisComponent } from './graph/data-analysis/data-analysis.component';
+import { ManageUsersComponent } from './user/components/dashboard/manage-users/manage-users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'StarData | Login' },
@@ -20,9 +20,9 @@ const routes: Routes = [
         title: 'StarData | Dashboard',
       },
       {
-        path: 'add-user',
-        component: AddUserComponent,
-        title: 'StarData | Add User',
+        path: 'manage-users',
+        component: ManageUsersComponent,
+        title: 'StarData | Manage Users',
       },
       {
         path: 'manage-account',
