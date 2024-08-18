@@ -6,10 +6,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { provideHttpClient } from '@angular/common/http';
+import { GraphModule } from './graph/graph.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, UserModule, SharedModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    UserModule,
+    SharedModule,
+    GraphModule,
+  ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
 })

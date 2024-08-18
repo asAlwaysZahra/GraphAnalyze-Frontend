@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("../assets/font/Vazir.ttf") format("truetype"),
+    url("../assets/font/Vazir.woff") format("woff"),
+    url("../assets/font/Vazir.woff2") format("woff2"),
+    url("../assets/font/Vazir.eot") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 *,
 ::before,
 ::after {
@@ -321,4 +331,11 @@ h2,
   --content-background-color: #f9f9f9;
 
   --card-background-color: #fff;
+}
+.mat-mdc-notch-piece {
+  border-right: 0;
+  border-left: 0;
+}
+.mat-mdc-paginator {
+  background-color: white !important;
 }
