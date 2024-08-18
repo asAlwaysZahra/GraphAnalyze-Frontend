@@ -38,11 +38,12 @@ export class LoginComponent implements AfterViewInit {
     };
     this.authService.login(loginRequest).subscribe({
       next: () => {
+        this.isLoading = false;
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: (error) => {
         this.isLoading = false;
-        console.log('error');
+        console.error('Login failed', error);
       },
     });
   }

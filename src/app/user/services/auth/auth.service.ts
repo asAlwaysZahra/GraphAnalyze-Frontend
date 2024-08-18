@@ -21,7 +21,9 @@ export class AuthService {
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(this.apiUrl + '/login', loginRequest)
+      .post<LoginResponse>(this.apiUrl + '/login', loginRequest, {
+        withCredentials: true,
+      })
       .pipe(
         tap((response) => {
           this.userData.next(response);
@@ -32,7 +34,9 @@ export class AuthService {
 
   getPermissions() {
     return this.http
-      .post<UserPermissions>(this.apiUrl + '/permissions', null)
+      .get<UserPermissions>(this.apiUrl + '/permissions', {
+        withCredentials: true,
+      })
       .pipe(
         tap((response) => {
           if (response.username == null) this.isLoggedIn.next(false);
