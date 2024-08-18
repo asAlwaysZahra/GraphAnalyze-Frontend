@@ -310,6 +310,9 @@ h2,
   --content-background-color: #f9f9f9;
 
   --card-background-color: #fdfbff;
+
+  --logo-image-filter: invert(20%);
+  --logo-text-color: rgba(0, 0, 0, 0.75);
 }
 
 [data-set="dark"] {
@@ -331,6 +334,9 @@ h2,
   --content-background-color: #f9f9f9;
 
   --card-background-color: #fff;
+
+  --logo-image-filter: invert(85%);
+  --logo-text-color: rgba(255, 255, 255, 0.8);
 }
 .mat-mdc-notch-piece {
   border-right: 0;
