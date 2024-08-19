@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--content-background-color);
+  //background-color: var(--content-background-color);
 }
 
 .sidenav-container {
@@ -42,7 +42,7 @@
   .title-text {
     margin: 0;
     font-size: 2rem;
-    color: var(--logo-text-color);
+    //color: var(--logo-text-color);
   }
 }
 
@@ -52,13 +52,13 @@
   justify-content: start;
   align-items: center;
   border-radius: 10px;
-  color: var(--nav-link-text-color);
+  //color: var(--nav-link-text-color);
   gap: 1rem;
   cursor: pointer;
 
   &.active {
     background: var(--nav-link-background-color-active);
-    color: var(--nav-link-text-color-active);
+    //color: var(--nav-link-text-color-active);
   }
 }
 .nav-link-list {
