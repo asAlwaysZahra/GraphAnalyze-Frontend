@@ -4,7 +4,8 @@
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src: url("../assets/font/Vazir.ttf") format("truetype"),
+  src:
+    url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
@@ -300,26 +301,32 @@ h2,
 }
 
 [data-set="light"] {
+  @include mat.all-component-themes(m3-theme.$light-theme);
+
   --nav-link-text-color: #424242;
+  --mat-sidenav-content-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
   --card-background-color: #fefbff;
 
   --logo-image-filter: invert(20%);
-  --logo-filter: invert(75%);
-  @include mat.all-component-themes(m3-theme.$light-theme);
+  --logo-filter: invert(10%);
 }
 
 [data-set="dark"] {
+  @include mat.all-component-themes(m3-theme.$dark-theme);
+
   --nav-link-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
 
-  --card-background-color: #1d1b20;
+  --card-background-color: #292a2d;
+  --mat-sidenav-container-background-color: #1f1f23;
+  --mat-table-background-color: #292a2d;
+  --mat-paginator-container-background-color: #292a2d;
 
   --logo-image-filter: invert(75%);
   --logo-filter: invert(85%);
-  @include mat.all-component-themes(m3-theme.$dark-theme);
 }
 
 .mat-mdc-notch-piece {

@@ -77,7 +77,7 @@
 
           .recover {
             text-decoration: none;
-            color: var(--link-text-color);
+            color: var(--mdc-filled-button-container-color);
             font-weight: 550;
             cursor: pointer;
             position: relative;
@@ -90,7 +90,7 @@
               height: 1px;
               bottom: 0;
               left: 0;
-              background-color: var(--link-text-color);
+              background-color: var(--mdc-filled-button-container-color);
               transform-origin: bottom right;
               transition: transform 0.25s ease-out;
             }
