@@ -1,11 +1,11 @@
 import {
-  Component,
   AfterViewInit,
+  Component,
   ElementRef,
-  ViewChild,
   signal,
+  ViewChild,
 } from '@angular/core';
-import { Network, DataSet, Node, Edge, Options, Data } from 'vis';
+import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginRequest } from '../../services/auth/auth.model';
 import { Router } from '@angular/router';
@@ -24,7 +24,10 @@ export class LoginComponent implements AfterViewInit {
   password = '';
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   onSubmit() {
     this.isLoading = true;
@@ -50,6 +53,10 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const dataSetValue = document.body.getAttribute('data-set');
+    const labelColor: string =
+      dataSetValue == 'dark' ? 'rgba(255,255,255,0.9)' : '#424242';
+
     const container = this.el.nativeElement;
     // create some nodes
     const nodes = new DataSet<Node>([
@@ -397,6 +404,9 @@ export class LoginComponent implements AfterViewInit {
       nodes: {
         shape: 'dot',
         size: 16,
+        font: {
+          color: labelColor,
+        },
       },
       interaction: {
         dragView: false,
