@@ -1,4 +1,5 @@
 @use "@angular/material" as mat;
+@use "./colors" as col;
 
 @include mat.core();
 @font-face {
@@ -15,9 +16,9 @@
 $app-theme: mat.define-theme(
   (
     color: (
-      theme-type: light,
-      primary: mat.$blue-palette,
-      tertiary: mat.$blue-palette,
+      theme-type: dark,
+      primary: col.$yellow-palette,
+      tertiary: col.$yellow-palette,
     ),
     density: (
       scale: 0,
