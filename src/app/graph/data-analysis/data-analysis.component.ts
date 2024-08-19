@@ -12,15 +12,15 @@ export class DataAnalysisComponent implements AfterViewInit {
   search = '';
   accounts = [
     { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
-    { number: '123456789' },
+    { number: '621654684' },
+    { number: '853537643' },
+    { number: '127457278' },
+    { number: '346289457' },
+    { number: '968956363' },
+    { number: '346485668' },
+    { number: '969784332' },
+    { number: '679780894' },
+    { number: '234645863' },
   ];
 
   ngAfterViewInit() {
