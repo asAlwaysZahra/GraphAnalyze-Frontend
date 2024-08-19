@@ -50,12 +50,12 @@
           gap: 0.5rem;
 
           .info-icon {
-            color: var(--link-text-color);
+            color: var(--mdc-filled-button-container-color);
             cursor: pointer;
           }
 
           .material-symbols-outlined {
-            color: var(--text-color-primary);
+            color: var(--mat-optgroup-label-text-color);
             cursor: pointer;
           }
         }
