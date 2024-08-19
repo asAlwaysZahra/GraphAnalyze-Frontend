@@ -1,11 +1,10 @@
 @use "@angular/material" as mat;
-@use "./colors" as col;
+@use "./m3-theme";
 
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src:
-    url("../assets/font/Vazir.ttf") format("truetype"),
+  src: url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
@@ -13,20 +12,8 @@
   font-style: normal;
 }
 
-$app-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: dark,
-      primary: col.$yellow-palette,
-      tertiary: col.$yellow-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
 :root {
-  @include mat.all-component-themes($app-theme);
+  // @include mat.all-component-themes(m3-theme.$light-theme);
 }
 
 *,
@@ -313,51 +300,26 @@ h2,
 }
 
 [data-set="light"] {
-  --background-color-primary: #fff;
-  --background-color-secondary: red;
-  --text-color-primary: #424242;
-  --text-color-secondary: #bdbdbd;
-
-  --button-background-color: rgba(46, 110, 253, 1);
-  --button-background-color-disabled: rgba(46, 110, 253, 0.3);
-  --button-text-color: #fff;
-
   --nav-link-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
-
-  --link-text-color: #2667ff;
-  --logo-filter: invert(75%);
-  --content-background-color: #f9f9f9;
-
-  --card-background-color: #fdfbff;
+  --card-background-color: #fefbff;
 
   --logo-image-filter: invert(20%);
-  --logo-text-color: rgba(0, 0, 0, 0.75);
+  --logo-filter: invert(75%);
+  @include mat.all-component-themes(m3-theme.$light-theme);
 }
 
 [data-set="dark"] {
-  --background-color-primary: #1e1e2f;
-  --background-color-secondary: #2a2a3c;
-  --text-color-primary: #fff;
-  --text-color-secondary: rgba(255, 255, 255, 0.75);
-
-  --button-background-color: rgba(38, 103, 255, 0.2);
-  --button-background-color-disabled: rgba(38, 103, 255, 0.1);
-  --button-text-color: #2667ff;
-
   --nav-link-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
 
-  --link-text-color: #2667ff;
-  --logo-filter: invert(75%);
-  --content-background-color: #f9f9f9;
+  --card-background-color: #1d1b20;
 
-  --card-background-color: #fff;
-
-  --logo-image-filter: invert(85%);
-  --logo-text-color: rgba(255, 255, 255, 0.8);
+  --logo-image-filter: invert(75%);
+  --logo-filter: invert(85%);
+  @include mat.all-component-themes(m3-theme.$dark-theme);
 }
 
 .mat-mdc-notch-piece {
