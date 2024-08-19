@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+@include mat.core();
 @font-face {
   font-family: "MyCustomFont";
   src: url("../assets/font/Vazir.ttf") format("truetype"),
@@ -6,6 +8,22 @@
     url("../assets/font/Vazir.eot") format("embedded-opentype");
   font-weight: normal;
   font-style: normal;
+}
+
+$testtheme-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$green-palette,
+      tertiary: mat.$green-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+:root {
+  @include mat.all-component-themes($testtheme-theme);
 }
 
 *,
@@ -338,6 +356,7 @@ h2,
   --logo-image-filter: invert(85%);
   --logo-text-color: rgba(255, 255, 255, 0.8);
 }
+
 .mat-mdc-notch-piece {
   border-right: 0;
   border-left: 0;
