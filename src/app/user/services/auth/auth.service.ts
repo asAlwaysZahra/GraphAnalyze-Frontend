@@ -48,8 +48,4 @@ export class AuthService {
         }),
       );
   }
-
-  getUserData() {
-    return this.userData$;
-  }
 }
