@@ -10,7 +10,7 @@ import { catchError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
 
-export const dashboardGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = (route, state) => {
   if (route && state) return true;
   return true;
 };
@@ -18,7 +18,7 @@ export const dashboardGuard: CanActivateFn = (route, state) => {
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
