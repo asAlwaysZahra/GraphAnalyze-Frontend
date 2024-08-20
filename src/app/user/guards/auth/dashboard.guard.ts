@@ -1,0 +1,84 @@
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateFn,
+  Router,
+  UrlTree,
+} from '@angular/router';
+import { catchError, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../../services/auth/auth.service';
+
+export const dashboardGuard: CanActivateFn = (route, state) => {
+  if (route && state) return true;
+  return true;
+};
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DashboardGuard implements CanActivate {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.authService.getPermissions().pipe(
+      map((permissions) => {
+        console.log(permissions);
+        console.log(route.url[0].path);
+        return true;
+        // if (permissions) {
+        //   if (route.url[0].path !== 'dashboard') {
+        //     // this.router.navigate(['/dashboard']);
+        //     return this.router.parseUrl('/dashboard');
+        //     // return false;
+        //   }
+        //   return true;
+        // } else {
+        //   // if (route.url[0].path !== 'login') {
+        //   return this.router.parseUrl('/dashboard');
+        //   // return false;
+        //   // }
+        //   // return true;
+        // }
+      }),
+      catchError(() => {
+        this.router.navigate(['/login']);
+        return [false];
+      }),
+    );
+
+    // return this.authService.permissions$.pipe(
+    //   map((permissions) => {
+    //     if (!permissions) {
+    //       return true;
+    //     } else {
+    //       this.router.navigate(['/login']);
+    //       return false;
+    //     }
+    //   }),
+    //   catchError(() => {
+    //     this.router.navigate(['/login']);
+    //     return [false];
+    //   }),
+    // );
+    // return this.authService.isLoggedIn$.pipe(
+    //   map((isLoggedIn) => {
+    //     if (!isLoggedIn) {
+    //       this.router.navigate(['/login']);
+    //       return false;
+    //     }
+    //     return true;
+    //   }),
+    // );
+  }
+}

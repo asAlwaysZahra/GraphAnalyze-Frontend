@@ -23,6 +23,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // get isLoggedIn$() {
+  //   return this.isLoggedIn.asObservable();
+  // }
+
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http
       .post<LoginResponse>(this.apiUrl + '/login', loginRequest, {
@@ -37,20 +41,22 @@ export class AuthService {
   }
 
   getPermissions() {
-    return this.http
-      .get<UserPermissions>(this.apiUrl + '/permissions', {
-        withCredentials: true,
-      })
-      .pipe(
-        tap((response) => {
-          if (response.username == null) this.isLoggedIn.next(false);
-          else {
-            this.isLoggedIn.next(true);
-            this.permissions.next(response);
-            console.log(response);
-          }
-        }),
-      );
+    if (!this.permissions.value) {
+      this.http
+        .get<UserPermissions>(this.apiUrl + '/permissions', {
+          withCredentials: true,
+        })
+        .pipe(
+          tap((response) => {
+            if (response.username == null) this.isLoggedIn.next(false);
+            else {
+              this.isLoggedIn.next(true);
+              this.permissions.next(response);
+            }
+          }),
+        );
+    }
+    return this.permissions;
   }
 
   logout() {

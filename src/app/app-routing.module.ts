@@ -4,17 +4,23 @@ import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
-import { AuthGuard } from './user/guards/auth.guard';
+import { DashboardGuard } from './user/guards/auth/dashboard.guard';
 import { DataAnalysisComponent } from './graph/data-analysis/data-analysis.component';
 import { ManageUsersComponent } from './user/components/dashboard/manage-users/manage-users.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, title: 'StarData | Login' },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'StarData | Login',
+    canActivate: [DashboardGuard],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
     title: 'StarData | Dashboard',
-    canActivate: [AuthGuard],
+    canActivate: [DashboardGuard],
     children: [
       {
         path: '',
@@ -38,7 +44,11 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
