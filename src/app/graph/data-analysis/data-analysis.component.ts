@@ -103,5 +103,24 @@ export class DataAnalysisComponent implements AfterViewInit {
     };
 
     this.networkInstance = new Network(container, data, options);
+
+    // Listen for the context menu event (right-click)
+    this.networkInstance.on('oncontext', (params) => {
+      params.event.preventDefault();
+
+      const nodeId = this.networkInstance.getNodeAt(params.pointer.DOM);
+      const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
+
+      if (nodeId !== undefined) {
+        console.log('Right-clicked node:', nodeId);
+        // Custom logic for node right-click
+      } else if (edgeId !== undefined) {
+        console.log('Right-clicked edge:', edgeId);
+        // Custom logic for edge right-click
+      } else {
+        console.log('Right-clicked on empty space');
+        // Custom logic for right-click on empty space
+      }
+    });
   }
 }
