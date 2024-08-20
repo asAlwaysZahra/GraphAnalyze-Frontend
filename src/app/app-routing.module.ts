@@ -4,10 +4,11 @@ import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
-import { AuthGuard } from './user/guards/auth/auth.guard';
 import { DataAnalysisComponent } from './graph/data-analysis/data-analysis.component';
 import { ManageUsersComponent } from './user/components/dashboard/manage-users/manage-users.component';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { PermissionGuard } from './guards/permissions/permission.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     component: DashboardComponent,
     title: 'StarData | Dashboard',
     canActivate: [AuthGuard],
+    canActivateChild: [PermissionGuard],
     children: [
       {
         path: '',
@@ -31,6 +33,7 @@ const routes: Routes = [
         path: 'manage-users',
         component: ManageUsersComponent,
         title: 'StarData | Manage Users',
+        data: { permission: 'Register' },
       },
       {
         path: 'manage-account',

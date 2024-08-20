@@ -8,12 +8,7 @@ import {
 } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../../services/auth/auth.service';
-
-export const authGuard: CanActivateFn = (route, state) => {
-  if (route && state) return true;
-  return true;
-};
+import { AuthService } from '../../user/services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -47,29 +42,5 @@ export class AuthGuard implements CanActivate {
         return [false];
       })
     );
-
-    // return this.authService.permissions$.pipe(
-    //   map((permissions) => {
-    //     if (!permissions) {
-    //       return true;
-    //     } else {
-    //       this.router.navigate(['/login']);
-    //       return false;
-    //     }
-    //   }),
-    //   catchError(() => {
-    //     this.router.navigate(['/login']);
-    //     return [false];
-    //   }),
-    // );
-    // return this.authService.isLoggedIn$.pipe(
-    //   map((isLoggedIn) => {
-    //     if (!isLoggedIn) {
-    //       this.router.navigate(['/login']);
-    //       return false;
-    //     }
-    //     return true;
-    //   }),
-    // );
   }
 }

@@ -125,7 +125,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     this.networkInstance.on('click', function (params) {
       if (params.edges.length == 1) {
-        var nodeId = params.edges[0];
+        const nodeId = params.edges[0];
         console.log(nodeId);
       }
     });
