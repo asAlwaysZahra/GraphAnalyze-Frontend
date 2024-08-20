@@ -18,7 +18,6 @@
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  //border-color: #e5e7eb;
 }
 
 ::before,
@@ -225,13 +224,11 @@ textarea {
 input::-moz-placeholder,
 textarea::-moz-placeholder {
   opacity: 1;
-  //color: #9ca3af;
 }
 
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
-  //color: #9ca3af;
 }
 
 button,
@@ -267,7 +264,6 @@ video {
 html,
 body {
   height: 100%;
-  //background-color: var(--background-color-primary);
 }
 
 body,

@@ -14,5 +14,15 @@ export class DashboardHeaderComponent {
 
   changeTheme() {
     this.themeService.changeThemeState();
+    this.themeService.theme$.subscribe((data) => {
+      const themeChanger = document.getElementById(
+        'theme-changer-icon'
+      ) as HTMLElement;
+      if (data === 'dark') {
+        themeChanger.textContent = 'light_mode';
+      } else {
+        themeChanger.textContent = 'dark_mode';
+      }
+    });
   }
 }

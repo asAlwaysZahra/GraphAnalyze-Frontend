@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
+import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
   selector: 'app-data-analysis',
@@ -22,6 +23,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     { number: '679780894' },
     { number: '234645863' },
   ];
+
+  constructor(private themeService: ThemeService) {}
 
   ngAfterViewInit() {
     const container = this.el.nativeElement;
@@ -73,7 +76,7 @@ export class DataAnalysisComponent implements AfterViewInit {
         arrows: 'to',
         arrowStrikethrough: false,
         font: {
-          align: 'center',
+          align: 'middle',
           color: textColor,
           strokeWidth: 0,
           face: 'MyCustomFont',

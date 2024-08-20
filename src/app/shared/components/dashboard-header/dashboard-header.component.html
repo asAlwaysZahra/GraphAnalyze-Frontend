@@ -1,9 +1,13 @@
 <h3 class="title">{{ title }}</h3>
 <div class="profile">
   <mat-icon class="icon">settings</mat-icon>
-  <mat-icon class="icon" (click)="changeTheme()" id="theme-changer-icon"
-    >dark_mode</mat-icon
+  <mat-icon
+    class="icon material-symbols-outlined"
+    (click)="changeTheme()"
+    id="theme-changer-icon"
   >
+    routine
+  </mat-icon>
   <mat-icon class="icon">info</mat-icon>
   <img src="{{ profilePic }}" alt="" class="profile-image" />
 </div>
