@@ -1,6 +1,13 @@
-p {
-  margin: 0;
+.delete {
+  color: #f44336;
 }
+.edit {
+  color: #2196f3;
+}
+.add-user {
+  margin-block-end: 1rem;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -27,7 +34,4 @@ p {
       border-radius: 100%;
     }
   }
-}
-.divider {
-  margin-block: 2rem;
 }

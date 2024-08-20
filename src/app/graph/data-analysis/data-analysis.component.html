@@ -1,0 +1,31 @@
+<div class="container">
+  <app-card class="card">
+    <div #network id="network"></div>
+  </app-card>
+  <app-card class="side-bard">
+    <form class="form">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search</mat-label>
+        <input matInput />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+    <div class="accounts">
+      @for (account of accounts; track $index) {
+      <div class="account-data">
+        {{ account.number }}
+      </div>
+      }
+    </div>
+    <mat-paginator
+      class="paginator"
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [hidePageSize]="true"
+      [showFirstLastButtons]="true"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </app-card>
+</div>
