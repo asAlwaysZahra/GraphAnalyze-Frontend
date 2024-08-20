@@ -4,17 +4,12 @@
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src:
-    url("../assets/font/Vazir.ttf") format("truetype"),
+  src: url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
   font-weight: normal;
   font-style: normal;
-}
-
-:root {
-  // @include mat.all-component-themes(m3-theme.$light-theme);
 }
 
 *,
@@ -144,6 +139,7 @@ button,
 input:where([type="button"]),
 input:where([type="reset"]),
 input:where([type="submit"]) {
+  appearance: button;
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -167,6 +163,7 @@ progress {
 }
 
 [type="search"] {
+  appearance: textfield;
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
@@ -255,7 +252,6 @@ iframe,
 embed,
 object {
   display: block;
-  vertical-align: middle;
 }
 
 img,
@@ -294,13 +290,7 @@ body,
   }
 }
 
-p,
-h2,
-.mdc-label {
-  //color: var(--text-color-primary);
-}
-
-[data-set="light"] {
+[data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);
 
   --nav-link-text-color: #424242;
@@ -313,7 +303,7 @@ h2,
   --logo-filter: invert(10%);
 }
 
-[data-set="dark"] {
+[data-theme="dark"] {
   @include mat.all-component-themes(m3-theme.$dark-theme);
 
   --nav-link-text-color: #424242;
