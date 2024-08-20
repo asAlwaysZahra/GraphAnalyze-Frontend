@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateFn,
   Router,
-  UrlTree,
-  CanActivateChildFn,
   CanActivateChild,
 } from '@angular/router';
-import { catchError, Observable } from 'rxjs';
+import { catchError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../user/services/auth/auth.service';
 
