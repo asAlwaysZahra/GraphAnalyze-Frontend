@@ -3,6 +3,7 @@ import { ManageUser } from '../../../interfaces/manage-users.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
+import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
 
 const ELEMENT_DATA: ManageUser[] = [
   {
@@ -68,6 +69,9 @@ export class ManageUsersComponent {
   }
 
   deleteUser(guid: string) {
-    console.log(guid);
+    this.dialog.open(UserDeleteConfirmationComponent, {
+      width: '20rem',
+      data: guid,
+    });
   }
 }

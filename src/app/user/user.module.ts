@@ -21,6 +21,13 @@ import { ManageAccountComponent } from './components/dashboard/manage-account/ma
 import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UserDeleteConfirmationComponent } from './components/dashboard/manage-users/user-delete-confirmation/user-delete-confirmation.component';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,6 +37,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AddUserComponent,
     ManageAccountComponent,
     ManageUsersComponent,
+    UserDeleteConfirmationComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +57,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatRadioModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
   ],
 })
 export class UserModule {}
