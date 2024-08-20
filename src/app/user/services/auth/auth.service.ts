@@ -15,7 +15,7 @@ export class AuthService {
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  private permissions = new Subject<UserPermissions>();
+  private permissions = new BehaviorSubject<UserPermissions | null>(null);
 
   isLoggedIn$ = this.isLoggedIn.asObservable();
   userData$ = this.userData.asObservable();
@@ -49,6 +49,17 @@ export class AuthService {
             this.permissions.next(response);
             console.log(response);
           }
+        }),
+      );
+  }
+
+  logout() {
+    return this.http
+      .get(this.apiUrl + '/log-out', { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.isLoggedIn.next(false);
+          this.permissions.next(null);
         }),
       );
   }

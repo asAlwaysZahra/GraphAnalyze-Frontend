@@ -20,7 +20,7 @@ export interface UserPermissions {
   username: string;
   firstName: string;
   lastName: string;
-  permission: string;
+  permission: string[];
 }
 
 export interface RegisterRequest {

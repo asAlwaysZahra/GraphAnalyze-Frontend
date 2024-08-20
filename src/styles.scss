@@ -4,7 +4,8 @@
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src: url("../assets/font/Vazir.ttf") format("truetype"),
+  src:
+    url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
