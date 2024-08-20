@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
-import { LoginRequest } from '../../services/auth/auth.model';
 import { Router } from '@angular/router';
+import { LoginRequest } from '../../models/User';
 import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class LoginComponent implements AfterViewInit {
     });
   }
 
-  onSubmit() {
+  loginClick() {
     this.isLoading = true;
     const loginRequest: LoginRequest = {
       username: this.username,
@@ -57,11 +57,12 @@ export class LoginComponent implements AfterViewInit {
     };
     this.authService.login(loginRequest).subscribe({
       next: () => {
+        this.isLoading = false;
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: (error) => {
         this.isLoading = false;
-        console.log('error');
+        console.error('Login failed', error);
       },
     });
   }

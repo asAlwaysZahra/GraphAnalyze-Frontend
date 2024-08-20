@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { GraphModule } from './graph/graph.module';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { GraphModule } from './graph/graph.module';
     SharedModule,
     GraphModule,
   ],
-  providers: [provideAnimationsAsync(), provideHttpClient()],
+  providers: [provideAnimationsAsync(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

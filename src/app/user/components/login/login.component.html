@@ -6,7 +6,7 @@
         <h2 class="logo-text">StarData</h2>
       </div>
       <h2>Login</h2>
-      <form (ngSubmit)="onSubmit()">
+      <form>
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Username</mat-label>
           <input [(ngModel)]="username" matInput name="userName" />
@@ -33,8 +33,17 @@
         <mat-checkbox [(ngModel)]="checked" name="rememberMe"
           >Remember me</mat-checkbox
         >
-        <button type="submit" mat-flat-button [disabled]="isLoading">
-          @if(isLoading){ Logging in... }@else { Login }
+        <button
+          type="submit"
+          mat-flat-button
+          [disabled]="isLoading"
+          (click)="loginClick()"
+        >
+          @if (isLoading) {
+            Logging in...
+          } @else {
+            Login
+          }
         </button>
         <p class="forget">
           <span>Forget password?</span>
