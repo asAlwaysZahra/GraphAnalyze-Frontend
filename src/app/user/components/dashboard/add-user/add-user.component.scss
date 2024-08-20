@@ -1,5 +1,9 @@
+.title {
+  margin: 1.25rem 1.75rem;
+}
 .card {
   padding: 2rem;
+  padding-block-start: 1rem;
   overflow: auto;
   max-height: 80vh;
 
