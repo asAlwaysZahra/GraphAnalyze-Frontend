@@ -18,11 +18,7 @@ export class DashboardHeaderComponent {
       const themeChanger = document.getElementById(
         'theme-changer-icon'
       ) as HTMLElement;
-      if (data === 'dark') {
-        themeChanger.textContent = 'light_mode';
-      } else {
-        themeChanger.textContent = 'dark_mode';
-      }
+      themeChanger.textContent = data === 'dark' ? 'light_mode' : 'dark_mode';
     });
   }
 }

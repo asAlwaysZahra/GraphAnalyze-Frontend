@@ -37,11 +37,14 @@ export class LoginComponent implements AfterViewInit {
       const themeChanger = document.getElementById(
         'theme-changer-icon'
       ) as HTMLElement;
-      if (data === 'dark') {
-        themeChanger.textContent = 'light_mode';
-      } else {
-        themeChanger.textContent = 'dark_mode';
-      }
+      themeChanger.textContent = data === 'dark' ? 'light_mode' : 'dark_mode';
+      this.networkInstance.setOptions({
+        nodes: {
+          font: {
+            color: data === 'dark' ? 'rgba(255,255,255,0.9)' : '#424242',
+          },
+        },
+      });
     });
   }
 
@@ -69,7 +72,7 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const dataSetValue = document.body.getAttribute('data-set');
+    const dataSetValue = document.body.getAttribute('data-theme');
     const labelColor: string =
       dataSetValue == 'dark' ? 'rgba(255,255,255,0.9)' : '#424242';
 

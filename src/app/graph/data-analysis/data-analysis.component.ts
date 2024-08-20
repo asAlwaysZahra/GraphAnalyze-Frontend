@@ -46,7 +46,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     const data: Data = { nodes, edges };
 
-    const dataSetValue = document.body.getAttribute('data-set');
+    const dataSetValue = document.body.getAttribute('data-theme');
     const labelColor: string =
       dataSetValue == 'dark' ? '#b5c4ff' : 'rgb(27, 89, 248)';
     const labelBorder: string =
