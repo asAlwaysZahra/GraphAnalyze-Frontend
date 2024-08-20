@@ -1,3 +1,7 @@
+@use "@angular/material" as mat;
+@use "./m3-theme";
+
+@include mat.core();
 @font-face {
   font-family: "MyCustomFont";
   src: url("../assets/font/Vazir.ttf") format("truetype"),
@@ -14,7 +18,6 @@
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: #e5e7eb;
 }
 
 ::before,
@@ -135,6 +138,7 @@ button,
 input:where([type="button"]),
 input:where([type="reset"]),
 input:where([type="submit"]) {
+  appearance: button;
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -158,6 +162,7 @@ progress {
 }
 
 [type="search"] {
+  appearance: textfield;
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
@@ -219,13 +224,11 @@ textarea {
 input::-moz-placeholder,
 textarea::-moz-placeholder {
   opacity: 1;
-  color: #9ca3af;
 }
 
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
-  color: #9ca3af;
 }
 
 button,
@@ -246,7 +249,6 @@ iframe,
 embed,
 object {
   display: block;
-  vertical-align: middle;
 }
 
 img,
@@ -262,7 +264,6 @@ video {
 html,
 body {
   height: 100%;
-  background-color: var(--background-color-primary);
 }
 
 body,
@@ -285,63 +286,40 @@ body,
   }
 }
 
-p,
-h2,
-.mdc-label {
-  color: var(--text-color-primary);
-}
-
-[data-set="light"] {
-  --background-color-primary: #fff;
-  --background-color-secondary: red;
-  --text-color-primary: #424242;
-  --text-color-secondary: #bdbdbd;
-
-  --button-background-color: rgba(46, 110, 253, 1);
-  --button-background-color-disabled: rgba(46, 110, 253, 0.3);
-  --button-text-color: #fff;
+[data-theme="light"] {
+  @include mat.all-component-themes(m3-theme.$light-theme);
 
   --nav-link-text-color: #424242;
+  --mat-sidenav-content-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
-
-  --link-text-color: #2667ff;
-  --logo-filter: invert(75%);
-  --content-background-color: #f9f9f9;
-
-  --card-background-color: #fdfbff;
+  --card-background-color: #fefbff;
 
   --logo-image-filter: invert(20%);
-  --logo-text-color: rgba(0, 0, 0, 0.75);
+  --logo-filter: invert(10%);
 }
 
-[data-set="dark"] {
-  --background-color-primary: #1e1e2f;
-  --background-color-secondary: #2a2a3c;
-  --text-color-primary: #fff;
-  --text-color-secondary: rgba(255, 255, 255, 0.75);
-
-  --button-background-color: rgba(38, 103, 255, 0.2);
-  --button-background-color-disabled: rgba(38, 103, 255, 0.1);
-  --button-text-color: #2667ff;
+[data-theme="dark"] {
+  @include mat.all-component-themes(m3-theme.$dark-theme);
 
   --nav-link-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
 
-  --link-text-color: #2667ff;
-  --logo-filter: invert(75%);
-  --content-background-color: #f9f9f9;
+  --card-background-color: #292a2d;
+  --mat-sidenav-container-background-color: #1f1f23;
+  --mat-table-background-color: #292a2d;
+  --mat-paginator-container-background-color: #292a2d;
 
-  --card-background-color: #fff;
-
-  --logo-image-filter: invert(85%);
-  --logo-text-color: rgba(255, 255, 255, 0.8);
+  --logo-image-filter: invert(75%);
+  --logo-filter: invert(85%);
 }
+
 .mat-mdc-notch-piece {
   border-right: 0;
   border-left: 0;
 }
+
 .mat-mdc-dialog-surface {
   border-radius: 1rem !important;
 }
