@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [DataAnalysisComponent],
@@ -16,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatInputModule,
     MatIconModule,
     MatPaginatorModule,
+    MatTooltipModule,
   ],
 })
 export class GraphModule {}

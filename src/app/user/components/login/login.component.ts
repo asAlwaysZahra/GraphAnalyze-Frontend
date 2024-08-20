@@ -9,6 +9,7 @@ import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../models/User';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,25 @@ export class LoginComponent implements AfterViewInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private themeService: ThemeService
   ) {}
+
+  changeTheme() {
+    this.themeService.changeThemeState();
+    this.themeService.theme$.subscribe((data) => {
+      const themeChanger = document.getElementById(
+        'theme-changer-icon'
+      ) as HTMLElement;
+      themeChanger.textContent = data === 'dark' ? 'light_mode' : 'dark_mode';
+      this.networkInstance.setOptions({
+        nodes: {
+          font: {
+            color: data === 'dark' ? 'rgba(255,255,255,0.9)' : '#424242',
+          },
+        },
+      });
+    });
+  }
 
   loginClick() {
     this.isLoading = true;
@@ -54,6 +73,10 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const dataSetValue = document.body.getAttribute('data-theme');
+    const labelColor: string =
+      dataSetValue == 'dark' ? 'rgba(255,255,255,0.9)' : '#424242';
+
     const container = this.el.nativeElement;
     // create some nodes
     const nodes = new DataSet<Node>([
@@ -401,6 +424,9 @@ export class LoginComponent implements AfterViewInit {
       nodes: {
         shape: 'dot',
         size: 16,
+        font: {
+          color: labelColor,
+        },
       },
       interaction: {
         dragView: false,

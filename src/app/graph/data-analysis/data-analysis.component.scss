@@ -37,11 +37,28 @@
       padding-block: 0.1rem;
 
       .account-data {
-        padding: 0.5rem;
+        padding: 0.75rem 1.5rem;
         border-radius: 10rem;
-        cursor: pointer;
-        text-align: center;
         box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+
+        .icons {
+          display: flex;
+          gap: 0.5rem;
+
+          .info-icon {
+            color: var(--mdc-filled-button-container-color);
+            cursor: pointer;
+          }
+
+          .material-symbols-outlined {
+            color: var(--mat-optgroup-label-text-color);
+            cursor: pointer;
+          }
+        }
       }
     }
   }
