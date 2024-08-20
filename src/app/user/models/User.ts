@@ -22,3 +22,34 @@ export interface UserPermissions {
   lastName: string;
   permission: string;
 }
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  roleName: string;
+}
+
+export interface RegisterResponse {
+  username: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  roleName: string;
+}
+
+export interface UpdateUserRequest {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  roleName: string;
+}
