@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:44322/api/User';
+  private apiUrl = 'http://localhost:8085/api/User';
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
@@ -36,27 +36,27 @@ export class AuthService {
         tap((response) => {
           this.userData.next(response);
           this.isLoggedIn.next(true);
-        }),
+        })
       );
   }
 
   getPermissions() {
     if (!this.permissions.value) {
-      this.http
+      return this.http
         .get<UserPermissions>(this.apiUrl + '/permissions', {
           withCredentials: true,
         })
         .pipe(
           tap((response) => {
-            if (response.username == null) this.isLoggedIn.next(false);
+            if (response.firstName == null) this.isLoggedIn.next(false);
             else {
               this.isLoggedIn.next(true);
               this.permissions.next(response);
             }
-          }),
+          })
         );
     }
-    return this.permissions;
+    return this.permissions$;
   }
 
   logout() {
@@ -66,7 +66,7 @@ export class AuthService {
         tap(() => {
           this.isLoggedIn.next(false);
           this.permissions.next(null);
-        }),
+        })
       );
   }
 }

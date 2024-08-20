@@ -6,7 +6,7 @@ import { RegisterRequest, UpdateUserRequest } from '../../models/User';
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'https://localhost:44322/api/Admin';
+  private apiUrl = 'http://localhost:8085/api/Admin';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class AdminService {
 
   getUsers(limit = 10, page = 1) {
     return this.http.get(
-      `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
+      `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`
     );
   }
 

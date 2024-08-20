@@ -17,9 +17,9 @@ export interface LoginResponse {
 }
 
 export interface UserPermissions {
-  username: string;
   firstName: string;
   lastName: string;
+  image: string | null;
   permission: string[];
 }
 

@@ -19,13 +19,10 @@ export const dashboardGuard: CanActivateFn = (route, state) => {
   providedIn: 'root',
 })
 export class DashboardGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -33,28 +30,22 @@ export class DashboardGuard implements CanActivate {
     | UrlTree {
     return this.authService.getPermissions().pipe(
       map((permissions) => {
-        console.log(permissions);
-        console.log(route.url[0].path);
-        return true;
-        // if (permissions) {
-        //   if (route.url[0].path !== 'dashboard') {
-        //     // this.router.navigate(['/dashboard']);
-        //     return this.router.parseUrl('/dashboard');
-        //     // return false;
-        //   }
-        //   return true;
-        // } else {
-        //   // if (route.url[0].path !== 'login') {
-        //   return this.router.parseUrl('/dashboard');
-        //   // return false;
-        //   // }
-        //   // return true;
-        // }
+        if (permissions?.permission.length) {
+          if (route.url[0].path !== 'dashboard') {
+            return this.router.parseUrl('/dashboard');
+          }
+          return true;
+        } else {
+          if (route.url[0].path !== 'login') {
+            return this.router.parseUrl('/login');
+          }
+          return true;
+        }
       }),
       catchError(() => {
         this.router.navigate(['/login']);
         return [false];
-      }),
+      })
     );
 
     // return this.authService.permissions$.pipe(
