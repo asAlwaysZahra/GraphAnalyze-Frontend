@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { AuthService } from '../../services/auth/auth.service';
-import { LoginRequest } from '../../services/auth/auth.model';
 import { Router } from '@angular/router';
+import { LoginRequest } from '../../models/User';
 
 @Component({
   selector: 'app-login',
