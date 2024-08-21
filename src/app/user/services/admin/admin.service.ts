@@ -22,9 +22,25 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   createUser(request: RegisterRequest) {
-    return this.http.post(`${this.apiUrl}/register`, request, {
-      withCredentials: true,
-    });
+    return this.http
+      .post(`${this.apiUrl}/register`, request, {
+        withCredentials: true,
+      })
+      .subscribe({
+        next: () => {
+          // this.getUsers(pageSize, pageIndex);
+          this.notification.next({
+            status: true,
+            message: 'User added successfully!',
+          });
+        },
+        error: (error) => {
+          this.notification.next({
+            status: false,
+            message: error,
+          });
+        },
+      });
   }
 
   getUsers(limit = 10, page = 0) {
@@ -63,14 +79,28 @@ export class AdminService {
   }
 
   updateUser(id: string, request: UpdateUserRequest) {
-    console.log(22, request, id);
-    return this.http.put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
-      withCredentials: true,
-    });
+    return this.http
+      .put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
+        withCredentials: true,
+      })
+      .subscribe({
+        next: () => {
+          // this.getUsers(pageSize, pageIndex);
+          this.notification.next({
+            status: true,
+            message: 'User updated successfully!',
+          });
+        },
+        error: (error) => {
+          this.notification.next({
+            status: false,
+            message: error,
+          });
+        },
+      });
   }
 
   getUserById(id: string) {
-    console.log(id);
     return {} as UserData;
   }
 }

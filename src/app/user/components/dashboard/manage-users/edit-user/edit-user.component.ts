@@ -37,9 +37,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.adminService
-        .updateUser(this.userData.guid, this.myForm.value)
-        .subscribe(console.log);
+      this.adminService.updateUser(this.userData.guid, this.myForm.value);
     }
   }
 }

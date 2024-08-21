@@ -19,7 +19,7 @@ export class AddUserComponent implements OnInit {
     this.myForm = new FormGroup({
       firstName: new FormControl(
         userData ? userData.firstName : '',
-        Validators.required
+        Validators.required,
       ),
       lastName: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
@@ -36,7 +36,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.adminService.createUser(this.myForm.value).subscribe(console.log);
+      this.adminService.createUser(this.myForm.value);
     }
   }
 }

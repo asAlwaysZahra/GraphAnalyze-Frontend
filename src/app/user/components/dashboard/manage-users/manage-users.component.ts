@@ -57,6 +57,10 @@ export class ManageUsersComponent implements OnInit {
           : ['notification-class-danger'],
         duration: 2000,
       });
+
+      if (data.status) {
+        this.dialog.closeAll();
+      }
     });
 
     this.adminService.getUsers(this.pageSize, this.pageIndex);
