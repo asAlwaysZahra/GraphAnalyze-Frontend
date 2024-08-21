@@ -7,7 +7,7 @@ import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8085/api/User';
+  private apiUrl = 'https://localhost:44322/api/User';
 
   constructor(private http: HttpClient) {}
 

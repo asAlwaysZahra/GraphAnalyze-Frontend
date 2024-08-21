@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminService {
-  private readonly apiUrl = 'http://localhost:8085/api/Admin';
+  private readonly apiUrl = 'https://localhost:44322/api/Admin';
   private usersData = new Subject<GetUserResponse>();
 
   usersData$ = this.usersData.asObservable();
@@ -30,7 +30,7 @@ export class AdminService {
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe((users) => {
         this.usersData.next(users);
