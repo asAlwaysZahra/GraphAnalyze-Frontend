@@ -37,13 +37,13 @@ export class AdminService {
       });
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: string, pageSize: number, pageIndex: number) {
     this.http
       .delete(`${this.apiUrl}/DeleteUser?id=${id}`, {
         withCredentials: true,
       })
       .subscribe(() => {
-        this.getUsers();
+        this.getUsers(pageSize, pageIndex);
       });
   }
 

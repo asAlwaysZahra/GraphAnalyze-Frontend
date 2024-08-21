@@ -8,7 +8,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
   template: `
     <h2 mat-dialog-title>Delete User</h2>
     <mat-dialog-content>
-      Would you like to delete {{ this.userData.username }}?
+      Would you like to delete {{ this.userData.userData.username }}?
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancel</button>
@@ -25,11 +25,20 @@ import { AdminService } from '../../../../services/admin/admin.service';
 })
 export class UserDeleteConfirmationComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected userData: UserData,
+    @Inject(MAT_DIALOG_DATA)
+    protected userData: {
+      userData: UserData;
+      pagSize: number;
+      pageIndex: number;
+    },
     private adminService: AdminService
   ) {}
 
   deleteUser() {
-    this.adminService.deleteUser(this.userData.guid);
+    this.adminService.deleteUser(
+      this.userData.userData.guid,
+      this.userData.pagSize,
+      this.userData.pageIndex
+    );
   }
 }

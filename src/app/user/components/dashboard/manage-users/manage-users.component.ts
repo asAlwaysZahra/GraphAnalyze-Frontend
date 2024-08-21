@@ -25,7 +25,7 @@ export class ManageUsersComponent implements OnInit {
   ];
   length!: number;
   pageSize = 10;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
 
   hidePageSize = false;
@@ -65,7 +65,11 @@ export class ManageUsersComponent implements OnInit {
   deleteUser(userData: UserData) {
     this.dialog.open(UserDeleteConfirmationComponent, {
       width: '22rem',
-      data: userData,
+      data: {
+        userData: userData,
+        pagSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      },
     });
   }
 }
