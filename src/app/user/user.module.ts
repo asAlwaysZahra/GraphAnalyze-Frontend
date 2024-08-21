@@ -30,11 +30,7 @@ import {
 } from '@angular/material/dialog';
 import { EditUserComponent } from './components/dashboard/edit-user/edit-user.component';
 import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
-import {
-  MatSnackBarAction,
-  MatSnackBarActions,
-  MatSnackBarLabel,
-} from '@angular/material/snack-bar';
+import { MatSnackBarLabel } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -70,8 +66,6 @@ import {
     MatDialogActions,
     MatDialogClose,
     MatDialogTitle,
-    MatSnackBarAction,
-    MatSnackBarActions,
     MatSnackBarLabel,
   ],
 })

@@ -27,6 +27,9 @@ export class DashboardHeaderComponent {
   }
 
   infoClick() {
-    this._snackBar.open('Coming soon...', 'Ok :(', { duration: 2000 });
+    this._snackBar.open('Coming soon...', 'Ok :(', {
+      duration: 2000,
+      panelClass: ['info-notification'],
+    });
   }
 }

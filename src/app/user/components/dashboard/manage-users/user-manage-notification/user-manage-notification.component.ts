@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-manage-notification',
-  template: `
-    <span matSnackBarLabel> Pizza party!!! </span>
-    <span matSnackBarActions>
-      <button mat-button matSnackBarAction>🍕</button>
-    </span>
-  `,
+  template: ` <span matSnackBarLabel>{{ this.userData }}</span> `,
 
-  styles: `:host{display:flex}`,
+  styles: `:host{display:flex;color:white}`,
 })
-export class UserManageNotificationComponent {}
+export class UserManageNotificationComponent {
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA)
+    protected userData: string
+  ) {
+    console.log(userData);
+  }
+}

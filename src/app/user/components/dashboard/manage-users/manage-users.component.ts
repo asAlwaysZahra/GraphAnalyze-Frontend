@@ -8,8 +8,9 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
 import { AdminService } from '../../../services/admin/admin.service';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {EditUserComponent} from "../edit-user/edit-user.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { UserManageNotificationComponent } from './user-manage-notification/user-manage-notification.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -39,7 +40,7 @@ export class ManageUsersComponent implements OnInit {
     private readonly dialog: MatDialog,
     private adminService: AdminService,
     private _snackBar: MatSnackBar
-) {}
+  ) {}
 
   ngOnInit(): void {
     this.adminService.usersData$.subscribe((res: GetUserResponse) => {
@@ -49,7 +50,13 @@ export class ManageUsersComponent implements OnInit {
     });
 
     this.adminService.notification$.subscribe((data) => {
-      this._snackBar.open(data.message);
+      this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        data: data.message,
+        panelClass: data.status
+          ? ['notification-class-success']
+          : ['notification-class-danger'],
+        duration: 2000,
+      });
     });
 
     this.adminService.getUsers(this.pageSize, this.pageIndex);
