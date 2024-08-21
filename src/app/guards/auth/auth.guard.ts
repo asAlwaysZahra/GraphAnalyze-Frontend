@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  CanActivateFn,
   Router,
   UrlTree,
 } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../user/services/auth/auth.service';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  if (route && state) return true;
+  return true;
+};
 
 @Injectable({
   providedIn: 'root',

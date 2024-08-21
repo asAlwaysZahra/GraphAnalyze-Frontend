@@ -3,10 +3,16 @@ import {
   ActivatedRouteSnapshot,
   Router,
   CanActivateChild,
+  CanActivateFn,
 } from '@angular/router';
 import { catchError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../user/services/auth/auth.service';
+
+export const permissionGuard: CanActivateFn = (route, state) => {
+  if (route && state) return true;
+  return true;
+};
 
 @Injectable({
   providedIn: 'root',
