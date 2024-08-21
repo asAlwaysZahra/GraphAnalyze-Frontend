@@ -9,7 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
 import { AdminService } from '../../../services/admin/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EditUserComponent } from '../edit-user/edit-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { UserManageNotificationComponent } from './user-manage-notification/user-manage-notification.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private readonly dialog: MatDialog,
     private adminService: AdminService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {

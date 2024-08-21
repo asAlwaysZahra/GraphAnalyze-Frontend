@@ -33,7 +33,7 @@ export class AdminService {
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe((users) => {
         this.usersData.next(users);
@@ -63,7 +63,10 @@ export class AdminService {
   }
 
   updateUser(id: string, request: UpdateUserRequest) {
-    return this.http.put(`${this.apiUrl}/UpdateUser?id=${id}`, request);
+    console.log(22, request, id);
+    return this.http.put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
+      withCredentials: true,
+    });
   }
 
   getUserById(id: string) {

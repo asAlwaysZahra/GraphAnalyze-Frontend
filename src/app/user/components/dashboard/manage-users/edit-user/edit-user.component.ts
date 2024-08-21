@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin/admin.service';
+import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserData } from '../../../interfaces/manage-users.interface';
+import { UserData } from '../../../../interfaces/manage-users.interface';
 
 @Component({
   selector: 'app-edit-user',

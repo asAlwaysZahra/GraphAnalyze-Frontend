@@ -28,7 +28,7 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { EditUserComponent } from './components/dashboard/edit-user/edit-user.component';
+import { EditUserComponent } from './components/dashboard/manage-users/edit-user/edit-user.component';
 import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBarLabel } from '@angular/material/snack-bar';
 
