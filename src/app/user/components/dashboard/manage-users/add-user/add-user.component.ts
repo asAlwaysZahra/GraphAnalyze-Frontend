@@ -15,7 +15,7 @@ export class AddUserComponent implements OnInit {
     protected page: {
       pagSize: number;
       pageIndex: number;
-    },
+    }
   ) {}
 
   myForm: FormGroup = new FormGroup({});
@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
       this.adminService.createUser(
         this.myForm.value,
         this.page.pagSize,
-        this.page.pageIndex,
+        this.page.pageIndex
       );
     }
   }

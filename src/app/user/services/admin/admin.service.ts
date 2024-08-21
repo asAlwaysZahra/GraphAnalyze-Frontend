@@ -46,7 +46,7 @@ export class AdminService {
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe((users) => {
         this.usersData.next(users);
