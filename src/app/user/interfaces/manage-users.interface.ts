@@ -1,9 +1,15 @@
-export interface ManageUser {
+export interface UserData {
   guid: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  userName: string;
-  imgURL: string | null;
+  username: string;
+  roleName: string;
+}
+
+export interface GetUserResponse {
+  users: UserData[];
+  count: number;
+  thisPage: number;
 }

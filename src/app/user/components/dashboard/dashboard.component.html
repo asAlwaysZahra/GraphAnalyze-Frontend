@@ -47,15 +47,19 @@
           <mat-icon>settings</mat-icon>
           Manage Account
         </a>
-        <a class="nav-link logout-button" matRipple>
+        <button
+          class="nav-link logout-button"
+          matRipple
+          (click)="logoutClick()"
+        >
           <mat-icon>logout</mat-icon>
           Log Out
-        </a>
+        </button>
       </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content class="content">
-      <router-outlet> </router-outlet>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

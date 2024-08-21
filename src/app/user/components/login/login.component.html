@@ -26,6 +26,7 @@
             (click)="clickEvent($event)"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide()"
+            type="button"
           >
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -39,11 +40,7 @@
           [disabled]="isLoading"
           (click)="loginClick()"
         >
-          @if (isLoading) {
-            Logging in...
-          } @else {
-            Login
-          }
+          @if (isLoading) { Logging in... } @else { Login }
         </button>
         <p class="forget">
           <span>Forget password?</span>

@@ -17,10 +17,10 @@ export interface LoginResponse {
 }
 
 export interface UserPermissions {
-  username: string;
   firstName: string;
   lastName: string;
-  permission: string;
+  image: string | null;
+  permission: string[];
 }
 
 export interface RegisterRequest {
@@ -52,4 +52,15 @@ export interface UpdateUserRequest {
   email: string;
   phoneNumber: string;
   roleName: string;
+}
+
+export interface ForgetPasswordRequest {
+  newPassword: 'string';
+  confirmPassword: 'string';
+}
+
+export interface NewPasswordRequest {
+  oldPassword: 'string';
+  newPassword: 'string';
+  confirmPassword: 'string';
 }

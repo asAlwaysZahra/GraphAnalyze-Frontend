@@ -1,13 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://localhost:44322/api/User';
+  private apiUrl = 'http://localhost:8085/api/User';
 
   constructor(private http: HttpClient) {}
+
+  forgetPassword(request: ForgetPasswordRequest): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/reset-password`, request, {
+      withCredentials: true,
+    });
+  }
+
+  newPassword(request: NewPasswordRequest): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/new-password`, request, {
+      withCredentials: true,
+    });
+  }
 
   // getUsers(): Observable<User[]> {
   //   return this.http.get<User[]>(`${this.apiUrl}`, { withCredentials: true });

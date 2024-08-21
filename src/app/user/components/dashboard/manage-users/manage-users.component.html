@@ -4,10 +4,10 @@
   <button mat-button class="add-user" (click)="addUser()">
     <mat-icon>person_add</mat-icon>Add new user
   </button>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="userName">
+  <table mat-table [dataSource]="usersData">
+    <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef>Username</th>
-      <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
     </ng-container>
 
     <ng-container matColumnDef="fullName">
@@ -33,7 +33,7 @@
         <button (click)="editUser(element.guid)">
           <mat-icon class="edit">edit</mat-icon>
         </button>
-        <button (click)="deleteUser(element.guid)">
+        <button (click)="deleteUser(element)">
           <mat-icon class="delete">delete</mat-icon>
         </button>
       </td>

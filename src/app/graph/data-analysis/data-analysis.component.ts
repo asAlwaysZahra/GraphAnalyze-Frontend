@@ -38,10 +38,10 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     // create some edges
     const edges = new DataSet<Edge>([
-      { from: 1, to: 0, label: '100,000 تومان' },
-      { from: 1, to: 2, label: '150,000 تومان' },
-      { from: 2, to: 0, label: '250,000 تومان' },
-      { from: 50, to: 0, label: '3,000,000 تومان' },
+      { id: 1, from: 1, to: 0, label: '100,000 تومان' },
+      { id: 2, from: 1, to: 2, label: '150,000 تومان' },
+      { id: 3, from: 2, to: 0, label: '250,000 تومان' },
+      { id: 4, from: 50, to: 0, label: '3,000,000 تومان' },
     ] as Edge[]);
 
     const data: Data = { nodes, edges };
@@ -103,5 +103,31 @@ export class DataAnalysisComponent implements AfterViewInit {
     };
 
     this.networkInstance = new Network(container, data, options);
+
+    // Listen for the context menu event (right-click)
+    this.networkInstance.on('oncontext', (params) => {
+      params.event.preventDefault();
+
+      const nodeId = this.networkInstance.getNodeAt(params.pointer.DOM);
+      const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
+
+      if (nodeId !== undefined) {
+        console.log('Right-clicked node:', nodeId);
+        // Custom logic for node right-click
+      } else if (edgeId !== undefined) {
+        console.log('Right-clicked edge:', edgeId);
+        // Custom logic for edge right-click
+      } else {
+        console.log('Right-clicked on empty space');
+        // Custom logic for right-click on empty space
+      }
+    });
+
+    this.networkInstance.on('click', function (params) {
+      if (params.edges.length == 1) {
+        const nodeId = params.edges[0];
+        console.log(nodeId);
+      }
+    });
   }
 }

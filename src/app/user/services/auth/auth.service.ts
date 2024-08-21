@@ -11,17 +11,21 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:44322/api/User';
+  private apiUrl = 'http://localhost:8085/api/User';
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  private permissions = new Subject<UserPermissions>();
+  private permissions = new BehaviorSubject<UserPermissions | null>(null);
 
   isLoggedIn$ = this.isLoggedIn.asObservable();
   userData$ = this.userData.asObservable();
   permissions$ = this.permissions.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  // get isLoggedIn$() {
+  //   return this.isLoggedIn.asObservable();
+  // }
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http
@@ -32,24 +36,37 @@ export class AuthService {
         tap((response) => {
           this.userData.next(response);
           this.isLoggedIn.next(true);
-        }),
+        })
       );
   }
 
   getPermissions() {
+    if (!this.permissions.value) {
+      return this.http
+        .get<UserPermissions>(this.apiUrl + '/permissions', {
+          withCredentials: true,
+        })
+        .pipe(
+          tap((response) => {
+            if (response.firstName == null) this.isLoggedIn.next(false);
+            else {
+              this.isLoggedIn.next(true);
+              this.permissions.next(response);
+            }
+          })
+        );
+    }
+    return this.permissions$;
+  }
+
+  logout() {
     return this.http
-      .get<UserPermissions>(this.apiUrl + '/permissions', {
-        withCredentials: true,
-      })
+      .post(this.apiUrl + '/logout', null, { withCredentials: true })
       .pipe(
-        tap((response) => {
-          if (response.username == null) this.isLoggedIn.next(false);
-          else {
-            this.isLoggedIn.next(true);
-            this.permissions.next(response);
-            console.log(response);
-          }
-        }),
+        tap(() => {
+          this.isLoggedIn.next(false);
+          this.permissions.next(null);
+        })
       );
   }
 }

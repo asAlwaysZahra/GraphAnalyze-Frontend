@@ -6,6 +6,7 @@
   height: 100%;
   background-color: var(--mat-app-background-color);
   color: var(--mat-sidenav-content-text-color);
+  gap: 1rem;
 
   .login-container {
     display: flex;
@@ -98,7 +99,7 @@
 
   .vertical-line {
     height: 600px;
-    border-left: 1px solid var(--text-color-secondary);
+    //border-left: 1px solid var(--mat-sidenav-content-text-color);
   }
 
   #network {
