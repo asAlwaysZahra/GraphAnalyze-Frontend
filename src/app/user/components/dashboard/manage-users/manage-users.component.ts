@@ -8,6 +8,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
 import { AdminService } from '../../../services/admin/admin.service';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -35,7 +36,7 @@ export class ManageUsersComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private adminService: AdminService
+    private adminService: AdminService,
   ) {}
 
   ngOnInit(): void {
@@ -61,8 +62,11 @@ export class ManageUsersComponent implements OnInit {
     });
   }
 
-  editUser(guid: string) {
-    console.log(guid);
+  editUser(userData: UserData) {
+    this.dialog.open(EditUserComponent, {
+      width: '105rem',
+      data: userData,
+    });
   }
 
   deleteUser(userData: UserData) {

@@ -28,6 +28,7 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { EditUserComponent } from './components/dashboard/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {
     ManageAccountComponent,
     ManageUsersComponent,
     UserDeleteConfirmationComponent,
+    EditUserComponent,
   ],
   imports: [
     CommonModule,
