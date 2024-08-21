@@ -24,6 +24,7 @@ export class ManageUsersComponent implements OnInit {
     'fullName',
     'phoneNumber',
     'email',
+    'roleName',
     'edit/delete',
   ];
   length!: number;
@@ -39,7 +40,7 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private readonly dialog: MatDialog,
     private adminService: AdminService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
