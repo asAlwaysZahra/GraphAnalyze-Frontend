@@ -15,7 +15,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { AppRoutingModule } from '../app-routing.module';
 import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
+import { AddUserComponent } from './components/dashboard/manage-users/add-user/add-user.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ManageAccountComponent } from './components/dashboard/manage-account/manage-account.component';
 import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';

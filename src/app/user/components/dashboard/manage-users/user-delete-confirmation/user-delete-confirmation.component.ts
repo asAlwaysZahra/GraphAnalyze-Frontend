@@ -8,7 +8,8 @@ import { AdminService } from '../../../../services/admin/admin.service';
   template: `
     <h2 mat-dialog-title>Delete User</h2>
     <mat-dialog-content>
-      Would you like to delete {{ this.userData.userData.username }}?
+      Would you like to delete <b>{{ this.userData.userData.username }}</b
+      >?
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancel</button>
