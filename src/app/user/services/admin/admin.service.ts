@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import { GetUserResponse } from '../../interfaces/manage-users.interface';
+import {
+  GetUserResponse,
+  UserData,
+} from '../../interfaces/manage-users.interface';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -48,8 +51,8 @@ export class AdminService {
     return this.http.put(`${this.apiUrl}/UpdateUser?id=${id}`, request);
   }
 
-  // getUserById(id: string) {
-  //   //id += '1';
-  //   return {} as UserData;
-  // }
+  getUserById(id: string) {
+    console.log(id);
+    return {} as UserData;
+  }
 }
