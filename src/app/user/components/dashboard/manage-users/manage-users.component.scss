@@ -8,6 +8,10 @@
   margin-block-end: 1rem;
 }
 
+tr:hover {
+  background-color: var(--hover-bg-color);
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;

@@ -40,7 +40,7 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private readonly dialog: MatDialog,
     private adminService: AdminService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -77,13 +77,21 @@ export class ManageUsersComponent implements OnInit {
   addUser() {
     this.dialog.open(AddUserComponent, {
       width: '105rem',
+      data: {
+        pagSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      },
     });
   }
 
   editUser(userData: UserData) {
     this.dialog.open(EditUserComponent, {
       width: '105rem',
-      data: userData,
+      data: {
+        user: userData,
+        pagSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      },
     });
   }
 
@@ -91,7 +99,7 @@ export class ManageUsersComponent implements OnInit {
     this.dialog.open(UserDeleteConfirmationComponent, {
       width: '22rem',
       data: {
-        userData: userData,
+        user: userData,
         pagSize: this.pageSize,
         pageIndex: this.pageIndex,
       },

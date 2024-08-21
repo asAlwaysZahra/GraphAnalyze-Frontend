@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import {
-  GetUserResponse,
-  UserData,
-} from '../../interfaces/manage-users.interface';
+import { GetUserResponse } from '../../interfaces/manage-users.interface';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../api-config/api-url';
 
@@ -21,14 +18,14 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  createUser(request: RegisterRequest) {
+  createUser(request: RegisterRequest, pageSize: number, pageIndex: number) {
     return this.http
       .post(`${this.apiUrl}/register`, request, {
         withCredentials: true,
       })
       .subscribe({
         next: () => {
-          // this.getUsers(pageSize, pageIndex);
+          this.getUsers(pageSize, pageIndex);
           this.notification.next({
             status: true,
             message: 'User added successfully!',
@@ -78,14 +75,19 @@ export class AdminService {
       });
   }
 
-  updateUser(id: string, request: UpdateUserRequest) {
+  updateUser(
+    id: string,
+    request: UpdateUserRequest,
+    pageSize: number,
+    pageIndex: number,
+  ) {
     return this.http
       .put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
         withCredentials: true,
       })
       .subscribe({
         next: () => {
-          // this.getUsers(pageSize, pageIndex);
+          this.getUsers(pageSize, pageIndex);
           this.notification.next({
             status: true,
             message: 'User updated successfully!',
@@ -98,9 +100,5 @@ export class AdminService {
           });
         },
       });
-  }
-
-  getUserById(id: string) {
-    return {} as UserData;
   }
 }
