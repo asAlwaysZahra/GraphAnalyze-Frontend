@@ -35,23 +35,21 @@ export class ManageUsersComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private adminService: AdminService,
+    private adminService: AdminService
   ) {}
 
   ngOnInit(): void {
-    this.adminService
-      .getUsers(this.pageSize, this.pageIndex)
-      .subscribe((res: GetUserResponse) => {
-        this.usersData = res.users;
-        this.length = res.count;
-        this.pageIndex = res.thisPage;
-      });
+    this.adminService.usersData$.subscribe((res: GetUserResponse) => {
+      this.usersData = res.users;
+      this.length = res.count;
+      this.pageIndex = res.thisPage;
+    });
+
+    this.adminService.getUsers(this.pageSize, this.pageIndex);
   }
 
   handlePageEvent(e: PageEvent) {
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
+    this.adminService.getUsers(e.pageSize, e.pageIndex);
   }
 
   addUser() {

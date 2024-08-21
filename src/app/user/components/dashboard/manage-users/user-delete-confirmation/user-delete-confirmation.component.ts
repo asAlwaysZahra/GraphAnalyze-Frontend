@@ -16,7 +16,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
         mat-button
         mat-dialog-close
         cdkFocusInitial
-        (click)="deleteUser(this.userData.guid)"
+        (click)="deleteUser()"
       >
         Delete
       </button>
@@ -26,12 +26,10 @@ import { AdminService } from '../../../../services/admin/admin.service';
 export class UserDeleteConfirmationComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) protected userData: UserData,
-    private adminService: AdminService,
+    private adminService: AdminService
   ) {}
 
-  deleteUser(guid: string) {
-    console.log(12, guid);
-    const x = this.adminService.deleteUser(this.userData.guid);
-    console.log(x);
+  deleteUser() {
+    this.adminService.deleteUser(this.userData.guid);
   }
 }

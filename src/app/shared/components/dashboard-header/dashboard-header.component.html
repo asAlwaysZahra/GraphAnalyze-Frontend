@@ -1,6 +1,8 @@
 <h3 class="title">{{ title }}</h3>
 <div class="profile">
-  <mat-icon class="icon">settings</mat-icon>
+  <mat-icon class="icon" [routerLink]="['/dashboard/manage-account']"
+    >settings</mat-icon
+  >
   <mat-icon
     class="icon material-symbols-outlined"
     (click)="changeTheme()"
@@ -8,6 +10,6 @@
   >
     routine
   </mat-icon>
-  <mat-icon class="icon">info</mat-icon>
+  <mat-icon class="icon" (click)="infoClick()">info</mat-icon>
   <img src="{{ profilePic }}" alt="" class="profile-image" />
 </div>
