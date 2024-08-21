@@ -49,6 +49,9 @@ export class ManageUsersComponent implements OnInit {
   }
 
   handlePageEvent(e: PageEvent) {
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.length = e.length;
     this.adminService.getUsers(e.pageSize, e.pageIndex);
   }
 
