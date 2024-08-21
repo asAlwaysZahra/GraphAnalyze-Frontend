@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin/admin.service';
+import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserData } from '../../../interfaces/manage-users.interface';
+import { UserData } from '../../../../interfaces/manage-users.interface';
 
 @Component({
   selector: 'app-add-user',
@@ -19,7 +19,7 @@ export class AddUserComponent implements OnInit {
     this.myForm = new FormGroup({
       firstName: new FormControl(
         userData ? userData.firstName : '',
-        Validators.required,
+        Validators.required
       ),
       lastName: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),

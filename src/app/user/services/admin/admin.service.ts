@@ -14,8 +14,10 @@ import { environment } from '../../../../../api-config/api-url';
 export class AdminService {
   private readonly apiUrl = environment.apiUrl + '/api/Admin';
   private usersData = new Subject<GetUserResponse>();
+  private notification = new Subject<{ status: boolean; message: string }>();
 
   usersData$ = this.usersData.asObservable();
+  notification$ = this.notification.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +27,7 @@ export class AdminService {
     });
   }
 
-  getUsers(limit = 10, page = 1) {
+  getUsers(limit = 10, page = 0) {
     this.http
       .get<GetUserResponse>(
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
@@ -43,8 +45,20 @@ export class AdminService {
       .delete(`${this.apiUrl}/DeleteUser?id=${id}`, {
         withCredentials: true,
       })
-      .subscribe(() => {
-        this.getUsers(pageSize, pageIndex);
+      .subscribe({
+        next: () => {
+          this.getUsers(pageSize, pageIndex);
+          this.notification.next({
+            status: true,
+            message: 'User deleted successfully!',
+          });
+        },
+        error: (error) => {
+          this.notification.next({
+            status: false,
+            message: error,
+          });
+        },
       });
   }
 

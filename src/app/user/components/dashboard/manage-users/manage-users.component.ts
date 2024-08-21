@@ -4,10 +4,11 @@ import {
   UserData,
 } from '../../../interfaces/manage-users.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
 import { AdminService } from '../../../services/admin/admin.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-manage-users',
@@ -35,7 +36,8 @@ export class ManageUsersComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class ManageUsersComponent implements OnInit {
       this.usersData = res.users;
       this.length = res.count;
       this.pageIndex = res.thisPage;
+    });
+
+    this.adminService.notification$.subscribe((data) => {
+      this._snackBar.open(data.message);
     });
 
     this.adminService.getUsers(this.pageSize, this.pageIndex);

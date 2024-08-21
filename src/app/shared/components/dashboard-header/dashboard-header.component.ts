@@ -27,6 +27,6 @@ export class DashboardHeaderComponent {
   }
 
   infoClick() {
-    this._snackBar.open('Coming soon...', 'Ok :(');
+    this._snackBar.open('Coming soon...', 'Ok :(', { duration: 2000 });
   }
 }
