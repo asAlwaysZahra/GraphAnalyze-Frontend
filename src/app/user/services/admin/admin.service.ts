@@ -6,12 +6,13 @@ import {
   UserData,
 } from '../../interfaces/manage-users.interface';
 import { Subject } from 'rxjs';
+import { environment } from '../../../../../api-config/api-url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private readonly apiUrl = 'https://localhost:44322/api/Admin';
+  private readonly apiUrl = environment.apiUrl + '/api/Admin';
   private usersData = new Subject<GetUserResponse>();
 
   usersData$ = this.usersData.asObservable();
@@ -30,7 +31,7 @@ export class AdminService {
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe((users) => {
         this.usersData.next(users);

@@ -1,4 +1,3 @@
 export const environment = {
-  production: false,
-  apiUrl: 'https://staging.api.yourdomain.com',
+  apiUrl: 'http://localhost:8085',
 };
