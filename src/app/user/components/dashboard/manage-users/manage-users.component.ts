@@ -1,48 +1,31 @@
-import { Component } from '@angular/core';
-import { ManageUser } from '../../../interfaces/manage-users.interface';
+import { Component, OnInit } from '@angular/core';
+import {
+  GetUserResponse,
+  UserData,
+} from '../../../interfaces/manage-users.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user-delete-confirmation.component';
-
-const ELEMENT_DATA: ManageUser[] = [
-  {
-    guid: 'daw-awd-awd-awd',
-    userName: 'mamad-plus',
-    firstName: 'mamad',
-    lastName: 'mamadi',
-    phoneNumber: '09134456735',
-    email: 'mojerf@yahoo.com',
-    imgURL: null,
-  },
-  {
-    guid: 'daw-awd-awd-awd',
-    userName: 'mamad-plus',
-    firstName: 'mamad',
-    lastName: 'mamadi',
-    phoneNumber: '09134456735',
-    email: 'mojerf@yahoo.com',
-    imgURL: null,
-  },
-];
+import { AdminService } from '../../../services/admin/admin.service';
 
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
   styleUrl: './manage-users.component.scss',
 })
-export class ManageUsersComponent {
+export class ManageUsersComponent implements OnInit {
+  usersData!: UserData[];
   displayedColumns: string[] = [
-    'userName',
+    'username',
     'fullName',
     'phoneNumber',
     'email',
     'edit/delete',
   ];
-  dataSource = ELEMENT_DATA;
-  length = 50;
+  length!: number;
   pageSize = 10;
-  pageIndex = 0;
+  pageIndex = 1;
   pageSizeOptions = [5, 10, 25];
 
   hidePageSize = false;
@@ -50,13 +33,26 @@ export class ManageUsersComponent {
   showFirstLastButtons = true;
   disabled = false;
 
+  constructor(
+    private readonly dialog: MatDialog,
+    private adminService: AdminService,
+  ) {}
+
+  ngOnInit(): void {
+    this.adminService
+      .getUsers(this.pageSize, this.pageIndex)
+      .subscribe((res: GetUserResponse) => {
+        this.usersData = res.users;
+        this.length = res.count;
+        this.pageIndex = res.thisPage;
+      });
+  }
+
   handlePageEvent(e: PageEvent) {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
   }
-
-  constructor(private readonly dialog: MatDialog) {}
 
   addUser() {
     this.dialog.open(AddUserComponent, {
@@ -68,10 +64,10 @@ export class ManageUsersComponent {
     console.log(guid);
   }
 
-  deleteUser(guid: string) {
+  deleteUser(userData: UserData) {
     this.dialog.open(UserDeleteConfirmationComponent, {
-      width: '20rem',
-      data: guid,
+      width: '22rem',
+      data: userData,
     });
   }
 }

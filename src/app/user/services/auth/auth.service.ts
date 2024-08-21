@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8085/api/User';
+  private apiUrl = 'https://localhost:44322/api/User';
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);
@@ -36,7 +36,7 @@ export class AuthService {
         tap((response) => {
           this.userData.next(response);
           this.isLoggedIn.next(true);
-        })
+        }),
       );
   }
 
@@ -53,7 +53,7 @@ export class AuthService {
               this.isLoggedIn.next(true);
               this.permissions.next(response);
             }
-          })
+          }),
         );
     }
     return this.permissions$;
@@ -66,7 +66,7 @@ export class AuthService {
         tap(() => {
           this.isLoggedIn.next(false);
           this.permissions.next(null);
-        })
+        }),
       );
   }
 }

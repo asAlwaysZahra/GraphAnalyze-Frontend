@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import { ManageUser } from '../../interfaces/manage-users.interface';
+import {
+  GetUserResponse,
+  UserData,
+} from '../../interfaces/manage-users.interface';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,25 +20,29 @@ export class AdminService {
   }
 
   getUsers(limit = 10, page = 1) {
-    return this.http.get(
+    return this.http.get<GetUserResponse>(
       `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
     );
   }
 
   deleteUser(id: string) {
-    return this.http.delete(`${this.apiUrl}/DeleteUser?id=${id}`);
+    return this.http
+      .delete(`${this.apiUrl}/DeleteUser?id=${id}`, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap(() => {
+          // this.getUsers().next();
+        }),
+      );
   }
 
   updateUser(id: string, request: UpdateUserRequest) {
     return this.http.put(`${this.apiUrl}/UpdateUser?id=${id}`, request);
   }
 
-  firstAdmin() {
-    return this.http.get(`${this.apiUrl}/firstAdmin`);
-  }
-
   getUserById(id: string) {
     //id += '1';
-    return {} as ManageUser;
+    return {} as UserData;
   }
 }

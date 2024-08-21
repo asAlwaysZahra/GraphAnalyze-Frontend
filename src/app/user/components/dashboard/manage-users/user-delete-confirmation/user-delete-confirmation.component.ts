@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ManageUser } from '../../../../interfaces/manage-users.interface';
+import { UserData } from '../../../../interfaces/manage-users.interface';
 import { AdminService } from '../../../../services/admin/admin.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
   template: `
     <h2 mat-dialog-title>Delete User</h2>
     <mat-dialog-content>
-      Would you like to delete {{ this.user.userName }}?
+      Would you like to delete {{ this.userData.username }}?
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancel</button>
@@ -16,7 +16,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
         mat-button
         mat-dialog-close
         cdkFocusInitial
-        (click)="deleteBook(this.user.guid)"
+        (click)="deleteUser(this.userData.guid)"
       >
         Delete
       </button>
@@ -25,12 +25,13 @@ import { AdminService } from '../../../../services/admin/admin.service';
 })
 export class UserDeleteConfirmationComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected user: ManageUser,
+    @Inject(MAT_DIALOG_DATA) protected userData: UserData,
     private adminService: AdminService,
   ) {}
 
-  deleteBook(name: string) {
-    console.log(name);
-    this.adminService.deleteUser(this.user.guid);
+  deleteUser(guid: string) {
+    console.log(12, guid);
+    const x = this.adminService.deleteUser(this.userData.guid);
+    console.log(x);
   }
 }
