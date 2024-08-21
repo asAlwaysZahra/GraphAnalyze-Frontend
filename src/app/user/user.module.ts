@@ -29,6 +29,12 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { EditUserComponent } from './components/dashboard/edit-user/edit-user.component';
+import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import {
+  MatSnackBarAction,
+  MatSnackBarActions,
+  MatSnackBarLabel,
+} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,6 +46,7 @@ import { EditUserComponent } from './components/dashboard/edit-user/edit-user.co
     ManageUsersComponent,
     UserDeleteConfirmationComponent,
     EditUserComponent,
+    UserManageNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +70,9 @@ import { EditUserComponent } from './components/dashboard/edit-user/edit-user.co
     MatDialogActions,
     MatDialogClose,
     MatDialogTitle,
+    MatSnackBarAction,
+    MatSnackBarActions,
+    MatSnackBarLabel,
   ],
 })
 export class UserModule {}
