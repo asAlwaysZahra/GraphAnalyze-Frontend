@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ManageUser } from '../../../interfaces/manage-users.interface';
 
 @Component({
   selector: 'app-add-user',
@@ -13,8 +14,13 @@ export class AddUserComponent implements OnInit {
   myForm: FormGroup = new FormGroup({});
 
   ngOnInit() {
+    const userData: ManageUser = this.adminService.getUserById('some-id');
+
     this.myForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
+      firstName: new FormControl(
+        userData ? userData.firstName : '',
+        Validators.required,
+      ),
       lastName: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),

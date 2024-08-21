@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
+import { ManageUser } from '../../interfaces/manage-users.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8085/api/Admin';
+  private apiUrl = 'https://localhost:44322/api/Admin';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +17,7 @@ export class AdminService {
 
   getUsers(limit = 10, page = 1) {
     return this.http.get(
-      `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`
+      `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
     );
   }
 
@@ -30,5 +31,10 @@ export class AdminService {
 
   firstAdmin() {
     return this.http.get(`${this.apiUrl}/firstAdmin`);
+  }
+
+  getUserById(id: string) {
+    //id += '1';
+    return {} as ManageUser;
   }
 }

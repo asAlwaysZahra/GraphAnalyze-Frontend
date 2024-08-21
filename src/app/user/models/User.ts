@@ -53,3 +53,14 @@ export interface UpdateUserRequest {
   phoneNumber: string;
   roleName: string;
 }
+
+export interface ForgetPasswordRequest {
+  newPassword: 'string';
+  confirmPassword: 'string';
+}
+
+export interface NewPasswordRequest {
+  oldPassword: 'string';
+  newPassword: 'string';
+  confirmPassword: 'string';
+}
