@@ -4,8 +4,7 @@
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src:
-    url("../assets/font/Vazir.ttf") format("truetype"),
+  src: url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
@@ -295,6 +294,7 @@ body,
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
   --card-background-color: #fefbff;
+  --mat-sidenav-content-background-color: #fbf8fd;
 
   --logo-image-filter: invert(20%);
   --logo-filter: invert(10%);

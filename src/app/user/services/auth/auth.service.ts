@@ -61,7 +61,7 @@ export class AuthService {
 
   logout() {
     return this.http
-      .get(this.apiUrl + '/log-out', { withCredentials: true })
+      .post(this.apiUrl + '/logout', null, { withCredentials: true })
       .pipe(
         tap(() => {
           this.isLoggedIn.next(false);
