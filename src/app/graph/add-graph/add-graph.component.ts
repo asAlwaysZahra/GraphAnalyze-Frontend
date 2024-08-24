@@ -2,6 +2,9 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserManageNotificationComponent } from '../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-add-graph',
@@ -15,6 +18,7 @@ export class AddGraphComponent {
   headers: string[] = [];
   isLoading = false;
   isLoaded = false;
+  wrongFormat = false;
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<unknown>();
 
@@ -27,6 +31,7 @@ export class AddGraphComponent {
   constructor(
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
+    private _snackBar: MatSnackBar,
   ) {}
 
   highlight() {
@@ -38,10 +43,25 @@ export class AddGraphComponent {
   }
 
   readFile(event: Event) {
+    this.wrongFormat = false;
     this.isHighlighted = false;
     this.isLoading = true;
     const target = event.target as HTMLInputElement;
     this.selectedFile = (target.files as FileList)[0];
+    const fileName = this.selectedFile.name;
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+
+    if (fileExtension !== 'csv') {
+      this.isLoading = false;
+      this.wrongFormat = true;
+      this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        data: 'Please upload a CSV file',
+        panelClass: ['notification-class-danger'],
+        duration: 2000,
+      });
+      return;
+    }
+
     this.csvData = [];
     this.headers = [];
 
