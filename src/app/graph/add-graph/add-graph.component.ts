@@ -26,6 +26,7 @@ export class AddGraphComponent {
   selectedId!: string;
   selectedSource!: string;
   selectedDestination!: string;
+  categoryName!: string;
 
   constructor(
     private papaParseService: Papa,
@@ -82,11 +83,13 @@ export class AddGraphComponent {
   }
 
   uploadFile() {
-    console.log('hiiii');
-    console.log(this.selectedId, this.csvType);
     if (this.csvType === 'node') {
       this.fileService
-        .uploadNode(this.selectedFile, this.selectedId, this.csvType)
+        .uploadNode(
+          this.selectedFile,
+          this.selectedId.toLowerCase(),
+          this.categoryName,
+        )
         .subscribe(console.log);
     } else {
       this.fileService

@@ -48,7 +48,7 @@
       @if (csvType === "node") {
         <mat-form-field class="form-field">
           <mat-label>Category Name</mat-label>
-          <input matInput />
+          <input matInput [ngModel]="categoryName" />
         </mat-form-field>
         <mat-form-field class="select-field">
           <mat-label>Unique Id</mat-label>
