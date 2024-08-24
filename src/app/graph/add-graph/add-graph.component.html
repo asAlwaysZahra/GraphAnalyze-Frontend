@@ -5,15 +5,20 @@
   <div
     (dragover)="highlight($event)"
     (dragleave)="unhighlight($event)"
-    (drop)="dropped($event)"
     [classList]="
       isHighlighted
         ? 'isHighlighted formbold-file-input'
         : 'formbold-file-input'
     "
   >
-    <input type="file" name="file" id="file" accept=".csv" #file />
-    <label for="file">
+    <input
+      type="file"
+      name="file"
+      id="file"
+      accept=".csv"
+      (change)="readFile($event)"
+    />
+    <label for="file" (drop)="readFile($event)">
       @if(isHighlighted){
       <div>
         <span class="formbold-drop-file"> Drop file here </span>
@@ -28,3 +33,8 @@
     </label>
   </div>
 </app-card>
+
+<div *ngIf="csvData.length > 0">
+  <h2>CSV Data</h2>
+  <p *ngFor="let header of headers">{{ header }}</p>
+</div>

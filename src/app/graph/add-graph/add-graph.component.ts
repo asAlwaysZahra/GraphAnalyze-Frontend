@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Papa } from 'ngx-papaparse';
 
 @Component({
   selector: 'app-add-graph',
@@ -6,24 +7,38 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
   styleUrl: './add-graph.component.scss',
 })
 export class AddGraphComponent {
-  @ViewChild('file') el!: ElementRef;
   isHighlighted = false;
+  selectedFile!: File;
+  csvData: any[] = [];
+  headers: string[] = [];
+  isLoading: boolean = false;
+
+  constructor(private papaParseService: Papa) {}
 
   highlight(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
     this.isHighlighted = true;
   }
 
   unhighlight(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
     this.isHighlighted = false;
   }
 
-  dropped(event: Event) {
-    console.log(event);
+  readFile(event: any) {
+    this.isHighlighted = false;
+    this.isLoading = true;
+    this.selectedFile = event.target.files[0];
+    this.csvData = [];
+    this.headers = [];
+
+    const reader = new FileReader();
+    reader.readAsText(this.selectedFile);
+    reader.onload = (event: any) => {
+      const csvData = this.papaParseService.parse(event.target.result, {
+        header: true,
+      });
+      this.csvData = csvData.data;
+      this.headers = Object.keys(csvData.data[0]);
+      this.isLoading = false;
+    };
   }
 }
