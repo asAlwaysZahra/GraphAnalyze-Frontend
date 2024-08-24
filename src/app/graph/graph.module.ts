@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NewGraphComponent } from './new-graph/new-graph.component';
 
 @NgModule({
-  declarations: [DataAnalysisComponent],
+  declarations: [DataAnalysisComponent, NewGraphComponent],
   imports: [
     CommonModule,
     SharedModule,
