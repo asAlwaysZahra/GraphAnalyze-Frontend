@@ -9,6 +9,7 @@ import { ManageUsersComponent } from './user/components/dashboard/manage-users/m
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { PermissionGuard } from './guards/permissions/permission.guard';
+import { AddGraphComponent } from './graph/add-graph/add-graph.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         path: 'data-analysis',
         component: DataAnalysisComponent,
         title: 'StarData | Data Analysis',
+      },
+      {
+        path: 'add-graph',
+        component: AddGraphComponent,
+        title: 'StarData | Add Graph',
       },
     ],
   },

@@ -285,6 +285,11 @@ body,
     width: 70%;
   }
 }
+.select-field {
+  .mdc-text-field--filled {
+    background: none !important;
+  }
+}
 
 [data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);
@@ -295,6 +300,7 @@ body,
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
   --card-background-color: #fefbff;
   --mat-sidenav-content-background-color: #fbf8fd;
+  --hover-bg-color: #e0e0e0;
 
   --logo-image-filter: invert(20%);
   --logo-filter: invert(10%);
@@ -311,6 +317,7 @@ body,
   --mat-sidenav-container-background-color: #1f1f23;
   --mat-table-background-color: #292a2d;
   --mat-paginator-container-background-color: #292a2d;
+  --hover-bg-color: #333333;
 
   --logo-image-filter: invert(75%);
   --logo-filter: invert(85%);
@@ -327,4 +334,26 @@ body,
 
 .mat-mdc-paginator-container {
   justify-content: center !important;
+}
+
+.notification-class-danger {
+  background-color: #f44336;
+  border-radius: 0.25rem;
+}
+
+.notification-class-success {
+  background-color: #388e3c;
+  border-radius: 0.25rem;
+}
+
+.info-notification {
+  background-color: var(--mdc-snackbar-container-color);
+  border-radius: 0.25rem;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  background-color: inherit !important;
+}
+.mat-mdc-form-field-bottom-align::before {
+  display: none !important;
 }

@@ -15,7 +15,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { AppRoutingModule } from '../app-routing.module';
 import { MainPageComponent } from './components/dashboard/main-page/main-page.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
+import { AddUserComponent } from './components/dashboard/manage-users/add-user/add-user.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ManageAccountComponent } from './components/dashboard/manage-account/manage-account.component';
 import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';
@@ -28,6 +28,9 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { EditUserComponent } from './components/dashboard/manage-users/edit-user/edit-user.component';
+import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import { MatSnackBarLabel } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import {
     ManageAccountComponent,
     ManageUsersComponent,
     UserDeleteConfirmationComponent,
+    EditUserComponent,
+    UserManageNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +66,7 @@ import {
     MatDialogActions,
     MatDialogClose,
     MatDialogTitle,
+    MatSnackBarLabel,
   ],
 })
 export class UserModule {}

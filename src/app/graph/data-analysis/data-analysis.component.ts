@@ -30,10 +30,10 @@ export class DataAnalysisComponent implements AfterViewInit {
     const container = this.el.nativeElement;
     // create some nodes
     const nodes = new DataSet<Node>([
-      { id: 0, label: 'محمد رضا یاقوتی \n\n 16546220216446' },
-      { id: 1, label: 'محمد رضا یاقوتی \n\n 16546220216446' },
-      { id: 2, label: 'محمد رضا یاقوتی \n\n 16546220216446' },
-      { id: 50, label: 'محمد رضا یاقوتی \n\n 16546220216446' },
+      { id: 0, label: '16546220216446' },
+      { id: 1, label: '16546220216446' },
+      { id: 2, label: '16546220216446' },
+      { id: 50, label: '16546220216446' },
     ] as unknown as Node[]);
 
     // create some edges
@@ -71,7 +71,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     const options: Options = {
       physics: false,
       edges: {
-        width: 2,
+        width: 1,
         smooth: { enabled: false, type: 'vertical', roundness: 0 },
         arrows: 'to',
         arrowStrikethrough: false,
@@ -85,7 +85,7 @@ export class DataAnalysisComponent implements AfterViewInit {
       nodes: {
         shape: 'image',
         image: svgDataUrl,
-        size: 15,
+        size: 10,
         color: {
           background: labelColor,
           border: labelBorder,

@@ -6,12 +6,13 @@ import {
   LoginResponse,
   UserPermissions,
 } from '../../models/User';
+import { environment } from '../../../../../api-config/api-url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8085/api/User';
+  private apiUrl = environment.apiUrl + '/api/User';
 
   private userData = new Subject<LoginResponse>();
   private isLoggedIn = new BehaviorSubject<boolean>(false);

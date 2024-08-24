@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin/admin.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserData } from '../../../interfaces/manage-users.interface';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-user',
@@ -9,18 +9,20 @@ import { UserData } from '../../../interfaces/manage-users.interface';
   styleUrl: './add-user.component.scss',
 })
 export class AddUserComponent implements OnInit {
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    @Inject(MAT_DIALOG_DATA)
+    protected page: {
+      pagSize: number;
+      pageIndex: number;
+    }
+  ) {}
 
   myForm: FormGroup = new FormGroup({});
 
   ngOnInit() {
-    const userData: UserData = this.adminService.getUserById('some-id');
-
     this.myForm = new FormGroup({
-      firstName: new FormControl(
-        userData ? userData.firstName : '',
-        Validators.required,
-      ),
+      firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -36,7 +38,11 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.adminService.createUser(this.myForm.value).subscribe(console.log);
+      this.adminService.createUser(
+        this.myForm.value,
+        this.page.pagSize,
+        this.page.pageIndex
+      );
     }
   }
 }

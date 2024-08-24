@@ -54,7 +54,13 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "api-config/api-url.ts",
+                  "with": "api-config/api-url.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,

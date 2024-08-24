@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
+import { environment } from '../../../../../api-config/api-url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8085/api/User';
+  private apiUrl = environment.apiUrl + '/api/User';
 
   constructor(private http: HttpClient) {}
 
