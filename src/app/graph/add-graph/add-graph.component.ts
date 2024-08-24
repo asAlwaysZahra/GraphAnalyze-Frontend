@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './add-graph.component.html',
   styleUrl: './add-graph.component.scss',
 })
-export class AddGraphComponent implements AfterViewInit {
+export class AddGraphComponent {
   isHighlighted = false;
   selectedFile!: File;
   csvData: unknown[] = [];
@@ -16,15 +21,14 @@ export class AddGraphComponent implements AfterViewInit {
   isLoading = false;
   isLoaded = false;
   displayedColumns: string[] = [];
-  dataSource = new MatTableDataSource<unknown>(this.csvData);
+  dataSource = new MatTableDataSource<unknown>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private papaParseService: Papa) {}
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  constructor(
+    private papaParseService: Papa,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   highlight() {
     this.isHighlighted = true;
@@ -34,10 +38,11 @@ export class AddGraphComponent implements AfterViewInit {
     this.isHighlighted = false;
   }
 
-  readFile(event: any) {
+  readFile(event: Event) {
     this.isHighlighted = false;
     this.isLoading = true;
-    this.selectedFile = event.target.files[0];
+    const target = event.target as HTMLInputElement;
+    this.selectedFile = (target.files as FileList)[0];
     this.csvData = [];
     this.headers = [];
 
@@ -52,9 +57,9 @@ export class AddGraphComponent implements AfterViewInit {
       this.isLoading = false;
       this.isLoaded = true;
       this.displayedColumns = this.headers;
+      this.changeDetector.detectChanges();
       this.dataSource.data = this.csvData;
       this.dataSource.paginator = this.paginator;
-      console.log(this.csvData);
     };
   }
 }
