@@ -35,16 +35,18 @@
     </div>
   </app-card>
 
+  @if (isLoaded) {
+
   <app-card class="form-container">
     <mat-radio-group [(ngModel)]="csvType">
       <mat-radio-button value="node">Node</mat-radio-button>
       <mat-radio-button value="edge">Edge</mat-radio-button>
     </mat-radio-group>
+    @if (csvType === "node") {
     <mat-form-field class="form-field">
       <mat-label>Category Name</mat-label>
       <input matInput />
     </mat-form-field>
-    @if (csvType === "node") {
     <mat-form-field class="select-field">
       <mat-label>Unique Id</mat-label>
       <mat-select [(ngModel)]="selectedId" name="header">
@@ -73,19 +75,20 @@
     }
     <button mat-flat-button class="submit-btn">Submit</button>
   </app-card>
-  @if (isLoaded) {
 
   <app-card class="data-table">
-    <table mat-table [dataSource]="dataSource">
-      @for (head of headers; track head) {
-      <ng-container matColumnDef="{{ head }}">
-        <th mat-header-cell *matHeaderCellDef>{{ head }}</th>
-        <td mat-cell *matCellDef="let element">{{ element[head] }}</td>
-      </ng-container>
-      }
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        @for (head of headers; track head) {
+        <ng-container matColumnDef="{{ head }}">
+          <th mat-header-cell *matHeaderCellDef>{{ head }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[head] }}</td>
+        </ng-container>
+        }
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
 
     <mat-paginator
       [pageSizeOptions]="[5, 10, 20]"
