@@ -57,8 +57,8 @@
               "outputHashing": "all",
               "fileReplacements": [
                 {
-                  "replace": "api-config/api-url.prod.ts",
-                  "with": "api-config/api-url.ts"
+                  "replace": "api-config/api-url.ts",
+                  "with": "api-config/api-url.prod.ts"
                 }
               ]
             },
