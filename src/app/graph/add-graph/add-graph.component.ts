@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserManageNotificationComponent } from '../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-add-graph',
@@ -16,7 +15,6 @@ export class AddGraphComponent {
   selectedFile!: File;
   csvData: unknown[] = [];
   headers: string[] = [];
-  isLoading = false;
   isLoaded = false;
   wrongFormat = false;
   displayedColumns: string[] = [];
@@ -31,7 +29,7 @@ export class AddGraphComponent {
   constructor(
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   highlight() {
@@ -44,15 +42,14 @@ export class AddGraphComponent {
 
   readFile(event: Event) {
     this.wrongFormat = false;
+    this.isLoaded = false;
     this.isHighlighted = false;
-    this.isLoading = true;
     const target = event.target as HTMLInputElement;
     this.selectedFile = (target.files as FileList)[0];
     const fileName = this.selectedFile.name;
     const fileExtension = fileName.split('.').pop()?.toLowerCase();
 
     if (fileExtension !== 'csv') {
-      this.isLoading = false;
       this.wrongFormat = true;
       this._snackBar.openFromComponent(UserManageNotificationComponent, {
         data: 'Please upload a CSV file',
@@ -67,13 +64,13 @@ export class AddGraphComponent {
 
     const reader = new FileReader();
     reader.readAsText(this.selectedFile);
-    reader.onload = (event: any) => {
-      const csvData = this.papaParseService.parse(event.target.result, {
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      const textContent = event.target!.result as string; // Type assertion (use with caution)
+      const csvData = this.papaParseService.parse(textContent, {
         header: true,
       });
       this.csvData = csvData.data;
       this.headers = Object.keys(csvData.data[0]);
-      this.isLoading = false;
       this.isLoaded = true;
       this.displayedColumns = this.headers;
       this.changeDetector.detectChanges();
