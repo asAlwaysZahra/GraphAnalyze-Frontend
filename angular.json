@@ -38,7 +38,13 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "fileReplacements": [
+              {
+                "replace": "api-config/api-url.ts",
+                "with": "api-config/api-url.prod.ts"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -54,13 +60,7 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all",
-              "fileReplacements": [
-                {
-                  "replace": "api-config/api-url.prod.ts",
-                  "with": "api-config/api-url.ts"
-                }
-              ]
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
