@@ -1,6 +1,7 @@
 <div class="container">
   <app-card class="card">
     <div #network id="network"></div>
+    <div #menuTrigger [matMenuTriggerFor]="menu"></div>
   </app-card>
   <app-card class="side-bard">
     <form class="form">
@@ -39,4 +40,8 @@
     >
     </mat-paginator>
   </app-card>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Show node information</button>
+    <button mat-menu-item>Get all edges</button>
+  </mat-menu>
 </div>
