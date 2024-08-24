@@ -9,6 +9,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddGraphComponent } from './add-graph/add-graph.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [DataAnalysisComponent, AddGraphComponent],
@@ -21,6 +26,12 @@ import { MatTableModule } from '@angular/material/table';
     MatPaginatorModule,
     MatTooltipModule,
     MatTableModule,
+    MatSlideToggle,
+    MatRadioGroup,
+    MatRadioButton,
+    FormsModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
 })
 export class GraphModule {}

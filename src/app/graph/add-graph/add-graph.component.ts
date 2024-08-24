@@ -1,9 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,10 +19,14 @@ export class AddGraphComponent {
   dataSource = new MatTableDataSource<unknown>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  csvType = 'node';
+  selectedId!: string;
+  selectedSource!: string;
+  selectedDestination!: string;
 
   constructor(
     private papaParseService: Papa,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   highlight() {

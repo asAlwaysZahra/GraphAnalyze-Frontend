@@ -64,3 +64,27 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+.data-table {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.submit-btn {
+  //width: 15rem;
+}
+
+.test-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  //justify-content: space-between;
+}
