@@ -4,8 +4,7 @@
 @include mat.core();
 @font-face {
   font-family: "MyCustomFont";
-  src:
-    url("../assets/font/Vazir.ttf") format("truetype"),
+  src: url("../assets/font/Vazir.ttf") format("truetype"),
     url("../assets/font/Vazir.woff") format("woff"),
     url("../assets/font/Vazir.woff2") format("woff2"),
     url("../assets/font/Vazir.eot") format("embedded-opentype");
@@ -286,6 +285,11 @@ body,
     width: 70%;
   }
 }
+.select-field {
+  .mdc-text-field--filled {
+    background: none !important;
+  }
+}
 
 [data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);
@@ -349,4 +353,7 @@ body,
 
 .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
   background-color: inherit !important;
+}
+.mat-mdc-form-field-bottom-align::before {
+  display: none !important;
 }
