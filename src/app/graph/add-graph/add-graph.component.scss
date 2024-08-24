@@ -58,3 +58,9 @@
 .isHighlighted {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

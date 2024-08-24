@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddGraphComponent } from './add-graph/add-graph.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [DataAnalysisComponent, AddGraphComponent],
@@ -19,6 +20,7 @@ import { AddGraphComponent } from './add-graph/add-graph.component';
     MatIconModule,
     MatPaginatorModule,
     MatTooltipModule,
+    MatTableModule,
   ],
 })
 export class GraphModule {}
