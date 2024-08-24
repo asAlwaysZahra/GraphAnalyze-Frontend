@@ -73,18 +73,14 @@
 .form-container {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  justify-content: space-between;
   flex-direction: row;
-}
-
-.submit-btn {
-  //width: 15rem;
-}
-
-.test-container {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+  gap: 8rem;
   //justify-content: space-between;
+}
+
+.fields-container {
+  display: flex;
+  //flex-direction: column;
+  gap: 1rem;
+  align-self: flex-end;
 }

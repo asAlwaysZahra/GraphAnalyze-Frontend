@@ -37,21 +37,21 @@
 
   @if (isLoaded) {
     <app-card class="form-container">
-      <div class="test-container">
-        <mat-radio-group [(ngModel)]="csvType">
-          <mat-radio-button value="node">Node</mat-radio-button>
-          <mat-radio-button value="edge">Edge</mat-radio-button>
-        </mat-radio-group>
-        @if (csvType === "node") {
-          <mat-form-field>
-            <mat-label>Unique Id</mat-label>
-            <mat-select [(ngModel)]="selectedId" name="header">
-              @for (header of headers; track header) {
-                <mat-option [value]="header">{{ header }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        } @else {
+      <mat-radio-group [(ngModel)]="csvType">
+        <mat-radio-button value="node">Node</mat-radio-button>
+        <mat-radio-button value="edge">Edge</mat-radio-button>
+      </mat-radio-group>
+      @if (csvType === "node") {
+        <mat-form-field class="select-filed">
+          <mat-label>Unique Id</mat-label>
+          <mat-select [(ngModel)]="selectedId" name="header">
+            @for (header of headers; track header) {
+              <mat-option [value]="header">{{ header }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      } @else {
+        <div class="fields-container">
           <mat-form-field>
             <mat-label>Source</mat-label>
             <mat-select [(ngModel)]="selectedSource" name="header">
@@ -68,10 +68,12 @@
               }
             </mat-select>
           </mat-form-field>
-        }
-      </div>
+        </div>
+      }
       <button mat-flat-button class="submit-btn">Submit</button>
     </app-card>
+    <button mat-flat-button class="submit-btn">Submit</button>
+
     <app-card class="data-table">
       <table mat-table [dataSource]="dataSource">
         @for (head of headers; track head) {
