@@ -2,14 +2,29 @@
 
 <app-card>
   <h3 class="upload-title">Upload file</h3>
-  <div class="formbold-file-input">
-    <input type="file" name="file" id="file" />
+  <div
+    (dragover)="highlight($event)"
+    (dragleave)="unhighlight($event)"
+    (drop)="dropped($event)"
+    [classList]="
+      isHighlighted
+        ? 'isHighlighted formbold-file-input'
+        : 'formbold-file-input'
+    "
+  >
+    <input type="file" name="file" id="file" accept=".csv" #file />
     <label for="file">
+      @if(isHighlighted){
       <div>
-        <span class="formbold-drop-file"> Drop files here </span>
+        <span class="formbold-drop-file"> Drop file here </span>
+      </div>
+      }@else {
+      <div>
+        <span class="formbold-drop-file"> Drop file here </span>
         <span class="formbold-or"> Or </span>
         <span class="formbold-browse"> Browse </span>
       </div>
+      }
     </label>
   </div>
 </app-card>

@@ -3,6 +3,7 @@
   font-size: 1.5rem;
   padding-bottom: 1rem;
 }
+
 .formbold-file-input {
   position: relative;
 }
@@ -27,6 +28,7 @@
   padding: 48px;
   text-align: center;
 }
+
 .formbold-drop-file {
   display: block;
   font-weight: 600;
@@ -42,6 +44,7 @@
   display: block;
   margin-bottom: 8px;
 }
+
 .formbold-browse {
   font-weight: 500;
   font-size: 16px;
@@ -50,4 +53,8 @@
   padding: 8px 28px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
+}
+
+.isHighlighted {
+  background-color: rgba(0, 0, 0, 0.1);
 }
