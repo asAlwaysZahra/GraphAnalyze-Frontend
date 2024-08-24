@@ -1,7 +1,15 @@
 <app-dashboard-header [title]="'Add Graph'"></app-dashboard-header>
 
 <app-card>
-  Lorem, ipsum dolor sit amet consectetur adipisicing elit. In perferendis eos
-  magnam quidem cumque impedit aut, optio sapiente blanditiis consectetur
-  aperiam esse provident repudiandae, maxime, distinctio illo id ullam vero!
+  <h3 class="upload-title">Upload file</h3>
+  <div class="formbold-mb-5 formbold-file-input">
+    <input type="file" name="file" id="file" />
+    <label for="file">
+      <div>
+        <span class="formbold-drop-file"> Drop files here </span>
+        <span class="formbold-or"> Or </span>
+        <span class="formbold-browse"> Browse </span>
+      </div>
+    </label>
+  </div>
 </app-card>
