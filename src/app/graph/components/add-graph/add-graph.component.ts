@@ -2,9 +2,9 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserManageNotificationComponent } from '../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FileService } from '../services/file/file.service';
+import { FileService } from '../../services/file/file.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -33,7 +33,7 @@ export class AddGraphComponent {
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private fileService: FileService,
+    private fileService: FileService
   ) {}
 
   highlight() {
@@ -111,9 +111,26 @@ export class AddGraphComponent {
         .uploadEdge(
           this.selectedFile,
           this.selectedSource,
-          this.selectedDestination,
+          this.selectedDestination
         )
-        .subscribe(console.log);
+        .subscribe({
+          next: () => {
+            this.reset();
+            this._snackBar.openFromComponent(UserManageNotificationComponent, {
+              data: 'Edge added successfully!',
+              panelClass: ['notification-class-success'],
+              duration: 2000,
+            });
+          },
+          error: (error) => {
+            this.isUploading = false;
+            this._snackBar.openFromComponent(UserManageNotificationComponent, {
+              data: error.error.message,
+              panelClass: ['notification-class-danger'],
+              duration: 2000,
+            });
+          },
+        });
     }
   }
 

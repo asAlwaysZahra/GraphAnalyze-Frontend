@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
-import { ThemeService } from '../../shared/services/theme.service';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-data-analysis',
