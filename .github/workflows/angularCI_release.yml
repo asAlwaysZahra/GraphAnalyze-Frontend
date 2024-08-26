@@ -29,6 +29,20 @@ jobs:
       - name: Print new tag
         run: echo ${{ steps.tag_version.outputs.new_tag }}
         
+      - name: Log in to Docker Hub  
+        uses: docker/login-action@v2  
+        with:  
+          # registry: registry.abriment.com
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  
+          password: ${{ secrets.DOCKERHUB_PASS }}  
+
+      - name: Build the Docker image  
+        run: |  
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:${{ steps.tag_version.outputs.new_tag }} .  
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:${{ steps.tag_version.outputs.new_tag }}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:latest
+        
   build:
     runs-on: ubuntu-latest
     strategy:
