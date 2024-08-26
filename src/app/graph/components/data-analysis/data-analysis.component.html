@@ -13,20 +13,24 @@
     </form>
     <div class="accounts">
       @for (account of accounts; track $index) {
-      <div class="account-data">
-        {{ account }}
-        <div class="icons">
-          <span
-            class="material-symbols-outlined"
-            matTooltip="Show node as graph"
-          >
-            network_node
-          </span>
-          <mat-icon class="info-icon" matTooltip="Show node information">
-            info
-          </mat-icon>
+        <div class="account-data">
+          {{ account }}
+          <div class="icons">
+            <span
+              class="material-symbols-outlined"
+              matTooltip="Show node as graph"
+            >
+              network_node
+            </span>
+            <mat-icon
+              class="info-icon"
+              matTooltip="Show node information"
+              (click)="getInfo(account)"
+            >
+              info
+            </mat-icon>
+          </div>
         </div>
-      </div>
       }
     </div>
     <mat-paginator

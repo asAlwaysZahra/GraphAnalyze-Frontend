@@ -24,10 +24,19 @@ export class LoadGraphService {
         `${this.apiUrl}/GetNodesPaginationEav?pageIndex=${pageIndex}&pageSize=${pageSize}&category=${category}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe((nodes) => {
         this.nodesData.next(nodes);
       });
+  }
+
+  getNodeInfo(id: string) {
+    return this.http.get<unknown>(
+      this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
+      {
+        withCredentials: true,
+      },
+    );
   }
 }

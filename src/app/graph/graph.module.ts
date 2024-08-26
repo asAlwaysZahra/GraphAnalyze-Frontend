@@ -15,9 +15,16 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { InfoDialogComponent } from './components/data-analysis/info-dialog/info-dialog.component';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [DataAnalysisComponent, AddGraphComponent],
+  declarations: [DataAnalysisComponent, AddGraphComponent, InfoDialogComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -34,6 +41,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSelectModule,
     MatButtonModule,
     MatMenuModule,
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogActions,
+    MatDialogClose,
   ],
 })
 export class GraphModule {}

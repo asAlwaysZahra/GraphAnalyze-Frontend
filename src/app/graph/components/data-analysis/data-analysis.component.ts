@@ -5,6 +5,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { getOptions } from './graph-options';
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-data-analysis',
@@ -40,6 +42,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   constructor(
     private themeService: ThemeService,
     private loadGraphService: LoadGraphService,
+    private dialog: MatDialog,
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -96,6 +99,15 @@ export class DataAnalysisComponent implements AfterViewInit {
         const nodeId = params.edges[0];
         console.log(nodeId);
       }
+    });
+  }
+
+  getInfo(account: string) {
+    this.loadGraphService.getNodeInfo(account).subscribe((data) => {
+      this.dialog.open(InfoDialogComponent, {
+        width: '105rem',
+        data,
+      });
     });
   }
 }
