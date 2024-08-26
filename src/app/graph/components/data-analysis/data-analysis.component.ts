@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { Data, DataSet, Edge, Network, Node } from 'vis';
 import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -25,24 +31,15 @@ export class DataAnalysisComponent implements AfterViewInit {
   length!: number;
   pageIndex = 0;
 
-  nodes = new DataSet<Node>([
-    { id: 0, label: '16546220216446' },
-    { id: 1, label: '16546220216446' },
-    { id: 2, label: '16546220216446' },
-    { id: 50, label: '16546220216446' },
-  ] as unknown as Node[]);
-  edges = new DataSet<Edge>([
-    { id: 1, from: 1, to: 0, label: '100,000 تومان' },
-    { id: 2, from: 1, to: 2, label: '150,000 تومان' },
-    { id: 3, from: 2, to: 0, label: '250,000 تومان' },
-    { id: 4, from: 50, to: 0, label: '3,000,000 تومان' },
-  ] as Edge[]);
+  nodes = new DataSet<Node>([] as unknown as Node[]);
+  edges = new DataSet<Edge>([] as Edge[]);
   data: Data = { nodes: this.nodes, edges: this.edges };
 
   constructor(
     private themeService: ThemeService,
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -66,7 +63,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance = new Network(
       this.el.nativeElement,
       this.data,
-      getOptions(),
+      getOptions()
     );
 
     // Listen for the context menu event (right-click)
@@ -77,12 +74,16 @@ export class DataAnalysisComponent implements AfterViewInit {
       const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
 
       if (nodeId !== undefined) {
-        console.log('Right-clicked node:', nodeId);
-
         this.menuTrigger.nativeElement.style.left = params.event.clientX + 'px';
         this.menuTrigger.nativeElement.style.top = params.event.clientY + 'px';
         this.menuTrigger.nativeElement.style.position = 'fixed';
         this.matMenuTrigger.openMenu();
+
+        this.changeDetector.detectChanges();
+        const rightClickNodeInfoElem = document.getElementById(
+          'right-click-node-info'
+        ) as HTMLElement;
+        rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
 
         // Custom logic for node right-click
       } else if (edgeId !== undefined) {
@@ -102,12 +103,28 @@ export class DataAnalysisComponent implements AfterViewInit {
     });
   }
 
-  getInfo(account: string) {
-    this.loadGraphService.getNodeInfo(account).subscribe((data) => {
+  getInfo(account?: string) {
+    if (!account) {
+      account = (
+        document.getElementById('right-click-node-info') as HTMLElement
+      ).dataset['nodeid'];
+    }
+    this.loadGraphService.getNodeInfo(account!).subscribe((data) => {
       this.dialog.open(InfoDialogComponent, {
         width: '105rem',
         data,
       });
     });
+  }
+
+  showAsGraph(account: string) {
+    this.nodes.clear();
+    this.nodes.add({ id: account, label: account });
+  }
+
+  getEdges() {
+    const nodeId = (
+      document.getElementById('right-click-get-edges') as HTMLElement
+    ).dataset['nodeid'];
   }
 }
