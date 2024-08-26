@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
 import { ThemeService } from '../../shared/services/theme.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-data-analysis',
@@ -23,6 +24,9 @@ export class DataAnalysisComponent implements AfterViewInit {
     { number: '679780894' },
     { number: '234645863' },
   ];
+
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
+  @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
 
   constructor(private themeService: ThemeService) {}
 
@@ -80,12 +84,13 @@ export class DataAnalysisComponent implements AfterViewInit {
           color: textColor,
           strokeWidth: 0,
           face: 'MyCustomFont',
+          size: 6,
         },
       },
       nodes: {
         shape: 'image',
         image: svgDataUrl,
-        size: 10,
+        size: 8,
         color: {
           background: labelColor,
           border: labelBorder,
@@ -98,6 +103,7 @@ export class DataAnalysisComponent implements AfterViewInit {
           align: 'center',
           color: textColor,
           face: 'MyCustomFont',
+          size: 6,
         },
       },
     };
@@ -113,6 +119,12 @@ export class DataAnalysisComponent implements AfterViewInit {
 
       if (nodeId !== undefined) {
         console.log('Right-clicked node:', nodeId);
+
+        this.menuTrigger.nativeElement.style.left = params.event.clientX + 'px';
+        this.menuTrigger.nativeElement.style.top = params.event.clientY + 'px';
+        this.menuTrigger.nativeElement.style.position = 'fixed';
+        this.matMenuTrigger.openMenu();
+
         // Custom logic for node right-click
       } else if (edgeId !== undefined) {
         console.log('Right-clicked edge:', edgeId);
