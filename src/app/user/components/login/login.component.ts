@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../models/User';
 import { ThemeService } from '../../../shared/services/theme.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserManageNotificationComponent } from '../dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,8 @@ export class LoginComponent implements AfterViewInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private _snackBar: MatSnackBar
   ) {}
 
   changeTheme() {
@@ -58,11 +61,20 @@ export class LoginComponent implements AfterViewInit {
     this.authService.login(loginRequest).subscribe({
       next: () => {
         this.isLoading = false;
+        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+          data: 'Logged in successfully.',
+          panelClass: ['notification-class-success'],
+          duration: 2000,
+        });
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.isLoading = false;
-        console.error('Login failed', error);
+        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
       },
     });
   }
