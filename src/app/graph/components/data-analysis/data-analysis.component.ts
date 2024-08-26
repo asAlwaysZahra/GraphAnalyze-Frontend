@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
+import { Data, DataSet, Edge, Network, Node } from 'vis';
 import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
-import { options } from './graph-options';
+import { getOptions } from './graph-options';
 
 @Component({
   selector: 'app-data-analysis',
@@ -39,7 +39,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   constructor(
     private themeService: ThemeService,
-    private loadGraphService: LoadGraphService
+    private loadGraphService: LoadGraphService,
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -63,7 +63,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance = new Network(
       this.el.nativeElement,
       this.data,
-      options
+      getOptions(),
     );
 
     // Listen for the context menu event (right-click)
