@@ -12,21 +12,22 @@ import { FileService } from '../services/file/file.service';
   styleUrl: './add-graph.component.scss',
 })
 export class AddGraphComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   isHighlighted = false;
   selectedFile!: File;
   csvData: unknown[] = [];
   headers: string[] = [];
   isLoaded = false;
+  isUploading = false;
   wrongFormat = false;
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<unknown>();
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   csvType = 'node';
-  selectedId!: string;
-  selectedSource!: string;
-  selectedDestination!: string;
-  categoryName!: string;
+  selectedId = '';
+  selectedSource = '';
+  selectedDestination = '';
+  categoryName = '';
 
   constructor(
     private papaParseService: Papa,
@@ -83,14 +84,28 @@ export class AddGraphComponent {
   }
 
   uploadFile() {
+    this.isUploading = true;
     if (this.csvType === 'node') {
       this.fileService
-        .uploadNode(
-          this.selectedFile,
-          this.selectedId.toLowerCase(),
-          this.categoryName,
-        )
-        .subscribe(console.log);
+        .uploadNode(this.selectedFile, this.selectedId, this.categoryName)
+        .subscribe({
+          next: () => {
+            this.reset();
+            this._snackBar.openFromComponent(UserManageNotificationComponent, {
+              data: 'Node added successfully!',
+              panelClass: ['notification-class-success'],
+              duration: 2000,
+            });
+          },
+          error: (error) => {
+            this.isUploading = false;
+            this._snackBar.openFromComponent(UserManageNotificationComponent, {
+              data: error.error.message,
+              panelClass: ['notification-class-danger'],
+              duration: 2000,
+            });
+          },
+        });
     } else {
       this.fileService
         .uploadEdge(
@@ -100,5 +115,21 @@ export class AddGraphComponent {
         )
         .subscribe(console.log);
     }
+  }
+
+  private reset() {
+    this.isHighlighted = false;
+    this.csvData = [];
+    this.headers = [];
+    this.isLoaded = false;
+    this.isUploading = false;
+    this.wrongFormat = false;
+    this.displayedColumns = [];
+    this.dataSource.data = [];
+    this.csvType = 'node';
+    this.selectedId = '';
+    this.selectedSource = '';
+    this.selectedDestination = '';
+    this.categoryName = '';
   }
 }

@@ -48,7 +48,7 @@
       @if (csvType === "node") {
         <mat-form-field class="form-field">
           <mat-label>Category Name</mat-label>
-          <input matInput [ngModel]="categoryName" />
+          <input matInput [(ngModel)]="categoryName" />
         </mat-form-field>
         <mat-form-field class="select-field">
           <mat-label>Unique Id</mat-label>
@@ -76,7 +76,9 @@
           </mat-select>
         </mat-form-field>
       }
-      <button mat-flat-button (click)="uploadFile()">Submit</button>
+      <button mat-flat-button (click)="uploadFile()" [disabled]="isUploading">
+        Submit
+      </button>
     </app-card>
 
     <app-card class="data-table">

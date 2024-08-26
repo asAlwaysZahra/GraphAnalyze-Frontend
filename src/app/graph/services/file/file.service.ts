@@ -10,23 +10,28 @@ export class FileService {
 
   constructor(private httpClient: HttpClient) {}
 
-  uploadNode(file: File, header: string, categoryFile: string) {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.httpClient.post(this.apiUrl + '/upload-file-node', {
-      Header: header,
-      File: formData,
-      categoryFile: categoryFile,
+  uploadNode(file: File, header: string, category: string) {
+    const formData: FormData = new FormData();
+
+    formData.append('Header', header);
+    formData.append('File', file);
+    formData.append('Category', category);
+    formData.append('Name', 'name of file');
+
+    return this.httpClient.post(this.apiUrl + '/upload-file-node', formData, {
+      withCredentials: true,
     });
   }
 
   uploadEdge(file: File, from: string, to: string) {
     const formData = new FormData();
-    formData.append('file', file);
-    return this.httpClient.post(this.apiUrl + '/upload-file-edge', {
-      From: from,
-      To: to,
-      File: formData,
+
+    formData.append('File', file);
+    formData.append('From', from);
+    formData.append('To', to);
+
+    return this.httpClient.post(this.apiUrl + '/upload-file-edge', formData, {
+      withCredentials: true,
     });
   }
 }
