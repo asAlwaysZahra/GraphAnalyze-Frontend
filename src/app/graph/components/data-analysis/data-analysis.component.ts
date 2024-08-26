@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
-import { LoadGraphService } from '../../services/load-graph/load-graph.service';
-import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
+import { LoadGraphService } from '../../services/load-graph/load-graph.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-data-analysis',
@@ -11,9 +11,9 @@ import { ThemeService } from '../../../shared/services/theme.service';
   styleUrl: './data-analysis.component.scss',
 })
 export class DataAnalysisComponent implements AfterViewInit {
+  @ViewChild('network') el!: ElementRef;
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
   @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
-  @ViewChild('network') el!: ElementRef;
 
   private networkInstance!: Network;
 
@@ -47,7 +47,6 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.loadGraphService.getAllNodes(e.pageIndex);
   }
 
-
   ngAfterViewInit() {
     this.createGraph();
 
@@ -57,7 +56,6 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.pageIndex = data.pageIndex;
     });
     this.loadGraphService.getAllNodes();
-    
   }
 
   private createGraph() {
