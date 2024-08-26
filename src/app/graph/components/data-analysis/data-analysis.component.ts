@@ -126,5 +126,6 @@ export class DataAnalysisComponent implements AfterViewInit {
     const nodeId = (
       document.getElementById('right-click-get-edges') as HTMLElement
     ).dataset['nodeid'];
+    console.log(nodeId);
   }
 }
