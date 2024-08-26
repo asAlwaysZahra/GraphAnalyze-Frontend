@@ -13,7 +13,7 @@
     <div class="accounts">
       @for (account of accounts; track $index) {
       <div class="account-data">
-        {{ account.number }}
+        {{ account }}
         <div class="icons">
           <span
             class="material-symbols-outlined"
@@ -30,12 +30,13 @@
     </div>
     <mat-paginator
       class="paginator"
-      [length]="100"
+      [length]="length"
+      [pageIndex]="pageIndex"
       [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]"
       [hidePageSize]="true"
       [showFirstLastButtons]="true"
       aria-label="Select page"
+      (page)="handlePageEvent($event)"
     >
     </mat-paginator>
   </app-card>
