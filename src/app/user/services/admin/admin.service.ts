@@ -94,8 +94,6 @@ export class AdminService {
           });
         },
         error: (error) => {
-          console.log(error);
-
           this.notification.next({
             status: false,
             message: error.error.message,

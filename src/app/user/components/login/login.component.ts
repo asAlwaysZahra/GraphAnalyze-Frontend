@@ -70,7 +70,6 @@ export class LoginComponent implements AfterViewInit {
       },
       error: (error) => {
         this.isLoading = false;
-        console.error('Login failed', error);
         this._snackBar.openFromComponent(UserManageNotificationComponent, {
           data: error.error.message,
           panelClass: ['notification-class-danger'],
