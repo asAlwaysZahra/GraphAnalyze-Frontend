@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGraphService } from '../../services/add-graph/add-graph.service';
-import { FileService } from '../../services/file/file.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -35,7 +34,6 @@ export class AddGraphComponent {
     private changeDetector: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
     private addGraphService: AddGraphService
-    private fileService: FileService
   ) {}
 
   highlight() {

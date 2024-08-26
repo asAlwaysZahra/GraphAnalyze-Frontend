@@ -11,40 +11,11 @@ import { ThemeService } from '../../../shared/services/theme.service';
   styleUrl: './data-analysis.component.scss',
 })
 export class DataAnalysisComponent implements AfterViewInit {
-  @ViewChild('network') el!: ElementRef;
-  private networkInstance!: Network;
-  search = '';
-  accounts: string[] = [];
-
-  nodes = new DataSet<Node>([
-    { id: 0, label: '16546220216446' },
-    { id: 1, label: '16546220216446' },
-    { id: 2, label: '16546220216446' },
-    { id: 50, label: '16546220216446' },
-  ] as unknown as Node[]);
-  edges = new DataSet<Edge>([
-    { id: 1, from: 1, to: 0, label: '100,000 تومان' },
-    { id: 2, from: 1, to: 2, label: '150,000 تومان' },
-    { id: 3, from: 2, to: 0, label: '250,000 تومان' },
-    { id: 4, from: 50, to: 0, label: '3,000,000 تومان' },
-  ] as Edge[]);
-  data: Data = { nodes: this.nodes, edges: this.edges };
-
-  length!: number;
-  pageIndex = 0;
-
-  constructor(
-    private themeService: ThemeService,
-    private loadGraphService: LoadGraphService
-  ) {}
-
-  handlePageEvent(e: PageEvent) {
-    this.pageIndex = e.pageIndex;
-    this.length = e.length;
-    this.loadGraphService.getAllNodes(e.pageIndex);
-  }
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
   @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
+  @ViewChild('network') el!: ElementRef;
+
+  private networkInstance!: Network;
 
   nodes = new DataSet<Node>([
     { id: 0, label: '16546220216446' },
@@ -62,6 +33,8 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   length!: number;
   pageIndex = 0;
+  search = '';
+  accounts: string[] = [];
 
   constructor(
     private themeService: ThemeService,
