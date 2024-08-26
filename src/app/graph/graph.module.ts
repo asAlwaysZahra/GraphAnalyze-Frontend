@@ -14,6 +14,7 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [DataAnalysisComponent, AddGraphComponent],
@@ -32,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatSelectModule,
     MatButtonModule,
+    MatMenuModule,
   ],
 })
 export class GraphModule {}

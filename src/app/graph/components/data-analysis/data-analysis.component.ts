@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
-import { ThemeService } from '../../../shared/services/theme.service';
 import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-data-analysis',
@@ -42,6 +43,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.length = e.length;
     this.loadGraphService.getAllNodes(e.pageIndex);
   }
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
+  @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
 
   ngAfterViewInit() {
     this.createGraph();
@@ -113,12 +116,13 @@ export class DataAnalysisComponent implements AfterViewInit {
           color: textColor,
           strokeWidth: 0,
           face: 'MyCustomFont',
+          size: 6,
         },
       },
       nodes: {
         shape: 'image',
         image: svgDataUrl,
-        size: 10,
+        size: 8,
         color: {
           background: labelColor,
           border: labelBorder,
@@ -131,6 +135,7 @@ export class DataAnalysisComponent implements AfterViewInit {
           align: 'center',
           color: textColor,
           face: 'MyCustomFont',
+          size: 6,
         },
       },
     };
@@ -140,5 +145,37 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.data,
       options
     );
+
+    // Listen for the context menu event (right-click)
+    this.networkInstance.on('oncontext', (params) => {
+      params.event.preventDefault();
+
+      const nodeId = this.networkInstance.getNodeAt(params.pointer.DOM);
+      const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
+
+      if (nodeId !== undefined) {
+        console.log('Right-clicked node:', nodeId);
+
+        this.menuTrigger.nativeElement.style.left = params.event.clientX + 'px';
+        this.menuTrigger.nativeElement.style.top = params.event.clientY + 'px';
+        this.menuTrigger.nativeElement.style.position = 'fixed';
+        this.matMenuTrigger.openMenu();
+
+        // Custom logic for node right-click
+      } else if (edgeId !== undefined) {
+        console.log('Right-clicked edge:', edgeId);
+        // Custom logic for edge right-click
+      } else {
+        console.log('Right-clicked on empty space');
+        // Custom logic for right-click on empty space
+      }
+    });
+
+    this.networkInstance.on('click', function (params) {
+      if (params.edges.length == 1) {
+        const nodeId = params.edges[0];
+        console.log(nodeId);
+      }
+    });
   }
 }

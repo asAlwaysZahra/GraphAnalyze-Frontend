@@ -68,5 +68,6 @@ import { MatSnackBarLabel } from '@angular/material/snack-bar';
     MatDialogTitle,
     MatSnackBarLabel,
   ],
+  exports: [UserManageNotificationComponent],
 })
 export class UserModule {}
