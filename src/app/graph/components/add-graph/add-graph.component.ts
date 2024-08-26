@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FileService } from '../../services/file/file.service';
+import { AddGraphService } from '../../services/add-graph/add-graph.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -33,7 +33,7 @@ export class AddGraphComponent {
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private fileService: FileService
+    private addGraphService: AddGraphService
   ) {}
 
   highlight() {
@@ -86,7 +86,7 @@ export class AddGraphComponent {
   uploadFile() {
     this.isUploading = true;
     if (this.csvType === 'node') {
-      this.fileService
+      this.addGraphService
         .uploadNode(this.selectedFile, this.selectedId, this.categoryName)
         .subscribe({
           next: () => {
@@ -107,7 +107,7 @@ export class AddGraphComponent {
           },
         });
     } else {
-      this.fileService
+      this.addGraphService
         .uploadEdge(
           this.selectedFile,
           this.selectedSource,
