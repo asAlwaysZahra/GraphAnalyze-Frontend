@@ -47,6 +47,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.loadGraphService.getAllNodes(e.pageIndex);
   }
 
+
   ngAfterViewInit() {
     this.createGraph();
 
@@ -56,31 +57,7 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.pageIndex = data.pageIndex;
     });
     this.loadGraphService.getAllNodes();
-
-    this.networkInstance.on('oncontext', (params) => {
-      params.event.preventDefault();
-
-      const nodeId = this.networkInstance.getNodeAt(params.pointer.DOM);
-      const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
-
-      if (nodeId !== undefined) {
-        console.log('Right-clicked node:', nodeId);
-        // Custom logic for node right-click
-      } else if (edgeId !== undefined) {
-        console.log('Right-clicked edge:', edgeId);
-        // Custom logic for edge right-click
-      } else {
-        console.log('Right-clicked on empty space');
-        // Custom logic for right-click on empty space
-      }
-    });
-
-    this.networkInstance.on('click', function (params) {
-      if (params.edges.length == 1) {
-        const nodeId = params.edges[0];
-        console.log(nodeId);
-      }
-    });
+    
   }
 
   private createGraph() {
