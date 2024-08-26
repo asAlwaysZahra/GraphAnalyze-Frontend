@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node, Options } from 'vis';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { ThemeService } from '../../../shared/services/theme.service';
 import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-data-analysis',
@@ -153,5 +153,10 @@ export class DataAnalysisComponent implements AfterViewInit {
         console.log(nodeId);
       }
     });
+    this.networkInstance = new Network(
+      this.el.nativeElement,
+      this.data,
+      options
+    );
   }
 }
