@@ -4,7 +4,7 @@ import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
-import { options } from './graph-optoins';
+import { options } from './graph-options';
 
 @Component({
   selector: 'app-data-analysis',

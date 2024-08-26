@@ -9,6 +9,8 @@ const labelHighlight: string = dataSetValue == 'dark' ? '#d1defe' : '#d1defe';
 const textColor: string =
   dataSetValue == 'dark' ? 'rgba(255,255,255,0.9)' : '#222';
 
+console.log(dataSetValue);
+
 const svgDataUrl =
   'data:image/svg+xml;charset=UTF-8,' +
   encodeURIComponent(`
