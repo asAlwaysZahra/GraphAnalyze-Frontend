@@ -307,6 +307,8 @@ body,
 
   --logo-image-filter: invert(20%);
   --logo-filter: invert(10%);
+
+  --dialog-color-overlay: rgba(0, 0, 0, 0.37);
 }
 
 [data-theme="dark"] {
@@ -324,6 +326,12 @@ body,
 
   --logo-image-filter: invert(75%);
   --logo-filter: invert(85%);
+
+  --dialog-color-overlay: rgba(255, 255, 255, 0.05);
+}
+
+.cdk-overlay-dark-backdrop {
+  background: var(--dialog-color-overlay);
 }
 
 .mat-mdc-notch-piece {
