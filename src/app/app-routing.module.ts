@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { PermissionGuard } from './guards/permissions/permission.guard';
 import { AddGraphComponent } from './graph/components/add-graph/add-graph.component';
+import { AssignFileComponent } from './user/components/dashboard/assign-file/assign-file.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         path: 'add-graph',
         component: AddGraphComponent,
         title: 'StarData | Add Graph',
+      },
+      {
+        path: 'assign-file',
+        component: AssignFileComponent,
+        title: 'StarData | Assign File',
       },
     ],
   },
