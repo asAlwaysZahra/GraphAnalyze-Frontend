@@ -11,15 +11,16 @@ import { ThemeService } from '../../../shared/services/theme.service';
   styleUrl: './data-analysis.component.scss',
 })
 export class DataAnalysisComponent implements AfterViewInit {
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
+  @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
+  @ViewChild('network') el!: ElementRef;
+
   private networkInstance!: Network;
+
   search = '';
   accounts: string[] = [];
   length!: number;
   pageIndex = 0;
-
-  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
-  @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
-  @ViewChild('network') el!: ElementRef;
 
   nodes = new DataSet<Node>([
     { id: 0, label: '16546220216446' },
@@ -152,10 +153,5 @@ export class DataAnalysisComponent implements AfterViewInit {
         console.log(nodeId);
       }
     });
-    this.networkInstance = new Network(
-      this.el.nativeElement,
-      this.data,
-      options
-    );
   }
 }
