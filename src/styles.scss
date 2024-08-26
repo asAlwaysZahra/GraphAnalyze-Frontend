@@ -290,6 +290,9 @@ body,
     background: none !important;
   }
 }
+.mat-mdc-form-field {
+  padding-block-end: 1rem;
+}
 
 [data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);

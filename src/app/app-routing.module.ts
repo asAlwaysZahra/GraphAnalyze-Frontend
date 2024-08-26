@@ -4,12 +4,12 @@ import { LoginComponent } from './user/components/login/login.component';
 import { DashboardComponent } from './user/components/dashboard/dashboard.component';
 import { MainPageComponent } from './user/components/dashboard/main-page/main-page.component';
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
-import { DataAnalysisComponent } from './graph/data-analysis/data-analysis.component';
+import { DataAnalysisComponent } from './graph/components/data-analysis/data-analysis.component';
 import { ManageUsersComponent } from './user/components/dashboard/manage-users/manage-users.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { PermissionGuard } from './guards/permissions/permission.guard';
-import { AddGraphComponent } from './graph/add-graph/add-graph.component';
+import { AddGraphComponent } from './graph/components/add-graph/add-graph.component';
 
 const routes: Routes = [
   {

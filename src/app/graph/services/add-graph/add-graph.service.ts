@@ -5,7 +5,7 @@ import { environment } from '../../../../../api-config/api-url';
 @Injectable({
   providedIn: 'root',
 })
-export class FileService {
+export class AddGraphService {
   private readonly apiUrl = environment.apiUrl + '/api/File';
 
   constructor(private httpClient: HttpClient) {}
