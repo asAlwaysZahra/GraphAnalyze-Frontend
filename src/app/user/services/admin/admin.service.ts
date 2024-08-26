@@ -34,7 +34,7 @@ export class AdminService {
         error: (error) => {
           this.notification.next({
             status: false,
-            message: error,
+            message: error.error.message,
           });
         },
       });
@@ -69,7 +69,7 @@ export class AdminService {
         error: (error) => {
           this.notification.next({
             status: false,
-            message: error,
+            message: error.error.message,
           });
         },
       });
@@ -79,7 +79,7 @@ export class AdminService {
     id: string,
     request: UpdateUserRequest,
     pageSize: number,
-    pageIndex: number,
+    pageIndex: number
   ) {
     return this.http
       .put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
@@ -94,9 +94,11 @@ export class AdminService {
           });
         },
         error: (error) => {
+          console.log(error);
+
           this.notification.next({
             status: false,
-            message: error,
+            message: error.error.message,
           });
         },
       });
