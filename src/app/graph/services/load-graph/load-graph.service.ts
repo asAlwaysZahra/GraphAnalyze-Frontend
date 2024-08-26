@@ -30,4 +30,22 @@ export class LoadGraphService {
         this.nodesData.next(nodes);
       });
   }
+
+  getNodeInfo(id: string) {
+    return this.http.get<unknown>(
+      this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  getEdges(id: string) {
+    return this.http.get<unknown>(
+      this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }

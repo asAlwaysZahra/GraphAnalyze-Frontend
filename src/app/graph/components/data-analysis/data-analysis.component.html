@@ -16,13 +16,18 @@
       <div class="account-data">
         {{ account }}
         <div class="icons">
-          <span
+          <button
             class="material-symbols-outlined"
             matTooltip="Show node as graph"
+            (click)="showAsGraph(account)"
           >
             network_node
-          </span>
-          <mat-icon class="info-icon" matTooltip="Show node information">
+          </button>
+          <mat-icon
+            class="info-icon"
+            matTooltip="Show node information"
+            (click)="getInfo(account)"
+          >
             info
           </mat-icon>
         </div>
@@ -42,7 +47,11 @@
     </mat-paginator>
   </app-card>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Show node information</button>
-    <button mat-menu-item>Get all edges</button>
+    <button mat-menu-item id="right-click-node-info" (click)="getInfo()">
+      Show node information
+    </button>
+    <button mat-menu-item id="right-click-get-edges" (click)="getEdges()">
+      Get all edges
+    </button>
   </mat-menu>
 </div>
