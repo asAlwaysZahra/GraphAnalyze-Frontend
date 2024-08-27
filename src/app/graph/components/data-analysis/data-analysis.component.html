@@ -46,12 +46,8 @@
     >
     </mat-paginator>
   </app-card>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item id="right-click-node-info" (click)="getInfo()">
-      Show node information
-    </button>
-    <button mat-menu-item id="right-click-get-edges" (click)="getEdges()">
-      Get all edges
-    </button>
+  <mat-menu #menu="matMenu" id="right-click-node-info">
+    <button mat-menu-item (click)="getInfo()">Show node information</button>
+    <button mat-menu-item (click)="getGraph()">Get all edges</button>
   </mat-menu>
 </div>

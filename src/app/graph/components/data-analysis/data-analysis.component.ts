@@ -118,14 +118,18 @@ export class DataAnalysisComponent implements AfterViewInit {
   }
 
   showAsGraph(account: string) {
-    this.nodes.clear();
     this.nodes.add({ id: account, label: account });
   }
 
-  getEdges() {
+  getGraph() {
     const nodeId = (
-      document.getElementById('right-click-get-edges') as HTMLElement
+      document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
-    console.log(nodeId);
+    this.loadGraphService.getGraph('5').subscribe((data) => {
+      this.nodes.add(data.nodes as Node);
+      console.log(this.nodes);
+
+      this.edges.add(data.edges as Edge);
+    });
   }
 }
