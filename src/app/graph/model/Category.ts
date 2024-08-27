@@ -3,3 +3,9 @@ export interface CategoryData {
   name: string;
   count: number;
 }
+
+export interface GetCategoriesResponse {
+  paginateList: CategoryData[];
+  pageIndex: number;
+  totalCount: number;
+}

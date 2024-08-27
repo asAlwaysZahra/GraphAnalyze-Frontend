@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
-import { CategoryData } from '../../model/Category';
+import { CategoryData, GetCategoriesResponse } from '../../model/Category';
 import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
 import { CategoryService } from '../../services/category/category.service';
 import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
@@ -13,58 +13,7 @@ import { UserManageNotificationComponent } from '../../../user/components/dashbo
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
-  categoriesData: CategoryData[] = [
-    {
-      id: 1,
-      name: 'Category 1',
-      count: 1,
-    },
-    {
-      id: 2,
-      name: 'Category 2',
-      count: 2,
-    },
-    {
-      id: 3,
-      name: 'Category 3',
-      count: 1,
-    },
-    {
-      id: 4,
-      name: 'Category 4',
-      count: 1,
-    },
-    {
-      id: 5,
-      name: 'Category 5',
-      count: 1,
-    },
-    {
-      id: 6,
-      name: 'Category 6',
-      count: 1,
-    },
-    {
-      id: 7,
-      name: 'Category 7',
-      count: 1,
-    },
-    {
-      id: 8,
-      name: 'Category 8',
-      count: 1,
-    },
-    {
-      id: 9,
-      name: 'Category 9',
-      count: 1,
-    },
-    {
-      id: 10,
-      name: 'Category 10',
-      count: 14,
-    },
-  ];
+  categoriesData: CategoryData[] = [];
   displayedColumns: string[] = ['id', 'name', 'count', 'edit/delete'];
 
   length!: number;
@@ -86,6 +35,14 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.categoryService.categoriesData$.subscribe(
+      (response: GetCategoriesResponse) => {
+        this.categoriesData = response.paginateList;
+        this.length = response.totalCount;
+        this.pageIndex = response.pageIndex;
+      },
+    );
+
     this.categoryService.notification$.subscribe(
       (data: { status: boolean; message: string }) => {
         this._snackBar.openFromComponent(CatDeleteConfirmComponent, {
@@ -100,45 +57,13 @@ export class CategoryComponent implements OnInit {
           this.dialog.closeAll();
         }
       },
-    ); // this.adminService.categorysData$.subscribe((res: GetCategoryResponse) => {
-    //   this.categorysData = res.categorys;
-    //   this.length = res.count;
-    //   this.pageIndex = res.thisPage;
-    // });
-    //
-    // this.adminService.notification$.subscribe((data) => {
-    //   this._snackBar.openFromComponent(CategoryManageNotificationComponent, {
-    //     data: data.message,
-    //     panelClass: data.status
-    //       ? ['notification-class-success']
-    //       : ['notification-class-danger'],
-    //     duration: 2000,
-    //   });
-    //
-    //   if (data.status) {
-    //     this.dialog.closeAll();
-    //   }
-    // });
-    //
-    // this.adminService.getCategorys(this.pageSize, this.pageIndex);
-  }
+    );
 
-  handlePageEvent(e: PageEvent) {
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
-    this.length = e.length;
-    // this.adminService.getCategorys(e.pageSize, e.pageIndex);
+    this.categoryService.getCategories(this.pageSize, this.pageIndex);
   }
 
   addCategory() {
     this.isAdding = true;
-    // this.dialog.open(AddCategoryComponent, {
-    //   width: '105rem',
-    //   data: {
-    //     pagSize: this.pageSize,
-    //     pageIndex: this.pageIndex,
-    //   },
-    // });
   }
 
   editCategory(categoryData: CategoryData) {
@@ -184,5 +109,12 @@ export class CategoryComponent implements OnInit {
 
   saveEditCategory(categoryData: CategoryData) {
     console.log(categoryData);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.length = e.length;
+    this.categoryService.getCategories(e.pageSize, e.pageIndex);
   }
 }

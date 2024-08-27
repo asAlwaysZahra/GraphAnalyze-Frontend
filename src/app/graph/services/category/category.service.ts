@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../api-config/api-url';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { GetCategoriesResponse } from '../../model/Category';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
   private readonly apiUrl = environment.apiUrl + '/api/Categories';
+
   private notification = new Subject<{ status: boolean; message: string }>();
-  notification$: Observable<{ status: boolean; message: string }> =
-    this.notification.asObservable();
+  notification$ = this.notification.asObservable();
+
+  private categoriesData = new Subject<GetCategoriesResponse>();
+  categoriesData$ = this.categoriesData.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
-  getCategories() {
-    return this.httpClient.get(this.apiUrl, {
-      withCredentials: true,
-    });
+  getCategories(pageSize = 10, pageNumber = 0) {
+    return this.httpClient
+      .get<GetCategoriesResponse>(
+        this.apiUrl + `?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+        {
+          withCredentials: true,
+        },
+      )
+      .subscribe((cats) => {
+        this.categoriesData.next(cats);
+      });
   }
 
   createCategory(category: { name: string }) {
