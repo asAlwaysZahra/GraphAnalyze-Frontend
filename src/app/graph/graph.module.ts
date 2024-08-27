@@ -24,6 +24,7 @@ import {
 } from '@angular/material/dialog';
 import { CategoryComponent } from './components/category/category.component';
 import { MatRippleModule } from '@angular/material/core';
+import { CatDeleteConfirmComponent } from './components/category/cat-delete-confirm/cat-delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatRippleModule } from '@angular/material/core';
     AddGraphComponent,
     InfoDialogComponent,
     CategoryComponent,
+    CatDeleteConfirmComponent,
   ],
   imports: [
     CommonModule,

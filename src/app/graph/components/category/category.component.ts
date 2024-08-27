@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
 import { CategoryData } from '../../model/Category';
+import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
 
 @Component({
   selector: 'app-category',
@@ -63,16 +64,18 @@ export class CategoryComponent implements OnInit {
     },
   ];
   displayedColumns: string[] = ['id', 'name', 'count', 'edit/delete'];
+
   length!: number;
   pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
-
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
+
   nameValue = '';
   isAdding = false;
+  editingId = -1;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -123,18 +126,32 @@ export class CategoryComponent implements OnInit {
   }
 
   editCategory(categoryData: CategoryData) {
-    console.log(categoryData);
+    this.editingId = categoryData.id;
   }
 
   deleteCategory(categoryData: CategoryData) {
-    console.log(categoryData);
+    this.dialog.open(CatDeleteConfirmComponent, {
+      width: '22rem',
+      data: {
+        category: categoryData,
+        pagSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      },
+    });
   }
 
-  saveCategory() {
-    console.log('1');
+  saveNewCategory() {
+    console.log(1);
   }
 
-  cancelCategory() {
+  cancelNewCategory() {
     this.isAdding = false;
+  }
+
+  cancelEditCategory() {
+    this.editingId = -1;
+  }
+  saveEditCategory(categoryData: CategoryData) {
+    console.log(1);
   }
 }
