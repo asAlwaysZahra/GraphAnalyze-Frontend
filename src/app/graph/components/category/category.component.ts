@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
 import { CategoryData } from '../../model/Category';
 import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
+import { CategoryService } from '../../services/category/category.service';
+import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 
 @Component({
   selector: 'app-category',
@@ -79,7 +81,8 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private categoryService: CategoryService,
   ) {}
 
   ngOnInit(): void {
@@ -141,17 +144,36 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
-    console.log(1);
+    this.categoryService.createCategory({ name: this.nameValue }).subscribe({
+      next: () => {
+        this.isAdding = false;
+        this.nameValue = '';
+        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+          data: 'Category created successfully.',
+          panelClass: ['notification-class-success'],
+          duration: 2000,
+        });
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+      },
+    });
   }
 
   cancelNewCategory() {
     this.isAdding = false;
+    this.nameValue = '';
   }
 
   cancelEditCategory() {
     this.editingId = -1;
   }
+
   saveEditCategory(categoryData: CategoryData) {
-    console.log(1);
+    console.log(categoryData);
   }
 }
