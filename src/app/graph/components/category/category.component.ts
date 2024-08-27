@@ -14,45 +14,55 @@ export class CategoryComponent implements OnInit {
     {
       id: 1,
       name: 'Category 1',
+      count: 1,
     },
     {
       id: 2,
       name: 'Category 2',
+      count: 2,
     },
     {
       id: 3,
       name: 'Category 3',
+      count: 1,
     },
     {
       id: 4,
       name: 'Category 4',
+      count: 1,
     },
     {
       id: 5,
       name: 'Category 5',
+      count: 1,
     },
     {
       id: 6,
       name: 'Category 6',
+      count: 1,
     },
     {
       id: 7,
       name: 'Category 7',
+      count: 1,
     },
     {
       id: 8,
       name: 'Category 8',
+      count: 1,
     },
     {
       id: 9,
       name: 'Category 9',
+      count: 1,
     },
     {
       id: 10,
       name: 'Category 10',
+      count: 14,
     },
   ];
-  displayedColumns: string[] = ['name', 'edit/delete'];
+  displayedColumns: string[] = ['id', 'name', 'count', 'edit/delete'];
   length!: number;
   pageSize = 10;
   pageIndex = 0;
@@ -61,13 +71,12 @@ export class CategoryComponent implements OnInit {
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
-  disabled = false;
   nameValue = '';
   isAdding = false;
 
   constructor(
     private readonly dialog: MatDialog,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -113,27 +122,11 @@ export class CategoryComponent implements OnInit {
     // });
   }
 
-  editCategory(categoryData: string) {
-    // this.dialog.open(EditCategoryComponent, {
-    //   width: '105rem',
-    //   data: {
-    //     category: categoryData,
-    //     pagSize: this.pageSize,
-    //     pageIndex: this.pageIndex,
-    //   },
-    // });
+  editCategory(categoryData: CategoryData) {
     console.log(categoryData);
   }
 
-  deleteCategory(categoryData: string) {
-    // this.dialog.open(CategoryDeleteConfirmationComponent, {
-    //   width: '22rem',
-    //   data: {
-    //     category: categoryData,
-    //     pagSize: this.pageSize,
-    //     pageIndex: this.pageIndex,
-    //   },
-    // });
+  deleteCategory(categoryData: CategoryData) {
     console.log(categoryData);
   }
 
