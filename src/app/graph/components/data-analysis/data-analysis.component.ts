@@ -39,23 +39,12 @@ import {
   ],
 })
 export class DataAnalysisComponent implements AfterViewInit {
-  public state: string = 'startRound';
-
-  changeState() {
-    this.state = this.state == 'startRound' ? 'endRound' : 'startRound';
-  }
-
-  onClick() {
-    this.changeState();
-  }
-
-  ////////////
-
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
   @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
   @ViewChild('network') el!: ElementRef;
 
   private networkInstance!: Network;
+  public state: string = 'startRound';
 
   search = '';
   accounts: string[] = [];
@@ -162,5 +151,17 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.nodes.add(data.nodes as Node);
       this.edges.add(data.edges as Edge);
     });
+  }
+
+  changeState() {
+    this.state = this.state == 'startRound' ? 'endRound' : 'startRound';
+  }
+
+  closeSearchBar() {
+    this.changeState();
+  }
+
+  clearGraph() {
+    this.nodes.clear();
   }
 }
