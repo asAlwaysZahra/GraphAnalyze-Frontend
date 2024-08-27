@@ -1,11 +1,19 @@
 <div class="container">
   <app-card class="card" [@main-expand]="state">
     <div class="toolbar mat-elevation-z2" cdkDrag>
-      <button (click)="clearGraph()" class="toolbar-icons">
-        <mat-icon>cleaning_services</mat-icon>
+      <button
+        (click)="clearGraph()"
+        class="toolbar-icons"
+        matTooltip="Clear Graph"
+      >
+        <span class="material-symbols-outlined"> ink_eraser </span>
       </button>
 
-      <button (click)="closeSearchBar()" class="toolbar-icons">
+      <button
+        (click)="closeSearchBar()"
+        class="toolbar-icons"
+        matTooltip="Search"
+      >
         <mat-icon>search</mat-icon>
       </button>
 
