@@ -1,7 +1,6 @@
-import { Component, computed, Inject, model, signal } from '@angular/core';
+import { Component, computed, Inject, model } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 interface User {
