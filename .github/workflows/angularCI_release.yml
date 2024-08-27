@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:  
+      frontimage_version: ${{ steps.tag_version.outputs.new_tag }}  
     steps:
       - uses: actions/checkout@v3
       
@@ -42,6 +44,34 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:${{ steps.tag_version.outputs.new_tag }}
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontangular:latest
+
+  update-helm:
+    runs-on: ubuntu-latest
+    needs: [version]
+    steps:
+    - name: Clone Deployment Repository
+      uses: GuillaumeFalourd/clone-github-repo-action@v2.3
+      with:
+        depth: 1
+        branch: 'main'
+        owner: 'Star-Academy'
+        repository: 'Summer1403-Project-Group03-Deployment'
+
+    - name: Access cloned repository content
+      run: |
+        cd Summer1403-Project-Group03-Deployment
+        cd data_analysis
+        sed -i 's|repository: yaghooli/frontangular:.*|repository: yaghooli/frontangular:${{ needs.version.outputs.frontimage_version }}|' values.yaml
+        cat values.yaml
+        git config --global user.email "yaghini.a110@gmail.com"
+        git config --global user.name "ali"
+        git add values.yaml
+        git commit -m "Update values.yaml"
+    - name: Push to Deployment Repository
+      run: |
+        cd Summer1403-Project-Group03-Deployment
+        git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/Star-Academy/Summer1403-Project-Group03-Deployment.git
+        git push    
         
   build:
     runs-on: ubuntu-latest
