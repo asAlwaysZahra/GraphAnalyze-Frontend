@@ -11,7 +11,7 @@ import { AddGraphComponent } from './components/add-graph/add-graph.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,9 +22,18 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { CategoryComponent } from './components/category/category.component';
+import { MatRippleModule } from '@angular/material/core';
+import { CatDeleteConfirmComponent } from './components/category/cat-delete-confirm/cat-delete-confirm.component';
 
 @NgModule({
-  declarations: [DataAnalysisComponent, AddGraphComponent, InfoDialogComponent],
+  declarations: [
+    DataAnalysisComponent,
+    AddGraphComponent,
+    InfoDialogComponent,
+    CategoryComponent,
+    CatDeleteConfirmComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -45,6 +54,8 @@ import {
     MatDialogTitle,
     MatDialogActions,
     MatDialogClose,
+    ReactiveFormsModule,
+    MatRippleModule,
   ],
 })
 export class GraphModule {}

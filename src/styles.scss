@@ -294,6 +294,12 @@ body,
   padding-block-end: 1rem;
 }
 
+.mat-mdc-paginator-page-size {
+  .mat-mdc-form-field {
+    padding: 0;
+  }
+}
+
 [data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);
 

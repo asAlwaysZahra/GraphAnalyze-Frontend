@@ -32,6 +32,15 @@
         <a
           class="nav-link"
           matRipple
+          [routerLink]="['manage-category']"
+          routerLinkActive="active"
+        >
+          <mat-icon>category</mat-icon>
+          Manage Categories
+        </a>
+        <a
+          class="nav-link"
+          matRipple
           [routerLink]="['assign-file']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGraphService } from '../../services/add-graph/add-graph.service';
+import { CategoryData } from '../../model/Category';
 
 @Component({
   selector: 'app-add-graph',
@@ -18,6 +19,7 @@ export class AddGraphComponent {
   selectedFile!: File;
   csvData: unknown[] = [];
   headers: string[] = [];
+  categories: CategoryData[] = [];
   isLoaded = false;
   isUploading = false;
   wrongFormat = false;
@@ -28,6 +30,7 @@ export class AddGraphComponent {
   selectedSource = '';
   selectedDestination = '';
   categoryName = '';
+  name = '';
 
   constructor(
     private papaParseService: Papa,
@@ -35,6 +38,12 @@ export class AddGraphComponent {
     private _snackBar: MatSnackBar,
     private addGraphService: AddGraphService
   ) {}
+
+  loadCategory() {
+    this.addGraphService.getCategories().subscribe((data) => {
+      this.categories = data.paginateList;
+    });
+  }
 
   highlight() {
     this.isHighlighted = true;
@@ -80,6 +89,9 @@ export class AddGraphComponent {
       this.changeDetector.detectChanges();
       this.dataSource.data = this.csvData;
       this.dataSource.paginator = this.paginator;
+      if (!this.categories.length) {
+        this.loadCategory();
+      }
     };
   }
 

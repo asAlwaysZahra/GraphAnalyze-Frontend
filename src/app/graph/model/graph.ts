@@ -4,3 +4,19 @@ export interface AllNodes {
   totalCount: number;
   typeCategory: string;
 }
+
+export interface Graph {
+  nodes: [
+    {
+      id: string;
+      lable: string;
+    }[]
+  ];
+  edges: [
+    {
+      from: string;
+      to: string;
+      id: string;
+    }[]
+  ];
+}

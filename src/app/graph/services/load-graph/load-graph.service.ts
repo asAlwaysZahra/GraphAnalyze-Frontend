@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../api-config/api-url';
-import { AllNodes } from '../../model/graph';
+import { AllNodes, Graph } from '../../model/graph';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class LoadGraphService {
 
   constructor(private http: HttpClient) {}
 
-  getAllNodes(pageIndex = 0, category = 'all') {
+  getAllNodes(pageIndex = 0, category = '') {
     const pageSize = 10;
 
     this.http
@@ -40,9 +40,9 @@ export class LoadGraphService {
     );
   }
 
-  getEdges(id: string) {
-    return this.http.get<unknown>(
-      this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
+  getGraph(id: string) {
+    return this.http.get<Graph>(
+      this.apiUrl + '/GetRelationalEdgeByNodeName?nodeId=' + id,
       {
         withCredentials: true,
       }
