@@ -78,8 +78,9 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
-    this.categoryService.createCategory({ name: this.nameValue }).subscribe({
+    this.categoryService.createCategory(this.nameValue).subscribe({
       next: () => {
+        this.categoryService.getCategories(this.pageSize, this.pageIndex);
         this.isAdding = false;
         this.nameValue = '';
         this._snackBar.openFromComponent(UserManageNotificationComponent, {

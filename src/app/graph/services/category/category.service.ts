@@ -31,10 +31,14 @@ export class CategoryService {
       });
   }
 
-  createCategory(category: { name: string }) {
-    return this.httpClient.post(this.apiUrl, category, {
-      withCredentials: true,
-    });
+  createCategory(name: string) {
+    return this.httpClient.post(
+      this.apiUrl,
+      { name: name },
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   updateCategory(category: { id: number; name: string }) {
