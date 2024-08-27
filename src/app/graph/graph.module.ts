@@ -22,9 +22,10 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
-  declarations: [DataAnalysisComponent, AddGraphComponent, InfoDialogComponent],
+  declarations: [DataAnalysisComponent, AddGraphComponent, InfoDialogComponent, CategoryComponent],
   imports: [
     CommonModule,
     SharedModule,
