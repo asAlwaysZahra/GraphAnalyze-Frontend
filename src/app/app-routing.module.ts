@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth/auth.guard';
 import { PermissionGuard } from './guards/permissions/permission.guard';
 import { AddGraphComponent } from './graph/components/add-graph/add-graph.component';
 import { AssignFileComponent } from './user/components/dashboard/assign-file/assign-file.component';
+import { CategoryComponent } from './graph/components/category/category.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,11 @@ const routes: Routes = [
         path: 'assign-file',
         component: AssignFileComponent,
         title: 'StarData | Assign File',
+      },
+      {
+        path: 'manage-category',
+        component: CategoryComponent,
+        title: 'StarData | Manage Category',
       },
     ],
   },
