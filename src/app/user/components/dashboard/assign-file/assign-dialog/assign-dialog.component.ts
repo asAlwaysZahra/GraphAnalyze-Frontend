@@ -1,17 +1,13 @@
-import {
-  Component,
-  computed,
-  Inject,
-  inject,
-  model,
-  signal,
-} from '@angular/core';
+import { Component, computed, Inject, model, signal } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
+
+interface User {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-assign-dialog',
@@ -19,68 +15,45 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrl: './assign-dialog.component.scss',
 })
 export class AssignDialogComponent {
-  constructor(
-    // private adminService: AdminService,
-    @Inject(MAT_DIALOG_DATA)
-    protected id: number,
-  ) {}
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly currentUser = model('');
+  readonly users: User[] = [];
+  readonly allUsers = [
+    { id: 1, name: 'mamad' },
+    { id: 2, name: 'hasan' },
+  ];
 
-  myForm: FormGroup = new FormGroup({});
+  readonly filteredUsers = computed(() => {
+    const currentUser = this.currentUser().toLowerCase();
+    return currentUser
+      ? this.allUsers.filter((user) =>
+          user.name.toLowerCase().includes(currentUser)
+        )
+      : this.allUsers.slice();
+  });
+
+  constructor(@Inject(MAT_DIALOG_DATA) protected id: number) {}
 
   onSubmit() {
     return '';
   }
 
-  //
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  readonly currentFruit = model('');
-  readonly fruits = signal(['Lemon']);
-  readonly allFruits: string[] = [
-    'Apple',
-    'Lemon',
-    'Lime',
-    'Orange',
-    'Strawberry',
-  ];
-  readonly filteredFruits = computed(() => {
-    const currentFruit = this.currentFruit().toLowerCase();
-    return currentFruit
-      ? this.allFruits.filter((fruit) =>
-          fruit.toLowerCase().includes(currentFruit),
-        )
-      : this.allFruits.slice();
-  });
-
-  readonly announcer = inject(LiveAnnouncer);
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.update((fruits) => [...fruits, value]);
+  selected(event: MatAutocompleteSelectedEvent): void {
+    if (!this.users.includes(event.option.value)) {
+      this.users.push(event.option.value);
     }
 
-    // Clear the input value
-    this.currentFruit.set('');
-  }
-
-  remove(fruit: string): void {
-    this.fruits.update((fruits) => {
-      const index = fruits.indexOf(fruit);
-      if (index < 0) {
-        return fruits;
-      }
-
-      fruits.splice(index, 1);
-      this.announcer.announce(`Removed ${fruit}`);
-      return [...fruits];
-    });
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.update((fruits) => [...fruits, event.option.viewValue]);
-    this.currentFruit.set('');
+    this.currentUser.set('');
     event.option.deselect();
+  }
+
+  remove(user: User) {
+    const index = this.users.indexOf(user);
+    if (index < 0) {
+      return this.users;
+    }
+
+    this.users.splice(index, 1);
+    return [...this.users];
   }
 }

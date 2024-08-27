@@ -1,44 +1,38 @@
 <h3 class="title">Assign User</h3>
 <hr />
 <div class="card">
-  <form
-    [formGroup]="myForm"
-    action=""
-    method="post"
-    class="add-user-form"
-    (submit)="onSubmit()"
-  >
+  <form class="add-user-form" (submit)="onSubmit()">
     <mat-form-field class="example-chip-list">
-      <mat-label>Favorite Fruits</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Fruit selection">
-        @for (fruit of fruits(); track $index) {
-          <mat-chip-row (removed)="remove(fruit)">
-            {{ fruit }}
-            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
-        }
-      </mat-chip-grid>
+      <mat-label>Username</mat-label>
+      <mat-chip-grid #chipGrid aria-label="user selection"> </mat-chip-grid>
       <input
-        name="currentFruit"
-        placeholder="New Fruit..."
-        #fruitInput
-        [(ngModel)]="currentFruit"
+        name="currentUser"
+        placeholder="New User..."
+        #userInput
+        [(ngModel)]="currentUser"
         [matChipInputFor]="chipGrid"
         [matAutocomplete]="auto"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)"
       />
       <mat-autocomplete
         #auto="matAutocomplete"
         (optionSelected)="selected($event)"
       >
-        @for (fruit of filteredFruits(); track fruit) {
-          <mat-option [value]="fruit">{{ fruit }}</mat-option>
+        @for (user of filteredUsers(); track user) {
+        <mat-option [value]="user">{{ user.name }}</mat-option>
         }
       </mat-autocomplete>
     </mat-form-field>
+    <mat-chip-grid aria-label="User selection">
+      @for (user of users; track $index) {
+      <mat-chip-row (removed)="remove(user)">
+        {{ user.name }}
+        <button matChipRemove [attr.aria-label]="'remove ' + user">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      }
+    </mat-chip-grid>
     <div class="submit-button-container">
       <button type="submit" mat-flat-button class="mat-elevation-z5">
         Add user
