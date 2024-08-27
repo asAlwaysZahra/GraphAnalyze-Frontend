@@ -86,8 +86,21 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('init');
-    // this.adminService.categorysData$.subscribe((res: GetCategoryResponse) => {
+    this.categoryService.notification$.subscribe(
+      (data: { status: boolean; message: string }) => {
+        this._snackBar.openFromComponent(CatDeleteConfirmComponent, {
+          data: data.message,
+          panelClass: data.status
+            ? ['notification-class-success']
+            : ['notification-class-danger'],
+          duration: 2000,
+        });
+
+        if (data.status) {
+          this.dialog.closeAll();
+        }
+      },
+    ); // this.adminService.categorysData$.subscribe((res: GetCategoryResponse) => {
     //   this.categorysData = res.categorys;
     //   this.length = res.count;
     //   this.pageIndex = res.thisPage;
@@ -135,11 +148,7 @@ export class CategoryComponent implements OnInit {
   deleteCategory(categoryData: CategoryData) {
     this.dialog.open(CatDeleteConfirmComponent, {
       width: '22rem',
-      data: {
-        category: categoryData,
-        pagSize: this.pageSize,
-        pageIndex: this.pageIndex,
-      },
+      data: categoryData,
     });
   }
 

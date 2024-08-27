@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CategoryService } from '../../../services/category/category.service';
 import { CategoryData } from '../../../model/Category';
 
 @Component({
@@ -7,7 +8,7 @@ import { CategoryData } from '../../../model/Category';
   template: `
     <h2 mat-dialog-title>Delete User</h2>
     <mat-dialog-content>
-      Would you like to delete <b>{{ this.pageData.category.name }}</b
+      Would you like to delete <b>{{ this.data.name }}</b
       >?
     </mat-dialog-content>
     <mat-dialog-actions>
@@ -26,19 +27,12 @@ import { CategoryData } from '../../../model/Category';
 export class CatDeleteConfirmComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    protected pageData: {
-      category: CategoryData;
-      pagSize: number;
-      pageIndex: number;
-    }
+    protected data: CategoryData,
+    private categoryService: CategoryService,
   ) {}
 
   deleteUser() {
-    // this.adminService.deleteUser(
-    //   this.pageData.user.guid,
-    //   this.pageData.pagSize,
-    //   this.pageData.pageIndex
-    // );
-    console.log(1);
+    console.log(1122, this.data);
+    this.categoryService.deleteCategory(this.data.id);
   }
 }
