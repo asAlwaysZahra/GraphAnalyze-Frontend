@@ -73,7 +73,11 @@ export class CategoryComponent implements OnInit {
   deleteCategory(categoryData: CategoryData) {
     this.dialog.open(CatDeleteConfirmComponent, {
       width: '22rem',
-      data: categoryData,
+      data: {
+        category: categoryData,
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      },
     });
   }
 

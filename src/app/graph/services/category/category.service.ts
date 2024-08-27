@@ -48,23 +48,9 @@ export class CategoryService {
   }
 
   deleteCategory(id: number) {
-    return this.httpClient
-      .delete(this.apiUrl + `/${id}`, {
-        withCredentials: true,
-      })
-      .subscribe({
-        next: () => {
-          this.notification.next({
-            status: true,
-            message: 'User deleted successfully!',
-          });
-        },
-        error: (error) => {
-          this.notification.next({
-            status: false,
-            message: error.error.message,
-          });
-        },
-      });
+    console.log('deleteCategory', id);
+    return this.httpClient.delete(this.apiUrl + `/${id}`, {
+      withCredentials: true,
+    });
   }
 }
