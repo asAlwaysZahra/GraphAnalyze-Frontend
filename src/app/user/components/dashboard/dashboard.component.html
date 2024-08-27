@@ -32,6 +32,16 @@
         <a
           class="nav-link"
           matRipple
+          [routerLink]="['assign-file']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <mat-icon>contact_page</mat-icon>
+          Assign Files
+        </a>
+        <a
+          class="nav-link"
+          matRipple
           [routerLink]="['data-analysis']"
           routerLinkActive="active"
         >

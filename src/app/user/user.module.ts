@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +31,10 @@ import {
 import { EditUserComponent } from './components/dashboard/manage-users/edit-user/edit-user.component';
 import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBarLabel } from '@angular/material/snack-bar';
+import { AssignFileComponent } from './components/dashboard/assign-file/assign-file.component';
+import { AssignDialogComponent } from './components/dashboard/assign-file/assign-dialog/assign-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,8 @@ import { MatSnackBarLabel } from '@angular/material/snack-bar';
     UserDeleteConfirmationComponent,
     EditUserComponent,
     UserManageNotificationComponent,
+    AssignFileComponent,
+    AssignDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +73,9 @@ import { MatSnackBarLabel } from '@angular/material/snack-bar';
     MatDialogClose,
     MatDialogTitle,
     MatSnackBarLabel,
+    MatAutocompleteModule,
+    AsyncPipe,
+    MatChipsModule,
   ],
   exports: [UserManageNotificationComponent],
 })
