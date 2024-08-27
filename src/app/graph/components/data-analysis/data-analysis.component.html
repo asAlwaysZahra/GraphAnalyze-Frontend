@@ -1,9 +1,10 @@
 <div class="container">
-  <app-card class="card">
+  <app-card class="card" [@main-expand]="state">
     <div #network id="network"></div>
     <div #menuTrigger [matMenuTriggerFor]="menu"></div>
+    <button (click)="onClick()">asd</button>
   </app-card>
-  <app-card class="side-bard">
+  <app-card class="side-bard" [@sidebar-fly]="state">
     <form class="form">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search</mat-label>

@@ -13,13 +13,44 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { getOptions } from './graph-options';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
   styleUrl: './data-analysis.component.scss',
+  animations: [
+    trigger('sidebar-fly', [
+      state('startRound', style({ transform: 'translateX(0)' })),
+      state('endRound', style({ transform: 'translateX(120%)' })),
+      transition('* <=> *', [animate('500ms ease-in-out')]),
+    ]),
+    trigger('main-expand', [
+      state('startRound', style({ width: 'calc(100% - 26rem)' })),
+      state('endRound', style({ width: '100%' })),
+      transition('* <=> *', [animate('500ms ease-in-out')]),
+    ]),
+  ],
 })
 export class DataAnalysisComponent implements AfterViewInit {
+  public state: string = 'startRound';
+
+  changeState() {
+    this.state = this.state == 'startRound' ? 'endRound' : 'startRound';
+  }
+
+  onClick() {
+    this.changeState();
+  }
+
+  ////////////
+
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
   @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
   @ViewChild('network') el!: ElementRef;
