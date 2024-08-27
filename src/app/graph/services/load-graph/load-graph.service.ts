@@ -16,7 +16,7 @@ export class LoadGraphService {
 
   constructor(private http: HttpClient) {}
 
-  getAllNodes(pageIndex = 0, category = 'all') {
+  getAllNodes(pageIndex = 0, category = '') {
     const pageSize = 10;
 
     this.http

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../api-config/api-url';
+import { GetCategoriesResponse } from '../../model/Category';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AddGraphService {
 
     formData.append('Header', header);
     formData.append('File', file);
-    formData.append('Category', category);
+    formData.append('CategoryId', category);
     formData.append('Name', 'name of file');
 
     return this.httpClient.post(this.apiUrl + '/upload-file-node', formData, {
@@ -33,5 +34,17 @@ export class AddGraphService {
     return this.httpClient.post(this.apiUrl + '/upload-file-edge', formData, {
       withCredentials: true,
     });
+  }
+
+  getCategories() {
+    const pageSize = 999;
+    const pageNumber = 0;
+    return this.httpClient.get<GetCategoriesResponse>(
+      environment.apiUrl +
+        `/api/Categories?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
