@@ -1,6 +1,6 @@
 <app-dashboard-header [title]="'Manage Categories'"></app-dashboard-header>
 <app-card>
-  <div class="add-new-cat">
+  <div class="cat-forms">
     @if (isAdding) {
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>Name</mat-label>
@@ -29,16 +29,19 @@
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">
         @if (editingId === element.id) {
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Name</mat-label>
-          <input matInput name="Name" id="Name" [value]="element.name" />
-        </mat-form-field>
-        <button (click)="saveEditCategory(element)">
-          <mat-icon mat-ripple class="save-cat">check</mat-icon>
-        </button>
-        <button (click)="cancelEditCategory()">
-          <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
-        </button>
+        <div class="cat-forms">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput name="Name" id="Name" [value]="element.name" />
+          </mat-form-field>
+          <button (click)="saveEditCategory(element)">
+            <mat-icon mat-ripple class="save-cat">check</mat-icon>
+          </button>
+          <button (click)="cancelEditCategory()">
+            <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
+          </button>
+        </div>
+
         }@else{
         {{ element.name }}
         }
