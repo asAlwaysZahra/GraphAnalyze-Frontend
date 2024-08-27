@@ -315,6 +315,8 @@ body,
   --logo-filter: invert(10%);
 
   --dialog-color-overlay: rgba(0, 0, 0, 0.37);
+
+  --toolbar-bg-color: #e6ebff;
 }
 
 [data-theme="dark"] {
@@ -334,6 +336,8 @@ body,
   --logo-filter: invert(85%);
 
   --dialog-color-overlay: rgba(255, 255, 255, 0.05);
+
+  --toolbar-bg-color: #1f1f23;
 }
 
 .cdk-overlay-dark-backdrop {
