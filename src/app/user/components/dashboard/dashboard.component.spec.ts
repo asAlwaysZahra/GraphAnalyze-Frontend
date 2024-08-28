@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardMainComponent', () => {
   let component: DashboardComponent;
@@ -19,6 +20,7 @@ describe('DashboardMainComponent', () => {
         NoopAnimationsModule,
         MatListModule,
         RouterModule.forRoot([]),
+        HttpClientModule,
       ],
     }).compileComponents();
 
