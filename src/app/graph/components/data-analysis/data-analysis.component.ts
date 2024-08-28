@@ -44,7 +44,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
 
   private networkInstance!: Network;
-  public state: string = 'startRound';
+  public state = 'startRound';
 
   search = '';
   accounts: string[] = [];
