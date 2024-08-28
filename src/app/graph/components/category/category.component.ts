@@ -5,7 +5,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { CategoryData, GetCategoriesResponse } from '../../model/Category';
 import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
 import { CategoryService } from '../../services/category/category.service';
-import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import { LoadingService } from '../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-category',
@@ -32,16 +33,26 @@ export class CategoryComponent implements OnInit {
     private readonly dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private categoryService: CategoryService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.categoryService.categoriesData$.subscribe(
-      (response: GetCategoriesResponse) => {
+    this.categoryService.categoriesData$.subscribe({
+      next: (response: GetCategoriesResponse) => {
         this.categoriesData = response.paginateList;
         this.length = response.totalCount;
         this.pageIndex = response.pageIndex;
+        this.loadingService.setLoading(false);
       },
-    );
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
 
     this.categoryService.notification$.subscribe(
       (data: { status: boolean; message: string }) => {
@@ -56,10 +67,11 @@ export class CategoryComponent implements OnInit {
         if (data.status) {
           this.dialog.closeAll();
         }
-      },
+      }
     );
 
     this.categoryService.getCategories(this.pageSize, this.pageIndex);
+    this.loadingService.setLoading(false);
   }
 
   addCategory() {
@@ -82,23 +94,26 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
+    this.loadingService.setLoading(true);
     this.categoryService.createCategory(this.nameValue).subscribe({
       next: () => {
         this.categoryService.getCategories(this.pageSize, this.pageIndex);
         this.isAdding = false;
         this.nameValue = '';
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: 'Category created successfully.',
           panelClass: ['notification-class-success'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: error.error.message,
           panelClass: ['notification-class-danger'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
     });
   }

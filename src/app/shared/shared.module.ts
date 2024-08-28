@@ -6,11 +6,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { ThemeService } from './services/theme.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoadingService } from './services/loading.service';
+import { DangerSuccessNotificationComponent } from './components/danger-success-notification/danger-success-notification.component';
 
 @NgModule({
-  declarations: [CardComponent, DashboardHeaderComponent],
+  declarations: [
+    CardComponent,
+    DashboardHeaderComponent,
+    DangerSuccessNotificationComponent,
+  ],
   imports: [CommonModule, MatIconModule, AppRoutingModule, MatTooltipModule],
-  providers: [ThemeService],
-  exports: [CardComponent, DashboardHeaderComponent],
+  providers: [ThemeService, LoadingService],
+  exports: [
+    CardComponent,
+    DashboardHeaderComponent,
+    DangerSuccessNotificationComponent,
+  ],
 })
 export class SharedModule {}

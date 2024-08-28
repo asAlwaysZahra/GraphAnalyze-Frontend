@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../api-config/api-url';
 import { AllNodes, Graph } from '../../model/graph';
 import { Subject } from 'rxjs';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,13 @@ export class LoadGraphService {
 
   nodesData$ = this.nodesData.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   getAllNodes(pageIndex = 0, category = '') {
+    this.loadingService.setLoading(true);
     const pageSize = 10;
 
     this.http
@@ -32,6 +37,7 @@ export class LoadGraphService {
   }
 
   getNodeInfo(id: string) {
+    this.loadingService.setLoading(true);
     return this.http.get<unknown>(
       this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
       {
@@ -41,6 +47,7 @@ export class LoadGraphService {
   }
 
   getGraph(id: string) {
+    this.loadingService.setLoading(true);
     return this.http.get<Graph>(
       this.apiUrl + '/GetRelationalEdgeByNodeName?nodeId=' + id,
       {

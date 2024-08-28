@@ -4,6 +4,7 @@ import { RegisterRequest, UpdateUserRequest } from '../../models/User';
 import { GetUserResponse } from '../../interfaces/manage-users.interface';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../api-config/api-url';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,13 @@ export class AdminService {
   usersData$ = this.usersData.asObservable();
   notification$ = this.notification.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   createUser(request: RegisterRequest, pageSize: number, pageIndex: number) {
+    this.loadingService.setLoading(true);
     return this.http
       .post(`${this.apiUrl}/register`, request, {
         withCredentials: true,
@@ -30,17 +35,20 @@ export class AdminService {
             status: true,
             message: 'User added successfully!',
           });
+          this.loadingService.setLoading(false);
         },
         error: (error) => {
           this.notification.next({
             status: false,
             message: error.error.message,
           });
+          this.loadingService.setLoading(false);
         },
       });
   }
 
   getUsers(limit = 10, page = 0) {
+    this.loadingService.setLoading(true);
     this.http
       .get<GetUserResponse>(
         `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
@@ -48,12 +56,23 @@ export class AdminService {
           withCredentials: true,
         }
       )
-      .subscribe((users) => {
-        this.usersData.next(users);
+      .subscribe({
+        next: (users) => {
+          this.usersData.next(users);
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this.notification.next({
+            status: false,
+            message: error.error.message,
+          });
+          this.loadingService.setLoading(false);
+        },
       });
   }
 
   deleteUser(id: string, pageSize: number, pageIndex: number) {
+    this.loadingService.setLoading(true);
     this.http
       .delete(`${this.apiUrl}/DeleteUser?id=${id}`, {
         withCredentials: true,
@@ -65,12 +84,14 @@ export class AdminService {
             status: true,
             message: 'User deleted successfully!',
           });
+          this.loadingService.setLoading(false);
         },
         error: (error) => {
           this.notification.next({
             status: false,
             message: error.error.message,
           });
+          this.loadingService.setLoading(false);
         },
       });
   }
@@ -81,6 +102,7 @@ export class AdminService {
     pageSize: number,
     pageIndex: number
   ) {
+    this.loadingService.setLoading(true);
     return this.http
       .put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
         withCredentials: true,
@@ -92,12 +114,14 @@ export class AdminService {
             status: true,
             message: 'User updated successfully!',
           });
+          this.loadingService.setLoading(false);
         },
         error: (error) => {
           this.notification.next({
             status: false,
             message: error.error.message,
           });
+          this.loadingService.setLoading(false);
         },
       });
   }

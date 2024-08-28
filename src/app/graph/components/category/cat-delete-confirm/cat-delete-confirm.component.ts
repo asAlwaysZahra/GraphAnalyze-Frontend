@@ -2,8 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from '../../../services/category/category.service';
 import { CategoryData } from '../../../model/Category';
-import { UserManageNotificationComponent } from '../../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-cat-delete-confirm',
@@ -36,28 +37,31 @@ export class CatDeleteConfirmComponent {
     },
     private categoryService: CategoryService,
     private _snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   deleteUser() {
+    this.loadingService.setLoading(true);
     this.categoryService.deleteCategory(this.data.category.id).subscribe({
       next: () => {
-        console.log(12121212);
         this.categoryService.getCategories(
           this.data.pageSize,
-          this.data.pageIndex,
+          this.data.pageIndex
         );
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: 'Category created successfully.',
           panelClass: ['notification-class-success'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: error.error.message,
           panelClass: ['notification-class-danger'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
     });
   }

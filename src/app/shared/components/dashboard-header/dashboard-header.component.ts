@@ -2,6 +2,8 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../user/services/auth/auth.service';
+import { DangerSuccessNotificationComponent } from '../danger-success-notification/danger-success-notification.component';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -15,19 +17,28 @@ export class DashboardHeaderComponent implements AfterViewInit {
   constructor(
     private themeService: ThemeService,
     private _snackBar: MatSnackBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingService: LoadingService
   ) {}
 
   ngAfterViewInit(): void {
-    this.authService
-      .getPermissions()
-      .subscribe(
-        (data) =>
-          (this.profilePic =
-            data?.image == 'default-image-url' || !data?.image
-              ? 'empty-profile.png'
-              : data?.image)
-      );
+    this.authService.getPermissions().subscribe({
+      next: (data) => {
+        this.profilePic =
+          data?.image == 'default-image-url' || !data?.image
+            ? 'empty-profile.png'
+            : data?.image;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
   }
 
   changeTheme() {

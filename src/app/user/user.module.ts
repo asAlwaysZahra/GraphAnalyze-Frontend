@@ -29,7 +29,6 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { EditUserComponent } from './components/dashboard/manage-users/edit-user/edit-user.component';
-import { UserManageNotificationComponent } from './components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBarLabel } from '@angular/material/snack-bar';
 import { AssignFileComponent } from './components/dashboard/assign-file/assign-file.component';
 import { AssignDialogComponent } from './components/dashboard/assign-file/assign-dialog/assign-dialog.component';
@@ -46,7 +45,6 @@ import { MatChipsModule } from '@angular/material/chips';
     ManageUsersComponent,
     UserDeleteConfirmationComponent,
     EditUserComponent,
-    UserManageNotificationComponent,
     AssignFileComponent,
     AssignDialogComponent,
   ],
@@ -77,6 +75,5 @@ import { MatChipsModule } from '@angular/material/chips';
     AsyncPipe,
     MatChipsModule,
   ],
-  exports: [UserManageNotificationComponent],
 })
 export class UserModule {}

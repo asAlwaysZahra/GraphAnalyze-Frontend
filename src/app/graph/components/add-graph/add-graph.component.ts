@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGraphService } from '../../services/add-graph/add-graph.service';
 import { CategoryData } from '../../model/Category';
+import { LoadingService } from '../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-add-graph',
@@ -36,12 +37,26 @@ export class AddGraphComponent {
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private addGraphService: AddGraphService
-  ) {}
+    private addGraphService: AddGraphService,
+    private loadingService: LoadingService
+  ) {
+    this.loadingService.setLoading(false);
+  }
 
   loadCategory() {
-    this.addGraphService.getCategories().subscribe((data) => {
-      this.categories = data.paginateList;
+    this.addGraphService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data.paginateList;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
     });
   }
 
@@ -54,6 +69,7 @@ export class AddGraphComponent {
   }
 
   readFile(event: Event) {
+    this.loadingService.setLoading(true);
     this.wrongFormat = false;
     this.isLoaded = false;
     this.isHighlighted = false;
@@ -64,11 +80,12 @@ export class AddGraphComponent {
 
     if (fileExtension !== 'csv') {
       this.wrongFormat = true;
-      this._snackBar.openFromComponent(UserManageNotificationComponent, {
+      this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
         data: 'Please upload a CSV file',
         panelClass: ['notification-class-danger'],
         duration: 2000,
       });
+      this.loadingService.setLoading(false);
       return;
     }
 
@@ -92,30 +109,40 @@ export class AddGraphComponent {
       if (!this.categories.length) {
         this.loadCategory();
       }
+      this.loadingService.setLoading(false);
     };
   }
 
   uploadFile() {
     this.isUploading = true;
+    this.loadingService.setLoading(true);
     if (this.csvType === 'node') {
       this.addGraphService
         .uploadNode(this.selectedFile, this.selectedId, this.categoryName)
         .subscribe({
           next: () => {
             this.reset();
-            this._snackBar.openFromComponent(UserManageNotificationComponent, {
-              data: 'Node added successfully!',
-              panelClass: ['notification-class-success'],
-              duration: 2000,
-            });
+            this._snackBar.openFromComponent(
+              DangerSuccessNotificationComponent,
+              {
+                data: 'Node added successfully!',
+                panelClass: ['notification-class-success'],
+                duration: 2000,
+              }
+            );
+            this.loadingService.setLoading(false);
           },
           error: (error) => {
             this.isUploading = false;
-            this._snackBar.openFromComponent(UserManageNotificationComponent, {
-              data: error.error.message,
-              panelClass: ['notification-class-danger'],
-              duration: 2000,
-            });
+            this._snackBar.openFromComponent(
+              DangerSuccessNotificationComponent,
+              {
+                data: error.error.message,
+                panelClass: ['notification-class-danger'],
+                duration: 2000,
+              }
+            );
+            this.loadingService.setLoading(false);
           },
         });
     } else {
@@ -128,19 +155,27 @@ export class AddGraphComponent {
         .subscribe({
           next: () => {
             this.reset();
-            this._snackBar.openFromComponent(UserManageNotificationComponent, {
-              data: 'Edge added successfully!',
-              panelClass: ['notification-class-success'],
-              duration: 2000,
-            });
+            this._snackBar.openFromComponent(
+              DangerSuccessNotificationComponent,
+              {
+                data: 'Edge added successfully!',
+                panelClass: ['notification-class-success'],
+                duration: 2000,
+              }
+            );
+            this.loadingService.setLoading(false);
           },
           error: (error) => {
             this.isUploading = false;
-            this._snackBar.openFromComponent(UserManageNotificationComponent, {
-              data: error.error.message,
-              panelClass: ['notification-class-danger'],
-              duration: 2000,
-            });
+            this._snackBar.openFromComponent(
+              DangerSuccessNotificationComponent,
+              {
+                data: error.error.message,
+                panelClass: ['notification-class-danger'],
+                duration: 2000,
+              }
+            );
+            this.loadingService.setLoading(false);
           },
         });
     }
@@ -160,5 +195,6 @@ export class AddGraphComponent {
     this.selectedSource = '';
     this.selectedDestination = '';
     this.categoryName = '';
+    this.name = '';
   }
 }

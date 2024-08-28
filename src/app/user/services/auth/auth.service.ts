@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginRequest, UserPermissions } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,20 @@ export class AuthService {
   private permissions = new BehaviorSubject<UserPermissions | null>(null);
   permissions$ = this.permissions.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   login(loginRequest: LoginRequest): Observable<void> {
+    this.loadingService.setLoading(true);
     return this.http.post<void>(this.apiUrl + '/login', loginRequest, {
       withCredentials: true,
     });
   }
 
   getPermissions() {
+    this.loadingService.setLoading(true);
     if (!this.permissions.value) {
       return this.http
         .get<UserPermissions>(this.apiUrl + '/permissions', {
@@ -31,19 +37,20 @@ export class AuthService {
             if (response.firstName) {
               this.permissions.next(response);
             }
-          }),
+          })
         );
     }
     return this.permissions$;
   }
 
   logout() {
+    this.loadingService.setLoading(true);
     return this.http
       .post(this.apiUrl + '/logout', null, { withCredentials: true })
       .pipe(
         tap(() => {
           this.permissions.next(null);
-        }),
+        })
       );
   }
 }
