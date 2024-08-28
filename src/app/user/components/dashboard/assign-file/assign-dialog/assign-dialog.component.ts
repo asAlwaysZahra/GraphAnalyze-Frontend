@@ -1,4 +1,4 @@
-import { Component, computed, Inject, model } from '@angular/core';
+import { Component, computed, Inject, model, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -13,7 +13,7 @@ interface User {
   templateUrl: './assign-dialog.component.html',
   styleUrl: './assign-dialog.component.scss',
 })
-export class AssignDialogComponent {
+export class AssignDialogComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly currentUser = model('');
   readonly users: User[] = [];
@@ -32,6 +32,10 @@ export class AssignDialogComponent {
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) protected id: number) {}
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   onSubmit() {
     return '';
