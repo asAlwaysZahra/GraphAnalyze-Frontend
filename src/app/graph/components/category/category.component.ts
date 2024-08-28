@@ -6,6 +6,7 @@ import { CategoryData, GetCategoriesResponse } from '../../model/Category';
 import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
 import { CategoryService } from '../../services/category/category.service';
 import { UserManageNotificationComponent } from '../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Component({
   selector: 'app-category',
@@ -32,6 +33,7 @@ export class CategoryComponent implements OnInit {
     private readonly dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private categoryService: CategoryService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,8 @@ export class CategoryComponent implements OnInit {
         this.categoriesData = response.paginateList;
         this.length = response.totalCount;
         this.pageIndex = response.pageIndex;
-      },
+        this.loadingService.setLoading(false);
+      }
     );
 
     this.categoryService.notification$.subscribe(
@@ -56,10 +59,11 @@ export class CategoryComponent implements OnInit {
         if (data.status) {
           this.dialog.closeAll();
         }
-      },
+      }
     );
 
     this.categoryService.getCategories(this.pageSize, this.pageIndex);
+    this.loadingService.setLoading(false);
   }
 
   addCategory() {
@@ -82,6 +86,7 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
+    this.loadingService.setLoading(true);
     this.categoryService.createCategory(this.nameValue).subscribe({
       next: () => {
         this.categoryService.getCategories(this.pageSize, this.pageIndex);
@@ -92,6 +97,7 @@ export class CategoryComponent implements OnInit {
           panelClass: ['notification-class-success'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(UserManageNotificationComponent, {
@@ -99,6 +105,7 @@ export class CategoryComponent implements OnInit {
           panelClass: ['notification-class-danger'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
     });
   }

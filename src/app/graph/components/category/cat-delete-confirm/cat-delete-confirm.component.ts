@@ -4,6 +4,7 @@ import { CategoryService } from '../../../services/category/category.service';
 import { CategoryData } from '../../../model/Category';
 import { UserManageNotificationComponent } from '../../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../../../shared/services/loading.service';
 
 @Component({
   selector: 'app-cat-delete-confirm',
@@ -36,21 +37,24 @@ export class CatDeleteConfirmComponent {
     },
     private categoryService: CategoryService,
     private _snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   deleteUser() {
+    this.loadingService.setLoading(true);
     this.categoryService.deleteCategory(this.data.category.id).subscribe({
       next: () => {
         console.log(12121212);
         this.categoryService.getCategories(
           this.data.pageSize,
-          this.data.pageIndex,
+          this.data.pageIndex
         );
         this._snackBar.openFromComponent(UserManageNotificationComponent, {
           data: 'Category created successfully.',
           panelClass: ['notification-class-success'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(UserManageNotificationComponent, {
@@ -58,6 +62,7 @@ export class CatDeleteConfirmComponent {
           panelClass: ['notification-class-danger'],
           duration: 2000,
         });
+        this.loadingService.setLoading(false);
       },
     });
   }
