@@ -21,6 +21,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { LoadingService } from '../../../shared/services/loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-data-analysis',
@@ -58,6 +60,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   constructor(
     private themeService: ThemeService,
+    private _snackBar: MatSnackBar,
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
@@ -73,11 +76,21 @@ export class DataAnalysisComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.createGraph();
 
-    this.loadGraphService.nodesData$.subscribe((data) => {
-      this.accounts = data.paginateList;
-      this.length = data.totalCount;
-      this.pageIndex = data.pageIndex;
-      this.loadingService.setLoading(false);
+    this.loadGraphService.nodesData$.subscribe({
+      next: (data) => {
+        this.accounts = data.paginateList;
+        this.length = data.totalCount;
+        this.pageIndex = data.pageIndex;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
     });
     this.loadGraphService.getAllNodes();
     this.loadingService.setLoading(false);
@@ -133,12 +146,21 @@ export class DataAnalysisComponent implements AfterViewInit {
         document.getElementById('right-click-node-info') as HTMLElement
       ).dataset['nodeid'];
     }
-    this.loadGraphService.getNodeInfo(account!).subscribe((data) => {
-      this.dialog.open(InfoDialogComponent, {
-        width: '105rem',
-        data,
-      });
-      this.loadingService.setLoading(false);
+    this.loadGraphService.getNodeInfo(account!).subscribe({
+      next: (data) => {
+        this.dialog.open(InfoDialogComponent, {
+          width: '105rem',
+          data,
+        });
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
     });
   }
 
@@ -152,9 +174,19 @@ export class DataAnalysisComponent implements AfterViewInit {
     ).dataset['nodeid'];
     console.log(nodeId);
 
-    this.loadGraphService.getGraph('5').subscribe((data) => {
-      this.nodes.add(data.nodes as Node);
-      this.edges.add(data.edges as Edge);
+    this.loadGraphService.getGraph('5').subscribe({
+      next: (data) => {
+        this.nodes.add(data.nodes as Node);
+        this.edges.add(data.edges as Edge);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
     });
   }
 

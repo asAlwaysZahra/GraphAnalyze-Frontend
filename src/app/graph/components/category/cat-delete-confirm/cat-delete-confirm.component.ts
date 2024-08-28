@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from '../../../services/category/category.service';
 import { CategoryData } from '../../../model/Category';
-import { UserManageNotificationComponent } from '../../../../user/components/dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-cat-delete-confirm',
@@ -49,7 +49,7 @@ export class CatDeleteConfirmComponent {
           this.data.pageSize,
           this.data.pageIndex
         );
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: 'Category created successfully.',
           panelClass: ['notification-class-success'],
           duration: 2000,
@@ -57,7 +57,7 @@ export class CatDeleteConfirmComponent {
         this.loadingService.setLoading(false);
       },
       error: (error) => {
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: error.error.message,
           panelClass: ['notification-class-danger'],
           duration: 2000,
