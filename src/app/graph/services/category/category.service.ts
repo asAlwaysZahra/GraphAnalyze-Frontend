@@ -56,7 +56,6 @@ export class CategoryService {
 
   deleteCategory(id: number) {
     this.loadingService.setLoading(true);
-    console.log('deleteCategory', id);
     return this.httpClient.delete(this.apiUrl + `/${id}`, {
       withCredentials: true,
     });

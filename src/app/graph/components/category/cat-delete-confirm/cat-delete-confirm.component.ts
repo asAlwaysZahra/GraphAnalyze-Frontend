@@ -44,7 +44,6 @@ export class CatDeleteConfirmComponent {
     this.loadingService.setLoading(true);
     this.categoryService.deleteCategory(this.data.category.id).subscribe({
       next: () => {
-        console.log(12121212);
         this.categoryService.getCategories(
           this.data.pageSize,
           this.data.pageIndex

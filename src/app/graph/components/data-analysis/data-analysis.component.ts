@@ -172,9 +172,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     const nodeId = (
       document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
-    console.log(nodeId);
 
-    this.loadGraphService.getGraph('5').subscribe({
+    this.loadGraphService.getGraph(nodeId!).subscribe({
       next: (data) => {
         this.nodes.add(data.nodes as Node);
         this.edges.add(data.edges as Edge);

@@ -9,8 +9,6 @@ export class LoadingService {
   loading$ = this.loading.asObservable();
 
   setLoading(state: boolean) {
-    console.log('service state: ', state);
-
     this.loading.next(state);
   }
 }
