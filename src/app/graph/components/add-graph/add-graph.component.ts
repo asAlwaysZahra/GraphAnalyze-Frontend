@@ -195,5 +195,6 @@ export class AddGraphComponent {
     this.selectedSource = '';
     this.selectedDestination = '';
     this.categoryName = '';
+    this.name = '';
   }
 }

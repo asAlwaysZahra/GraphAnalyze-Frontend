@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { LoginRequest } from '../../models/User';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserManageNotificationComponent } from '../dashboard/manage-users/user-manage-notification/user-manage-notification.component';
 import { LoadingService } from '../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-login',
@@ -65,8 +65,7 @@ export class LoginComponent implements AfterViewInit {
     };
     this.authService.login(loginRequest).subscribe({
       next: () => {
-        this.isLoading = false;
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: 'Logged in successfully.',
           panelClass: ['notification-class-success'],
           duration: 2000,
@@ -76,7 +75,7 @@ export class LoginComponent implements AfterViewInit {
       error: (error) => {
         this.isLoading = false;
         this.loadingService.setLoading(false);
-        this._snackBar.openFromComponent(UserManageNotificationComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: error.error.message,
           panelClass: ['notification-class-danger'],
           duration: 2000,

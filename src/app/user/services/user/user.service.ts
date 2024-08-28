@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,15 +11,20 @@ import { environment } from '../../../../../api-config/api-url';
 export class UserService {
   private apiUrl = environment.apiUrl + '/api/User';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   forgetPassword(request: ForgetPasswordRequest): Observable<void> {
+    this.loadingService.setLoading(true);
     return this.http.post<void>(`${this.apiUrl}/reset-password`, request, {
       withCredentials: true,
     });
   }
 
   newPassword(request: NewPasswordRequest): Observable<void> {
+    this.loadingService.setLoading(true);
     return this.http.post<void>(`${this.apiUrl}/new-password`, request, {
       withCredentials: true,
     });
