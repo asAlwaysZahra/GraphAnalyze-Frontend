@@ -1,25 +1,83 @@
 <app-dashboard-header [title]="'Manage Account'"></app-dashboard-header>
 
-<app-card>
-  <form action="" method="post" class="add-user-form">
-    <mat-form-field class="form-field">
-      <mat-label>Old Password</mat-label>
-      <input matInput type="password" name="oldPassword" id="oldPassword" />
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Password</mat-label>
-      <input
-        placeholder="at least 8 chracters"
-        matInput
-        type="password"
-        name="confirmPassword"
-        id="confirmPassword"
-      />
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput type="password" name="Password" id="Password" />
-    </mat-form-field>
-    <button type="submit" mat-flat-button>Reset password</button>
-  </form>
-</app-card>
+<div class="container">
+  <app-card>
+    <form
+      [formGroup]="myForm"
+      action=""
+      method="post"
+      class="add-user-form"
+      (submit)="onSubmit()"
+    >
+      <mat-form-field class="form-field">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          type="text"
+          name="firstName"
+          id="firstName"
+          formControlName="firstName"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          type="text"
+          name="lastName"
+          id="lastName"
+          formControlName="lastName"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          id="email"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Phone Number</mat-label>
+        <input
+          matInput
+          type="tel"
+          name="phoneNumber"
+          id="phoneNumber"
+          formControlName="phoneNumber"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Old Password</mat-label>
+        <input matInput type="password" name="oldPassword" id="oldPassword" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Password</mat-label>
+        <input
+          placeholder="at least 8 chracters"
+          matInput
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" name="Password" id="Password" />
+      </mat-form-field>
+      <div class="btn_container">
+        <button class="btn" type="submit" mat-flat-button>Update</button>
+        <button
+          mat-stroked-button
+          class="btn"
+          type="button"
+          (click)="setUserData()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </app-card>
+</div>

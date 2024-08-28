@@ -290,6 +290,15 @@ body,
     background: none !important;
   }
 }
+.mat-mdc-form-field {
+  padding-block-end: 1rem;
+}
+
+.mat-mdc-paginator-page-size {
+  .mat-mdc-form-field {
+    padding: 0;
+  }
+}
 
 [data-theme="light"] {
   @include mat.all-component-themes(m3-theme.$light-theme);
@@ -298,12 +307,17 @@ body,
   --mat-sidenav-content-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
+
   --card-background-color: #fefbff;
   --mat-sidenav-content-background-color: #fbf8fd;
   --hover-bg-color: #e0e0e0;
 
   --logo-image-filter: invert(20%);
   --logo-filter: invert(10%);
+
+  --dialog-color-overlay: rgba(0, 0, 0, 0.37);
+
+  --toolbar-bg-color: #e6ebff;
 }
 
 [data-theme="dark"] {
@@ -321,6 +335,14 @@ body,
 
   --logo-image-filter: invert(75%);
   --logo-filter: invert(85%);
+
+  --dialog-color-overlay: rgba(255, 255, 255, 0.05);
+
+  --toolbar-bg-color: #1f1f23;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: var(--dialog-color-overlay);
 }
 
 .mat-mdc-notch-piece {
@@ -356,4 +378,7 @@ body,
 }
 .mat-mdc-form-field-bottom-align::before {
   display: none !important;
+}
+.mat-sidenav-content {
+  overflow-x: hidden !important;
 }

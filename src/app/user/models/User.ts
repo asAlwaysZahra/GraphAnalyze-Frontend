@@ -1,19 +1,7 @@
-export interface User {
-  firstName: string;
-  lastName: string;
-  imageURL: string;
-}
-
 export interface LoginRequest {
   username: string;
   password: string;
   rememberMe: boolean;
-}
-
-export interface LoginResponse {
-  firstName: string;
-  lastName: string;
-  imageURL: string | null;
 }
 
 export interface UserPermissions {
@@ -24,17 +12,6 @@ export interface UserPermissions {
 }
 
 export interface RegisterRequest {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  roleName: string;
-}
-
-export interface RegisterResponse {
   username: string;
   password: string;
   confirmPassword: string;

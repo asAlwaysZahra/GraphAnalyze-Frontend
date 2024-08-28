@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { GraphModule } from './graph/graph.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { GraphModule } from './graph/graph.module';
     UserModule,
     SharedModule,
     GraphModule,
+    MatProgressBarModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
