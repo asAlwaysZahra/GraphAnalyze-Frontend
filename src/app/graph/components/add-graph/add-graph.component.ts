@@ -6,6 +6,7 @@ import { UserManageNotificationComponent } from '../../../user/components/dashbo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGraphService } from '../../services/add-graph/add-graph.service';
 import { CategoryData } from '../../model/Category';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -36,12 +37,16 @@ export class AddGraphComponent {
     private papaParseService: Papa,
     private changeDetector: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private addGraphService: AddGraphService
-  ) {}
+    private addGraphService: AddGraphService,
+    private loadingService: LoadingService
+  ) {
+    this.loadingService.setLoading(false);
+  }
 
   loadCategory() {
     this.addGraphService.getCategories().subscribe((data) => {
       this.categories = data.paginateList;
+      this.loadingService.setLoading(false);
     });
   }
 
@@ -54,6 +59,7 @@ export class AddGraphComponent {
   }
 
   readFile(event: Event) {
+    this.loadingService.setLoading(true);
     this.wrongFormat = false;
     this.isLoaded = false;
     this.isHighlighted = false;
@@ -69,6 +75,7 @@ export class AddGraphComponent {
         panelClass: ['notification-class-danger'],
         duration: 2000,
       });
+      this.loadingService.setLoading(false);
       return;
     }
 
@@ -92,11 +99,13 @@ export class AddGraphComponent {
       if (!this.categories.length) {
         this.loadCategory();
       }
+      this.loadingService.setLoading(false);
     };
   }
 
   uploadFile() {
     this.isUploading = true;
+    this.loadingService.setLoading(true);
     if (this.csvType === 'node') {
       this.addGraphService
         .uploadNode(this.selectedFile, this.selectedId, this.categoryName)
@@ -108,6 +117,7 @@ export class AddGraphComponent {
               panelClass: ['notification-class-success'],
               duration: 2000,
             });
+            this.loadingService.setLoading(false);
           },
           error: (error) => {
             this.isUploading = false;
@@ -116,6 +126,7 @@ export class AddGraphComponent {
               panelClass: ['notification-class-danger'],
               duration: 2000,
             });
+            this.loadingService.setLoading(false);
           },
         });
     } else {
@@ -133,6 +144,7 @@ export class AddGraphComponent {
               panelClass: ['notification-class-success'],
               duration: 2000,
             });
+            this.loadingService.setLoading(false);
           },
           error: (error) => {
             this.isUploading = false;
@@ -141,6 +153,7 @@ export class AddGraphComponent {
               panelClass: ['notification-class-danger'],
               duration: 2000,
             });
+            this.loadingService.setLoading(false);
           },
         });
     }
