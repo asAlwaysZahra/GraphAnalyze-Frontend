@@ -13,11 +13,30 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { getOptions } from './graph-options';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
   styleUrl: './data-analysis.component.scss',
+  animations: [
+    trigger('sidebar-fly', [
+      state('startRound', style({ transform: 'translateX(0)' })),
+      state('endRound', style({ transform: 'translateX(120%)' })),
+      transition('* <=> *', [animate('500ms ease-in-out')]),
+    ]),
+    trigger('main-expand', [
+      state('startRound', style({ width: 'calc(100% - 26rem)' })),
+      state('endRound', style({ width: '100%' })),
+      transition('* <=> *', [animate('500ms ease-in-out')]),
+    ]),
+  ],
 })
 export class DataAnalysisComponent implements AfterViewInit {
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
@@ -25,6 +44,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
 
   private networkInstance!: Network;
+  public state = 'startRound';
 
   search = '';
   accounts: string[] = [];
@@ -131,5 +151,17 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.nodes.add(data.nodes as Node);
       this.edges.add(data.edges as Edge);
     });
+  }
+
+  changeState() {
+    this.state = this.state == 'startRound' ? 'endRound' : 'startRound';
+  }
+
+  closeSearchBar() {
+    this.changeState();
+  }
+
+  clearGraph() {
+    this.nodes.clear();
   }
 }

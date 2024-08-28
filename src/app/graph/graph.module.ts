@@ -25,6 +25,7 @@ import {
 import { CategoryComponent } from './components/category/category.component';
 import { MatRippleModule } from '@angular/material/core';
 import { CatDeleteConfirmComponent } from './components/category/cat-delete-confirm/cat-delete-confirm.component';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,8 @@ import { CatDeleteConfirmComponent } from './components/category/cat-delete-conf
     MatDialogClose,
     ReactiveFormsModule,
     MatRippleModule,
+    CdkDrag,
+    CdkDragHandle,
   ],
 })
 export class GraphModule {}

@@ -307,6 +307,7 @@ body,
   --mat-sidenav-content-text-color: #424242;
   --nav-link-background-color-active: rgba(27, 89, 248, 0.1);
   --nav-link-text-color-active: rgba(27, 89, 248, 1);
+
   --card-background-color: #fefbff;
   --mat-sidenav-content-background-color: #fbf8fd;
   --hover-bg-color: #e0e0e0;
@@ -315,6 +316,8 @@ body,
   --logo-filter: invert(10%);
 
   --dialog-color-overlay: rgba(0, 0, 0, 0.37);
+
+  --toolbar-bg-color: #e6ebff;
 }
 
 [data-theme="dark"] {
@@ -334,6 +337,8 @@ body,
   --logo-filter: invert(85%);
 
   --dialog-color-overlay: rgba(255, 255, 255, 0.05);
+
+  --toolbar-bg-color: #1f1f23;
 }
 
 .cdk-overlay-dark-backdrop {
@@ -373,4 +378,7 @@ body,
 }
 .mat-mdc-form-field-bottom-align::before {
   display: none !important;
+}
+.mat-sidenav-content {
+  overflow-x: hidden !important;
 }

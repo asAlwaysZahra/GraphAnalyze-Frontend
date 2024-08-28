@@ -15,7 +15,7 @@ export class DashboardHeaderComponent implements AfterViewInit {
   constructor(
     private themeService: ThemeService,
     private _snackBar: MatSnackBar,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit(): void {
@@ -26,7 +26,7 @@ export class DashboardHeaderComponent implements AfterViewInit {
           (this.profilePic =
             data?.image == 'default-image-url' || !data?.image
               ? 'empty-profile.png'
-              : data?.image),
+              : data?.image)
       );
   }
 
@@ -34,16 +34,20 @@ export class DashboardHeaderComponent implements AfterViewInit {
     this.themeService.changeThemeState();
     this.themeService.theme$.subscribe((data) => {
       const themeChanger = document.getElementById(
-        'theme-changer-icon',
+        'theme-changer-icon'
       ) as HTMLElement;
       themeChanger.textContent = data === 'dark' ? 'light_mode' : 'dark_mode';
     });
   }
 
   infoClick() {
-    this._snackBar.open('Coming soon...', 'Ok :(', {
-      duration: 2000,
-      panelClass: ['info-notification'],
-    });
+    this._snackBar.open(
+      "No Problem! Here's the Information About the Mercedes CLR GTR",
+      'LOL',
+      {
+        duration: 2000,
+        panelClass: ['info-notification'],
+      }
+    );
   }
 }
