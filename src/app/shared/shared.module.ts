@@ -6,11 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { ThemeService } from './services/theme.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoadingService } from './services/loading.service';
 
 @NgModule({
   declarations: [CardComponent, DashboardHeaderComponent],
   imports: [CommonModule, MatIconModule, AppRoutingModule, MatTooltipModule],
-  providers: [ThemeService],
+  providers: [ThemeService, LoadingService],
   exports: [CardComponent, DashboardHeaderComponent],
 })
 export class SharedModule {}
