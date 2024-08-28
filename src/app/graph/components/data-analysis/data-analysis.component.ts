@@ -20,6 +20,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Component({
   selector: 'app-data-analysis',
@@ -59,7 +60,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     private themeService: ThemeService,
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private loadingService: LoadingService
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -75,8 +77,10 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.accounts = data.paginateList;
       this.length = data.totalCount;
       this.pageIndex = data.pageIndex;
+      this.loadingService.setLoading(false);
     });
     this.loadGraphService.getAllNodes();
+    this.loadingService.setLoading(false);
   }
 
   private createGraph() {
@@ -134,6 +138,7 @@ export class DataAnalysisComponent implements AfterViewInit {
         width: '105rem',
         data,
       });
+      this.loadingService.setLoading(false);
     });
   }
 
