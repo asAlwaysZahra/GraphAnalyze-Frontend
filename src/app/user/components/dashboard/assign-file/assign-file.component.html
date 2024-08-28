@@ -24,7 +24,9 @@
       <th mat-header-cell *matHeaderCellDef>Assign</th>
       <td mat-cell *matCellDef="let element">
         <button (click)="assignUser(element.id)">
-          <mat-icon class="delete">person_add</mat-icon>
+          <mat-icon class="assign-user" matTooltip="Assign users">
+            person_add
+          </mat-icon>
         </button>
       </td>
     </ng-container>
