@@ -8,6 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ManageAccountComponent', () => {
   let component: ManageAccountComponent;
@@ -26,7 +29,9 @@ describe('ManageAccountComponent', () => {
         MatInputModule,
         RouterModule.forRoot([]),
         BrowserAnimationsModule,
+        ReactiveFormsModule,
       ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ManageAccountComponent);

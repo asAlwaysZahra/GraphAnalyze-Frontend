@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
@@ -22,10 +23,10 @@ describe('LoginComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        HttpClientModule,
         BrowserAnimationsModule,
       ],
       declarations: [LoginComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 
@@ -50,7 +51,7 @@ describe('LoginComponent', () => {
   it('should toggle password visibility', () => {
     const spy = spyOn(component, 'clickEvent');
     const button = fixture.nativeElement.querySelector(
-      'button[mat-icon-button]',
+      'button[mat-icon-button]'
     );
     button.click();
 
@@ -76,10 +77,10 @@ describe('LoginComponent', () => {
   it('should bind username and password inputs', () => {
     fixture.whenStable().then(() => {
       const usernameInput = fixture.nativeElement.querySelector(
-        'input[name="userName"]',
+        'input[name="userName"]'
       );
       const passwordInput = fixture.nativeElement.querySelector(
-        'input[name="password"]',
+        'input[name="password"]'
       );
 
       usernameInput.value = 'testUser';
