@@ -61,13 +61,32 @@ export class AssignFileService {
   }
 
   setFileAccess(users: FileAccessUsers[], id: number) {
+    console.log(users.map((user) => user.id));
+
     this.loadingService.setLoading(true);
-    return this.httpClient.post<FileAccessUserResponse[]>(
-      this.apiUrl + `/AccessFileToUser?fileId=${id}`,
-      users,
-      {
-        withCredentials: true,
-      }
-    );
+    return this.httpClient
+      .post<FileAccessUserResponse[]>(
+        this.apiUrl + `/AccessFileToUser?fileId=${id}`,
+        users.map((user) => user.id),
+        {
+          withCredentials: true,
+        }
+      )
+      .subscribe({
+        next: () => {
+          this.notification.next({
+            status: true,
+            message: 'Users are assigned to file successfully!',
+          });
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this.notification.next({
+            status: false,
+            message: error.error.message,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
   }
 }

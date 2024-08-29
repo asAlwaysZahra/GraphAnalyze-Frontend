@@ -98,12 +98,7 @@ export class AssignDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.assignFileService.setFileAccess(this.allUsers, this.id).subscribe({
-      next: (data) => console.log(data),
-      error(err) {
-        console.log(err);
-      },
-    });
+    this.assignFileService.setFileAccess(this.users, this.id);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
