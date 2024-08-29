@@ -34,6 +34,7 @@ import { AssignFileComponent } from './components/dashboard/assign-file/assign-f
 import { AssignDialogComponent } from './components/dashboard/assign-file/assign-dialog/assign-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatAutocompleteModule,
     AsyncPipe,
     MatChipsModule,
+    MatTooltipModule,
   ],
 })
 export class UserModule {}

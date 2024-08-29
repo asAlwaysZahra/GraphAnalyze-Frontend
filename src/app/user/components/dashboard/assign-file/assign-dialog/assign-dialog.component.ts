@@ -1,52 +1,122 @@
-import { Component, computed, Inject, model } from '@angular/core';
+import { Component, computed, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-
-interface User {
-  id: number;
-  name: string;
-}
+import { AssignFileService } from '../../../../services/assign-file/assign-file.service';
+import {
+  FileAccessUserResponse,
+  FileAccessUsers,
+} from '../../../../models/File';
+import { LoadingService } from '../../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../../shared/components/danger-success-notification/danger-success-notification.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { debounceTime, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-assign-dialog',
   templateUrl: './assign-dialog.component.html',
   styleUrl: './assign-dialog.component.scss',
 })
-export class AssignDialogComponent {
+export class AssignDialogComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  readonly currentUser = model('');
-  readonly users: User[] = [];
-  readonly allUsers = [
-    { id: 1, name: 'mamad' },
-    { id: 2, name: 'hasan' },
-  ];
+  currentUser = '';
+  users: FileAccessUsers[] = [];
+  allUsers: FileAccessUserResponse[] = [];
+
+  private searchText$ = new Subject<string>();
+  userName$!: Observable<string>;
 
   readonly filteredUsers = computed(() => {
-    const currentUser = this.currentUser().toLowerCase();
+    const currentUser = this.currentUser.toLowerCase();
     return currentUser
       ? this.allUsers.filter((user) =>
-          user.name.toLowerCase().includes(currentUser)
+          user.userName.toLowerCase().includes(currentUser)
         )
       : this.allUsers.slice();
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected id: number) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) protected id: number,
+    private assignFileService: AssignFileService,
+    private loadingService: LoadingService,
+    private _snackBar: MatSnackBar
+  ) {}
+
+  ngOnInit(): void {
+    this.assignFileService.getFileUserAccess(this.id).subscribe({
+      next: (data) => {
+        this.users = data;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
+
+    this.userName$ = this.searchText$.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    );
+
+    this.userName$.subscribe((searchInput) => {
+      this.assignFileService.search(searchInput).subscribe({
+        next: (users) => {
+          this.allUsers = users;
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
+    });
+  }
+
+  search(userName: string) {
+    if (!userName) {
+      this.reset();
+      return;
+    }
+    if (userName == '[object Object]') {
+      return;
+    }
+    this.searchText$.next(userName);
+  }
+
+  reset() {
+    this.allUsers = [];
+  }
 
   onSubmit() {
-    return '';
+    this.assignFileService.setFileAccess(this.users, this.id);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if (!this.users.includes(event.option.value)) {
-      this.users.push(event.option.value);
+    const user: FileAccessUsers = {
+      id: event.option.value.id,
+      userName: event.option.value.userName,
+    };
+
+    if (!this.users.some((existingUser) => existingUser.id === user.id)) {
+      this.users.push(user);
     }
 
-    this.currentUser.set('');
+    this.currentUser = '';
+    this.allUsers = [];
     event.option.deselect();
   }
 
-  remove(user: User) {
+  remove(user: FileAccessUsers) {
     const index = this.users.indexOf(user);
     if (index < 0) {
       return this.users;
