@@ -2,11 +2,11 @@ import { Component, computed, Inject, model, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-
-interface User {
-  id: number;
-  name: string;
-}
+import { AssignFileService } from '../../../../services/assign-file/assign-file.service';
+import { FileUserAccess } from '../../../../models/File';
+import { LoadingService } from '../../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../../shared/components/danger-success-notification/danger-success-notification.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assign-dialog',
@@ -16,25 +16,40 @@ interface User {
 export class AssignDialogComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly currentUser = model('');
-  readonly users: User[] = [];
-  readonly allUsers = [
-    { id: 1, name: 'mamad' },
-    { id: 2, name: 'hasan' },
-  ];
+  users: FileUserAccess[] = [];
+  allUsers: FileUserAccess[] = [];
 
   readonly filteredUsers = computed(() => {
     const currentUser = this.currentUser().toLowerCase();
     return currentUser
       ? this.allUsers.filter((user) =>
-          user.name.toLowerCase().includes(currentUser)
+          user.userName.toLowerCase().includes(currentUser)
         )
       : this.allUsers.slice();
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected id: number) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) protected id: number,
+    private assignFileService: AssignFileService,
+    private loadingService: LoadingService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.assignFileService.getFileUserAccess(this.id).subscribe({
+      next: (data) => {
+        this.users = data;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
   }
 
   onSubmit() {
@@ -50,7 +65,7 @@ export class AssignDialogComponent implements OnInit {
     event.option.deselect();
   }
 
-  remove(user: User) {
+  remove(user: FileUserAccess) {
     const index = this.users.indexOf(user);
     if (index < 0) {
       return this.users;

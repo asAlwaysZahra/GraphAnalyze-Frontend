@@ -2,16 +2,18 @@
 <app-card>
   <div class="cat-forms">
     @if (isAdding) {
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Name</mat-label>
-      <input matInput name="Name" [(ngModel)]="nameValue" />
-    </mat-form-field>
-    <button (click)="saveNewCategory()">
-      <mat-icon mat-ripple class="save-cat">check</mat-icon>
-    </button>
-    <button (click)="cancelNewCategory()">
-      <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
-    </button>
+    <form>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Name</mat-label>
+        <input matInput name="Name" [(ngModel)]="nameValue" />
+      </mat-form-field>
+      <button (click)="saveNewCategory()" type="submit">
+        <mat-icon mat-ripple class="save-cat">check</mat-icon>
+      </button>
+      <button (click)="cancelNewCategory()">
+        <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
+      </button>
+    </form>
     } @else {
     <button mat-button class="add-user" (click)="addCategory()">
       <mat-icon>add</mat-icon>
@@ -30,7 +32,7 @@
       <td mat-cell *matCellDef="let element">
         @if (editingId === element.id) {
         <div class="cat-forms">
-          <mat-form-field appearance="fill" class="form-field">
+          <mat-form-field appearance="fill" class="form-field edit-field">
             <mat-label>Name</mat-label>
             <input matInput name="Name" id="Name" [value]="element.name" />
           </mat-form-field>

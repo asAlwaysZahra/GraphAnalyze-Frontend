@@ -9,3 +9,8 @@ export interface FileDataResponse {
   totalCount: number;
   pageIndex: number;
 }
+
+export interface FileUserAccess {
+  id: string;
+  userName: string;
+}

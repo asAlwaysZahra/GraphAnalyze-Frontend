@@ -19,20 +19,20 @@
         (optionSelected)="selected($event)"
       >
         @for (user of filteredUsers(); track user) {
-        <mat-option [value]="user">{{ user.name }}</mat-option>
+        <mat-option [value]="user">{{ user.userName }}</mat-option>
         }
       </mat-autocomplete>
     </mat-form-field>
-    <mat-chip-grid aria-label="User selection">
+    <div aria-label="User selection">
       @for (user of users; track $index) {
       <mat-chip-row (removed)="remove(user)">
-        {{ user.name }}
+        {{ user.userName }}
         <button matChipRemove [attr.aria-label]="'remove ' + user">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
       }
-    </mat-chip-grid>
+    </div>
     <div class="submit-button-container">
       <button type="submit" mat-flat-button class="mat-elevation-z5">
         Add user

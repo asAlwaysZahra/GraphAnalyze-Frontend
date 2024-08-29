@@ -83,7 +83,7 @@ export class AssignFileComponent implements OnInit {
   }
 
   parseDate(isoTimestamp: string) {
-    let date = new Date(isoTimestamp);
+    const date = new Date(isoTimestamp);
     return date.toLocaleString();
   }
 }

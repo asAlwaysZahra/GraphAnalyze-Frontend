@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../../../shared/services/loading.service';
-import { environment } from '../../../../../api-config/api-url.prod';
+import { environment } from '../../../../../api-config/api-url';
 import { Subject } from 'rxjs';
-import { FileDataResponse } from '../../models/File';
+import { FileDataResponse, FileUserAccess } from '../../models/File';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,8 @@ export class AssignFileService {
     this.loadingService.setLoading(true);
     return this.httpClient
       .get<FileDataResponse>(
-        `http://localhost:8085/api/FileAccess/GetFileForAccessingFile?page=${pageNumber}&limit=${pageSize}`,
+        this.apiUrl +
+          `/GetFileForAccessingFile?page=${pageNumber}&limit=${pageSize}`,
         {
           withCredentials: true,
         }
@@ -33,5 +34,15 @@ export class AssignFileService {
       .subscribe((files) => {
         this.filesData.next(files);
       });
+  }
+
+  getFileUserAccess(id: number) {
+    this.loadingService.setLoading(true);
+    return this.httpClient.get<FileUserAccess[]>(
+      this.apiUrl + `/WhoAccessToThisFile?fileId=${id}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
