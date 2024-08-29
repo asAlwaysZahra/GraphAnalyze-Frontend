@@ -6,12 +6,12 @@
       <mat-label>Username</mat-label>
       <mat-chip-grid aria-label="User selection" #chipGrid>
         @for (user of users; track $index) {
-        <mat-chip-row (removed)="remove(user)">
-          {{ user.name }}
-          <button matChipRemove [attr.aria-label]="'remove ' + user">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+          <mat-chip-row (removed)="remove(user)">
+            {{ user.userName }}
+            <button matChipRemove [attr.aria-label]="'remove ' + user">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
         }
       </mat-chip-grid>
       <input
@@ -29,23 +29,23 @@
         (optionSelected)="selected($event)"
       >
         @for (user of allUsers; track user) {
-        <mat-option [value]="user"
-          >{{ user.userName }}
-          <small class="full-name"
-            >{{ user.firstName }} {{ user.lastName }}</small
-          ></mat-option
-        >
+          <mat-option [value]="user"
+            >{{ user.userName }}
+            <small class="full-name"
+              >{{ user.firstName }} {{ user.lastName }}</small
+            ></mat-option
+          >
         }
       </mat-autocomplete>
     </mat-form-field>
     <mat-chip-grid aria-label="User selection">
       @for (user of users; track $index) {
-      <mat-chip-row (removed)="remove(user)">
-        {{ user.userName }}
-        <button matChipRemove [attr.aria-label]="'remove ' + user">
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
+        <mat-chip-row (removed)="remove(user)">
+          {{ user.userName }}
+          <button matChipRemove [attr.aria-label]="'remove ' + user">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
       }
     </mat-chip-grid>
     <div class="submit-button-container">
