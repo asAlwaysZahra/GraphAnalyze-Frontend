@@ -10,7 +10,8 @@ import { UserDeleteConfirmationComponent } from './user-delete-confirmation/user
 import { AdminService } from '../../../services/admin/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { UserManageNotificationComponent } from './user-manage-notification/user-manage-notification.component';
+import { LoadingService } from '../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -41,17 +42,31 @@ export class ManageUsersComponent implements OnInit {
     private readonly dialog: MatDialog,
     private adminService: AdminService,
     private _snackBar: MatSnackBar,
-  ) {}
+    private loadingService: LoadingService
+  ) {
+    this.loadingService.setLoading(false);
+  }
 
   ngOnInit(): void {
-    this.adminService.usersData$.subscribe((res: GetUserResponse) => {
-      this.usersData = res.users;
-      this.length = res.count;
-      this.pageIndex = res.thisPage;
+    this.adminService.usersData$.subscribe({
+      next: (res: GetUserResponse) => {
+        this.usersData = res.users;
+        this.length = res.count;
+        this.pageIndex = res.thisPage;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
     });
 
     this.adminService.notification$.subscribe((data) => {
-      this._snackBar.openFromComponent(UserManageNotificationComponent, {
+      this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
         data: data.message,
         panelClass: data.status
           ? ['notification-class-success']

@@ -1,47 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import {
-  LoginRequest,
-  LoginResponse,
-  UserPermissions,
-} from '../../models/User';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { LoginRequest, UserPermissions } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl + '/api/User';
-
-  private userData = new Subject<LoginResponse>();
-  private isLoggedIn = new BehaviorSubject<boolean>(false);
   private permissions = new BehaviorSubject<UserPermissions | null>(null);
-
-  isLoggedIn$ = this.isLoggedIn.asObservable();
-  userData$ = this.userData.asObservable();
   permissions$ = this.permissions.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
-  // get isLoggedIn$() {
-  //   return this.isLoggedIn.asObservable();
-  // }
-
-  login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(this.apiUrl + '/login', loginRequest, {
-        withCredentials: true,
-      })
-      .pipe(
-        tap((response) => {
-          this.userData.next(response);
-          this.isLoggedIn.next(true);
-        })
-      );
+  login(loginRequest: LoginRequest): Observable<void> {
+    this.loadingService.setLoading(true);
+    return this.http.post<void>(this.apiUrl + '/login', loginRequest, {
+      withCredentials: true,
+    });
   }
 
   getPermissions() {
+    this.loadingService.setLoading(true);
     if (!this.permissions.value) {
       return this.http
         .get<UserPermissions>(this.apiUrl + '/permissions', {
@@ -49,9 +34,7 @@ export class AuthService {
         })
         .pipe(
           tap((response) => {
-            if (response.firstName == null) this.isLoggedIn.next(false);
-            else {
-              this.isLoggedIn.next(true);
+            if (response.firstName) {
               this.permissions.next(response);
             }
           })
@@ -61,11 +44,11 @@ export class AuthService {
   }
 
   logout() {
+    this.loadingService.setLoading(true);
     return this.http
       .post(this.apiUrl + '/logout', null, { withCredentials: true })
       .pipe(
         tap(() => {
-          this.isLoggedIn.next(false);
           this.permissions.next(null);
         })
       );

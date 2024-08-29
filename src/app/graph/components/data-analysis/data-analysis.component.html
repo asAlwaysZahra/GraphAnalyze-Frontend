@@ -1,0 +1,72 @@
+<div class="container">
+  <app-card class="card" [@main-expand]="state">
+    <div class="toolbar mat-elevation-z4" cdkDrag>
+      <button
+        (click)="clearGraph()"
+        class="toolbar-icons"
+        matTooltip="Clear Graph"
+      >
+        <span class="material-symbols-outlined"> ink_eraser </span>
+      </button>
+
+      <button
+        (click)="closeSearchBar()"
+        class="toolbar-icons"
+        matTooltip="Search"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <mat-icon class="toolbar-handle" cdkDragHandle>drag_indicator</mat-icon>
+    </div>
+    <div #network id="network"></div>
+    <div #menuTrigger [matMenuTriggerFor]="menu"></div>
+  </app-card>
+  <app-card class="side-bard" [@sidebar-fly]="state">
+    <form class="form">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search</mat-label>
+        <input matInput />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+    <div class="accounts">
+      @for (account of accounts; track $index) {
+      <div class="account-data">
+        {{ account }}
+        <div class="icons">
+          <button
+            class="material-symbols-outlined"
+            matTooltip="Show node as graph"
+            (click)="showAsGraph(account)"
+          >
+            network_node
+          </button>
+          <mat-icon
+            class="info-icon"
+            matTooltip="Show node information"
+            (click)="getInfo(account)"
+          >
+            info
+          </mat-icon>
+        </div>
+      </div>
+      }
+    </div>
+    <mat-paginator
+      class="paginator"
+      [length]="length"
+      [pageIndex]="pageIndex"
+      [pageSize]="10"
+      [hidePageSize]="true"
+      [showFirstLastButtons]="true"
+      aria-label="Select page"
+      (page)="handlePageEvent($event)"
+    >
+    </mat-paginator>
+  </app-card>
+  <mat-menu #menu="matMenu" id="right-click-node-info">
+    <button mat-menu-item (click)="getInfo()">Show node information</button>
+    <button mat-menu-item (click)="getGraph()">Get all edges</button>
+  </mat-menu>
+</div>

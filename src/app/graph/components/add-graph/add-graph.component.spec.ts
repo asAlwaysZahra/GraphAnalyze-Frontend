@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddGraphComponent } from './add-graph.component';
-import { DashboardHeaderComponent } from '../../shared/components/dashboard-header/dashboard-header.component';
-import { CardComponent } from '../../shared/components/card/card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { DashboardHeaderComponent } from '../../../shared/components/dashboard-header/dashboard-header.component';
+import { CardComponent } from '../../../shared/components/card/card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AddGraphComponent', () => {
   let component: AddGraphComponent;
@@ -17,7 +18,7 @@ describe('AddGraphComponent', () => {
         DashboardHeaderComponent,
         CardComponent,
       ],
-      imports: [MatIconModule, RouterModule.forRoot([])],
+      imports: [MatIconModule, RouterModule.forRoot([]), HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddGraphComponent);

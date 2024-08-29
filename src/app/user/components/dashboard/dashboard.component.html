@@ -23,20 +23,39 @@
         <a
           class="nav-link"
           matRipple
-          [routerLink]="['data-analysis']"
-          routerLinkActive="active"
-        >
-          <mat-icon>query_stats</mat-icon>
-          Data Analysis
-        </a>
-        <a
-          class="nav-link"
-          matRipple
           [routerLink]="['add-graph']"
           routerLinkActive="active"
         >
           <mat-icon>post_add</mat-icon>
           Add Graph
+        </a>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['manage-category']"
+          routerLinkActive="active"
+        >
+          <mat-icon>category</mat-icon>
+          Manage Categories
+        </a>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['assign-file']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <mat-icon>contact_page</mat-icon>
+          Assign Files
+        </a>
+        <a
+          class="nav-link"
+          matRipple
+          [routerLink]="['data-analysis']"
+          routerLinkActive="active"
+        >
+          <mat-icon>query_stats</mat-icon>
+          Data Analysis
         </a>
         <a
           class="nav-link"
