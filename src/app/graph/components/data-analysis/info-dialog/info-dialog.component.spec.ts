@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InfoDialogComponent } from './info-dialog.component';
 import {
-  MAT_DIALOG_DATA,
   MatDialogModule,
+  MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
 
@@ -16,7 +16,10 @@ describe('InfoDialogComponent', () => {
       declarations: [InfoDialogComponent],
       imports: [MatDialogModule],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: 'hi',
+        },
         { provide: MatDialogRef, useValue: {} },
       ],
     }).compileComponents();

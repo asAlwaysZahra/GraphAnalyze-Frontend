@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssignDialogComponent } from './assign-dialog.component';
-import { HttpClientModule } from '@angular/common/http';
 import {
-  MAT_DIALOG_DATA,
   MatDialogModule,
+  MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AssignDialogComponent', () => {
   let component: AssignDialogComponent;
@@ -21,16 +20,18 @@ describe('AssignDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AssignDialogComponent],
       imports: [
-        HttpClientModule,
         MatDialogModule,
         MatFormFieldModule,
         MatChipsModule,
         MatAutocompleteModule,
         FormsModule,
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: 5,
+        },
         { provide: MatDialogRef, useValue: {} },
       ],
     }).compileComponents();
@@ -40,8 +41,7 @@ describe('AssignDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  // todo: problem in template...
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

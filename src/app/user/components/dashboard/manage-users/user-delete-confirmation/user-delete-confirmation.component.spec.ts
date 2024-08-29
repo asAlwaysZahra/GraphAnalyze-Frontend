@@ -4,7 +4,8 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { UserDeleteConfirmationComponent } from './user-delete-confirmation.component';
 import { AdminService } from '../../../../services/admin/admin.service';
 import { of } from 'rxjs';
@@ -23,7 +24,7 @@ describe('UserDeleteConfirmationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UserDeleteConfirmationComponent],
-      imports: [HttpClientModule, MatDialogModule],
+      imports: [MatDialogModule],
       providers: [
         {
           provide: MAT_DIALOG_DATA,
@@ -37,7 +38,9 @@ describe('UserDeleteConfirmationComponent', () => {
           },
         },
         { provide: MatDialogRef, useValue: {} },
-        { provide: AdminService, useClass: MockAdminService }, // Mock AdminService
+        { provide: AdminService, useClass: MockAdminService },
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
     }).compileComponents();
 

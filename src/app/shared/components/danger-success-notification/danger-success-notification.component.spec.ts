@@ -4,6 +4,7 @@ import { DangerSuccessNotificationComponent } from './danger-success-notificatio
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarModule,
+  MatSnackBarRef,
 } from '@angular/material/snack-bar';
 
 describe('DangerSuccessNotificationComponent', () => {
@@ -14,7 +15,16 @@ describe('DangerSuccessNotificationComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DangerSuccessNotificationComponent],
       imports: [MatSnackBarModule],
-      providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+      providers: [
+        {
+          provide: MatSnackBarRef,
+          useValue: {},
+        },
+        {
+          provide: MAT_SNACK_BAR_DATA,
+          useValue: {}, // Add any data you wish to test if it is passed/used correctly
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DangerSuccessNotificationComponent);

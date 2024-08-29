@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('DashboardMainComponent', () => {
   let component: DashboardComponent;
@@ -20,8 +21,8 @@ describe('DashboardMainComponent', () => {
         NoopAnimationsModule,
         MatListModule,
         RouterModule.forRoot([]),
-        HttpClientModule,
       ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

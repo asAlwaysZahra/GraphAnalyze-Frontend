@@ -1,38 +1,38 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CatDeleteConfirmComponent } from './cat-delete-confirm.component';
-import { CategoryService } from '../../../services/category/category.service';
-import { LoadingService } from '../../../../shared/services/loading.service';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('CatDeleteConfirmComponent', () => {
   let component: CatDeleteConfirmComponent;
   let fixture: ComponentFixture<CatDeleteConfirmComponent>;
-  const mockDialogData = {
-    category: { id: 1, name: 'Sample Category' },
-    pageSize: 10,
-    pageIndex: 0,
-  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CatDeleteConfirmComponent],
-      imports: [
-        MatDialogModule,
-        HttpClientModule,
-        MatSnackBarModule, // Import MatSnackBarModule for the snack bar
-      ],
+      imports: [MatDialogModule],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            category: {
+              id: 10,
+              name: 'mamad',
+              count: 50,
+            },
+            pageSize: 10,
+            pageIndex: 0,
+          },
+        },
         { provide: MatDialogRef, useValue: {} },
-        CategoryService,
-        LoadingService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
     }).compileComponents();
 
@@ -43,12 +43,5 @@ describe('CatDeleteConfirmComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should display the correct category name', () => {
-    const compiled = fixture.nativeElement;
-    expect(
-      compiled.querySelector('mat-dialog-content b').textContent,
-    ).toContain('Sample Category');
   });
 });

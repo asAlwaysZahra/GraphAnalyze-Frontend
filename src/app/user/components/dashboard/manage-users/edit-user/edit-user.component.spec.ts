@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
@@ -16,7 +18,6 @@ describe('EditUserComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [EditUserComponent],
       imports: [
-        HttpClientModule,
         MatFormFieldModule,
         MatRadioModule,
         ReactiveFormsModule,
@@ -41,6 +42,8 @@ describe('EditUserComponent', () => {
           },
         },
         { provide: MatDialogRef, useValue: {} },
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
     }).compileComponents();
 
