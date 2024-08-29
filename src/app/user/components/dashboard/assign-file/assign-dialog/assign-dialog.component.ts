@@ -1,12 +1,17 @@
-import { Component, computed, Inject, model, OnInit } from '@angular/core';
+import { Component, computed, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AssignFileService } from '../../../../services/assign-file/assign-file.service';
-import { FileUserAccess } from '../../../../models/File';
+import {
+  FileAccessUserResponse,
+  FileAccessUsers,
+} from '../../../../models/File';
 import { LoadingService } from '../../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../../shared/components/danger-success-notification/danger-success-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { debounceTime, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-assign-dialog',
@@ -15,12 +20,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AssignDialogComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  readonly currentUser = model('');
-  users: FileUserAccess[] = [];
-  allUsers: FileUserAccess[] = [];
+  currentUser = '';
+  users: FileAccessUsers[] = [];
+  allUsers: FileAccessUserResponse[] = [];
+
+  private searchText$ = new Subject<string>();
+  userName$!: Observable<string>;
 
   readonly filteredUsers = computed(() => {
-    const currentUser = this.currentUser().toLowerCase();
+    const currentUser = this.currentUser.toLowerCase();
     return currentUser
       ? this.allUsers.filter((user) =>
           user.userName.toLowerCase().includes(currentUser)
@@ -50,22 +58,70 @@ export class AssignDialogComponent implements OnInit {
         this.loadingService.setLoading(false);
       },
     });
+
+    this.userName$ = this.searchText$.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    );
+
+    this.userName$.subscribe((searchInput) => {
+      this.assignFileService.search(searchInput).subscribe({
+        next: (users) => {
+          this.allUsers = users;
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
+    });
+  }
+
+  search(userName: string) {
+    if (!userName) {
+      this.reset();
+      return;
+    }
+    if (userName == '[object Object]') {
+      return;
+    }
+    this.searchText$.next(userName);
+  }
+
+  reset() {
+    this.allUsers = [];
   }
 
   onSubmit() {
-    return '';
+    this.assignFileService.setFileAccess(this.allUsers, this.id).subscribe({
+      next: (data) => console.log(data),
+      error(err) {
+        console.log(err);
+      },
+    });
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if (!this.users.includes(event.option.value)) {
-      this.users.push(event.option.value);
+    const user: FileAccessUsers = {
+      id: event.option.value.id,
+      userName: event.option.value.userName,
+    };
+
+    if (!this.users.some((existingUser) => existingUser.id === user.id)) {
+      this.users.push(user);
     }
 
-    this.currentUser.set('');
+    this.currentUser = '';
+    this.allUsers = [];
     event.option.deselect();
   }
 
-  remove(user: FileUserAccess) {
+  remove(user: FileAccessUsers) {
     const index = this.users.indexOf(user);
     if (index < 0) {
       return this.users;

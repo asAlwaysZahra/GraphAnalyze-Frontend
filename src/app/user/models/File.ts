@@ -10,7 +10,14 @@ export interface FileDataResponse {
   pageIndex: number;
 }
 
-export interface FileUserAccess {
+export interface FileAccessUserResponse {
+  id: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface FileAccessUsers {
   id: string;
   userName: string;
 }

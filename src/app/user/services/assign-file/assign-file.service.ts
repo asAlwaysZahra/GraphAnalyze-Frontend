@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { LoadingService } from '../../../shared/services/loading.service';
 import { environment } from '../../../../../api-config/api-url';
 import { Subject } from 'rxjs';
-import { FileDataResponse, FileUserAccess } from '../../models/File';
+import {
+  FileAccessUserResponse,
+  FileAccessUsers,
+  FileDataResponse,
+} from '../../models/File';
 
 @Injectable({
   providedIn: 'root',
@@ -38,8 +42,29 @@ export class AssignFileService {
 
   getFileUserAccess(id: number) {
     this.loadingService.setLoading(true);
-    return this.httpClient.get<FileUserAccess[]>(
+    return this.httpClient.get<FileAccessUsers[]>(
       this.apiUrl + `/WhoAccessToThisFile?fileId=${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  search(username: string) {
+    this.loadingService.setLoading(true);
+    return this.httpClient.get<FileAccessUserResponse[]>(
+      this.apiUrl + `/GetUsersForAccessingFile?username=${username}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  setFileAccess(users: FileAccessUsers[], id: number) {
+    this.loadingService.setLoading(true);
+    return this.httpClient.post<FileAccessUserResponse[]>(
+      this.apiUrl + `/AccessFileToUser?fileId=${id}`,
+      users,
       {
         withCredentials: true,
       }

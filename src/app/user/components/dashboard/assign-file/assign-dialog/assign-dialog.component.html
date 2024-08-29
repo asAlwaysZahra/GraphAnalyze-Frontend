@@ -10,6 +10,7 @@
         placeholder="New User..."
         #userInput
         [(ngModel)]="currentUser"
+        (ngModelChange)="search(currentUser)"
         [matChipInputFor]="chipGrid"
         [matAutocomplete]="auto"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -18,12 +19,17 @@
         #auto="matAutocomplete"
         (optionSelected)="selected($event)"
       >
-        @for (user of filteredUsers(); track user) {
-        <mat-option [value]="user">{{ user.userName }}</mat-option>
+        @for (user of allUsers; track user) {
+        <mat-option [value]="user"
+          >{{ user.userName }}
+          <small class="full-name"
+            >{{ user.firstName }} {{ user.lastName }}</small
+          ></mat-option
+        >
         }
       </mat-autocomplete>
     </mat-form-field>
-    <div aria-label="User selection">
+    <mat-chip-grid aria-label="User selection">
       @for (user of users; track $index) {
       <mat-chip-row (removed)="remove(user)">
         {{ user.userName }}
@@ -32,7 +38,7 @@
         </button>
       </mat-chip-row>
       }
-    </div>
+    </mat-chip-grid>
     <div class="submit-button-container">
       <button type="submit" mat-flat-button class="mat-elevation-z5">
         Add user
