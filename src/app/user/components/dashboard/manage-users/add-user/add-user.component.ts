@@ -12,10 +12,10 @@ export class AddUserComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     @Inject(MAT_DIALOG_DATA)
-    protected page: {
+    public page: {
       pagSize: number;
       pageIndex: number;
-    }
+    },
   ) {}
 
   myForm: FormGroup = new FormGroup({});
@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
       this.adminService.createUser(
         this.myForm.value,
         this.page.pagSize,
-        this.page.pageIndex
+        this.page.pageIndex,
       );
     }
   }
