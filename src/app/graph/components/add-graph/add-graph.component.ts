@@ -118,7 +118,12 @@ export class AddGraphComponent {
     this.loadingService.setLoading(true);
     if (this.csvType === 'node') {
       this.addGraphService
-        .uploadNode(this.selectedFile, this.selectedId, this.categoryName)
+        .uploadNode(
+          this.selectedFile,
+          this.selectedId,
+          this.categoryName,
+          this.name
+        )
         .subscribe({
           next: () => {
             this.reset();

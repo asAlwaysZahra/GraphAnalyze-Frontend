@@ -15,14 +15,14 @@ export class AddGraphService {
     private loadingService: LoadingService
   ) {}
 
-  uploadNode(file: File, header: string, category: string) {
+  uploadNode(file: File, header: string, category: string, name: string) {
     this.loadingService.setLoading(true);
     const formData: FormData = new FormData();
 
     formData.append('Header', header);
     formData.append('File', file);
     formData.append('CategoryId', category);
-    formData.append('Name', 'name of file');
+    formData.append('Name', name);
 
     return this.httpClient.post(this.apiUrl + '/upload-file-node', formData, {
       withCredentials: true,

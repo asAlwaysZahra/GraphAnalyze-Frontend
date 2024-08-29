@@ -56,7 +56,7 @@ export class CategoryComponent implements OnInit {
 
     this.categoryService.notification$.subscribe(
       (data: { status: boolean; message: string }) => {
-        this._snackBar.openFromComponent(CatDeleteConfirmComponent, {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
           data: data.message,
           panelClass: data.status
             ? ['notification-class-success']
@@ -71,7 +71,6 @@ export class CategoryComponent implements OnInit {
     );
 
     this.categoryService.getCategories(this.pageSize, this.pageIndex);
-    this.loadingService.setLoading(false);
   }
 
   addCategory() {
