@@ -83,15 +83,15 @@ describe('CategoryService', () => {
   it('should call setLoading(true) and make a PUT request in updateCategory', () => {
     const category = { id: 1, name: 'Updated Category' };
 
-    service.updateCategory(category).subscribe();
+    service.updateCategory(category.id, category.name).subscribe();
 
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories/1`,
+      `${environment.apiUrl}/api/Categories?id=1`,
     );
     expect(req.request.method).toEqual('PUT');
-    expect(req.request.body).toEqual(category);
+    expect(req.request.body).toEqual({ name: category.name });
     req.flush({});
   });
 

@@ -142,7 +142,8 @@ describe('CategoryComponent', () => {
   it('should call updateCategory when saveEditCategory is called', () => {
     const category = { id: 1, name: 'Updated Category', totalNumber: 5 };
 
-    component.editingId = 1; // Set editing mode
+    component.editingId = category.id; // Set editing mode
+    component.updateNameValue = category.name; // Simulate the user input
     component.saveEditCategory(category); // Call the method
 
     fixture.detectChanges(); // Ensure changes are picked up by Angular
