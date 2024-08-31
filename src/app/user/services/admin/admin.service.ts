@@ -51,7 +51,7 @@ export class AdminService {
     this.loadingService.setLoading(true);
     this.http
       .get<GetUserResponse>(
-        `${this.apiUrl}/users?page=${page}&limit=${limit}`,
+        `${this.apiUrl}/users?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
         },
