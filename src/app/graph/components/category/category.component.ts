@@ -28,12 +28,13 @@ export class CategoryComponent implements OnInit {
   nameValue = '';
   isAdding = false;
   editingId = -1;
+  updateNameValue!: string;
 
   constructor(
     private readonly dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private categoryService: CategoryService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ export class CategoryComponent implements OnInit {
         if (data.status) {
           this.dialog.closeAll();
         }
-      }
+      },
     );
 
     this.categoryService.getCategories(this.pageSize, this.pageIndex);
@@ -128,6 +129,30 @@ export class CategoryComponent implements OnInit {
 
   saveEditCategory(categoryData: CategoryData) {
     console.log(categoryData);
+    this.loadingService.setLoading(true);
+    this.categoryService
+      .updateCategory(categoryData.id, this.updateNameValue)
+      .subscribe({
+        next: () => {
+          this.categoryService.getCategories(this.pageSize, this.pageIndex);
+          this.editingId = -1;
+          this.updateNameValue = '';
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: 'Category created successfully.',
+            panelClass: ['notification-class-success'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
   }
 
   handlePageEvent(e: PageEvent) {
