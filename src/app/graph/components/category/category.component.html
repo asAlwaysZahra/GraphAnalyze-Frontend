@@ -2,23 +2,23 @@
 <app-card>
   <div class="cat-forms">
     @if (isAdding) {
-    <form>
-      <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Name</mat-label>
-        <input matInput name="Name" [(ngModel)]="nameValue" />
-      </mat-form-field>
-      <button (click)="saveNewCategory()" type="submit">
-        <mat-icon mat-ripple class="save-cat">check</mat-icon>
-      </button>
-      <button (click)="cancelNewCategory()">
-        <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
-      </button>
-    </form>
+      <form>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Name</mat-label>
+          <input matInput name="Name" [(ngModel)]="nameValue" />
+        </mat-form-field>
+        <button (click)="saveNewCategory()" type="submit">
+          <mat-icon mat-ripple class="save-cat">check</mat-icon>
+        </button>
+        <button (click)="cancelNewCategory()">
+          <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
+        </button>
+      </form>
     } @else {
-    <button mat-button class="add-user" (click)="addCategory()">
-      <mat-icon>add</mat-icon>
-      Add new category
-    </button>
+      <button mat-button class="add-user" (click)="addCategory()">
+        <mat-icon>add</mat-icon>
+        Add new category
+      </button>
     }
   </div>
   <table mat-table [dataSource]="categoriesData">
@@ -31,20 +31,26 @@
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">
         @if (editingId === element.id) {
-        <div class="cat-forms">
-          <mat-form-field appearance="fill" class="form-field edit-field">
-            <mat-label>Name</mat-label>
-            <input matInput name="Name" id="Name" [value]="element.name" />
-          </mat-form-field>
-          <button (click)="saveEditCategory(element)">
-            <mat-icon mat-ripple class="save-cat">check</mat-icon>
-          </button>
-          <button (click)="cancelEditCategory()">
-            <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
-          </button>
-        </div>
+          <div class="cat-forms">
+            <mat-form-field appearance="fill" class="form-field edit-field">
+              <mat-label>Name</mat-label>
+              <input
+                matInput
+                name="Name"
+                id="Name"
+                [value]="element.name"
+                [(ngModel)]="updateNameValue"
+              />
+            </mat-form-field>
+            <button (click)="saveEditCategory(element)">
+              <mat-icon mat-ripple class="save-cat">check</mat-icon>
+            </button>
+            <button (click)="cancelEditCategory()">
+              <mat-icon mat-ripple class="cancel-cat">close</mat-icon>
+            </button>
+          </div>
         } @else {
-        {{ element.name }}
+          {{ element.name }}
         }
       </td>
     </ng-container>
