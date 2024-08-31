@@ -73,7 +73,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/GetUsersPagination?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
@@ -125,7 +125,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/GetUsersPagination?limit=${limit}&page=${page}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${limit}&page=${page}`,
     );
     expect(req.request.method).toEqual('GET');
     expect(req.request.withCredentials).toBeTrue();
@@ -149,7 +149,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const deleteReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/DeleteUser?id=${id}`,
+      `${environment.apiUrl}/api/Admin/users/${id}`,
     );
     expect(deleteReq.request.method).toEqual('DELETE');
     expect(deleteReq.request.withCredentials).toBeTrue();
@@ -158,7 +158,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/GetUsersPagination?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
@@ -195,7 +195,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const putReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/UpdateUser?id=${id}`,
+      `${environment.apiUrl}/api/Admin/users/${id}`,
     );
     expect(putReq.request.method).toEqual('PUT');
     expect(putReq.request.body).toEqual(request);
@@ -205,7 +205,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/GetUsersPagination?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
