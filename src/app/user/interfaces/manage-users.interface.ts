@@ -8,6 +8,13 @@ export interface UserData {
   roleName: string;
 }
 
+export interface UserInformation {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
 export interface GetUserResponse {
   users: UserData[];
   count: number;

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../services/user/user.service';
+import { UserInformation } from '../../../interfaces/manage-users.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../../../shared/services/loading.service';
+import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 
 @Component({
   selector: 'app-manage-account',
@@ -7,14 +12,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './manage-account.component.scss',
 })
 export class ManageAccountComponent implements OnInit {
-  myForm: FormGroup = new FormGroup({});
+  myForm: FormGroup;
+  userInfo!: UserInformation;
 
-  ngOnInit() {
+  constructor(
+    private userService: UserService,
+    private _snackBar: MatSnackBar,
+    private loadingService: LoadingService,
+  ) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      // password: new FormControl('', Validators.required),
-      // confirmPassword: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [
         Validators.required,
@@ -23,18 +31,48 @@ export class ManageAccountComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.userService.getLoginUserInfo().subscribe((data: UserInformation) => {
+      this.userInfo = data;
+      this.myForm.patchValue({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      });
+    });
+  }
+
   onSubmit() {
     if (this.myForm.valid) {
-      console.log(12123, this.myForm.value);
-      // this.adminService.createUser(
-      //   this.myForm.value,
-      //   this.page.pagSize,
-      //   this.page.pageIndex
-      // );
+      this.userService.updateUser(this.myForm.value).subscribe({
+        next: () => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: 'User information updated successfully!',
+            panelClass: ['notification-class-success'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+          this.userInfo = this.myForm.value;
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
     }
   }
 
-  setUserData() {
-    console.log(1);
+  resetUserInfo() {
+    this.myForm.patchValue({
+      firstName: this.userInfo.firstName,
+      lastName: this.userInfo.lastName,
+      email: this.userInfo.email,
+      phoneNumber: this.userInfo.phoneNumber,
+    });
   }
 }
