@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RoleService } from '../../../../services/role/role.service';
+import { Role } from '../../../../models/User';
 
 @Component({
   selector: 'app-add-user',
@@ -11,6 +13,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddUserComponent implements OnInit {
   constructor(
     private adminService: AdminService,
+    private roleService: RoleService,
     @Inject(MAT_DIALOG_DATA)
     public page: {
       pagSize: number;
@@ -19,8 +22,18 @@ export class AddUserComponent implements OnInit {
   ) {}
 
   myForm: FormGroup = new FormGroup({});
+  roles!: Role[];
 
   ngOnInit() {
+    this.roleService.getRoles(0, 100).subscribe({
+      next: (data) => {
+        this.roles = data.roles;
+      },
+      error: () => {
+        this.roles = [];
+      },
+    });
+
     this.myForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
