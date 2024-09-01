@@ -50,7 +50,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   public state = 'startRound';
 
   search = '';
-  accounts: string[] = [];
+  accounts: { id: number; entityName: string }[] = [];
   length!: number;
   pageIndex = 0;
 
@@ -64,7 +64,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -78,8 +78,8 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     this.loadGraphService.nodesData$.subscribe({
       next: (data) => {
-        this.accounts = data.paginateList;
-        this.length = data.totalCount;
+        this.accounts = data.items;
+        this.length = data.totalItems;
         this.pageIndex = data.pageIndex;
         this.loadingService.setLoading(false);
       },
@@ -100,7 +100,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance = new Network(
       this.el.nativeElement,
       this.data,
-      getOptions()
+      getOptions(),
     );
 
     // Listen for the context menu event (right-click)
@@ -118,7 +118,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
         this.changeDetector.detectChanges();
         const rightClickNodeInfoElem = document.getElementById(
-          'right-click-node-info'
+          'right-click-node-info',
         ) as HTMLElement;
         rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
 
@@ -140,18 +140,23 @@ export class DataAnalysisComponent implements AfterViewInit {
     });
   }
 
-  getInfo(account?: string) {
-    if (!account) {
-      account = (
-        document.getElementById('right-click-node-info') as HTMLElement
-      ).dataset['nodeid'];
-    }
-    this.loadGraphService.getNodeInfo(account!).subscribe({
+  getInfo(
+    account: { id: number; entityName: string } = { id: 0, entityName: 'test' },
+  ) {
+    // todo: fix this
+    // if (!account) {
+    //   account = (
+    //     document.getElementById('right-click-node-info') as HTMLElement
+    //   ).dataset['nodeid'];
+    // }
+
+    this.loadGraphService.getNodeInfo(account.id).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
           width: '105rem',
           data,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
@@ -164,8 +169,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     });
   }
 
-  showAsGraph(account: string) {
-    this.nodes.add({ id: account, label: account });
+  showAsGraph(account: { id: number; entityName: string }) {
+    this.nodes.add({ id: account.id, label: account.entityName });
   }
 
   getGraph() {
@@ -173,10 +178,19 @@ export class DataAnalysisComponent implements AfterViewInit {
       document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
 
-    this.loadGraphService.getGraph(nodeId!).subscribe({
+    this.loadGraphService.getGraph(Number(nodeId)!).subscribe({
       next: (data) => {
-        this.nodes.add(data.nodes as Node);
-        this.edges.add(data.edges as Edge);
+        data.nodes.forEach((newNode: Node) => {
+          if (!this.nodes.get().find((n) => n.id == newNode.id)) {
+            this.nodes.add(newNode);
+          }
+        });
+        data.edges.forEach((newEdge: Edge) => {
+          if (!this.edges.get().find((e) => e.id == newEdge.id)) {
+            this.edges.add(newEdge);
+          }
+        });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {

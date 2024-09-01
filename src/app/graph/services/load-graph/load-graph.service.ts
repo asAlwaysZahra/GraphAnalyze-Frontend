@@ -17,7 +17,7 @@ export class LoadGraphService {
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   getAllNodes(pageIndex = 0, category = '') {
@@ -26,33 +26,33 @@ export class LoadGraphService {
 
     this.http
       .get<AllNodes>(
-        `${this.apiUrl}/GetNodesPaginationEav?pageIndex=${pageIndex}&pageSize=${pageSize}&category=${category}`,
+        `${this.apiUrl}/nodes?pageIndex=${pageIndex}&pageSize=${pageSize}&category=${category}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe((nodes) => {
         this.nodesData.next(nodes);
       });
   }
 
-  getNodeInfo(id: string) {
+  getNodeInfo(headerUniqueId: string | number) {
     this.loadingService.setLoading(true);
     return this.http.get<unknown>(
-      this.apiUrl + '/GetNodeInformation?headerUniqueId=' + id,
+      `${this.apiUrl}/nodes/${headerUniqueId}/attributes?id=${headerUniqueId}`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
-  getGraph(id: string) {
+  getGraph(nodeId: number) {
     this.loadingService.setLoading(true);
     return this.http.get<Graph>(
-      this.apiUrl + '/GetRelationalEdgeByNodeName?nodeId=' + id,
+      `${this.apiUrl}/nodes-relation?nodeId=${nodeId}`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 }
