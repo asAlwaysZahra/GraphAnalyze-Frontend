@@ -10,7 +10,7 @@ import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
-import { getOptions } from './graph-options';
+import { getOptions, getSvg } from './graph-options';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import {
@@ -23,6 +23,7 @@ import {
 import { LoadingService } from '../../../shared/services/loading.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
+import { ColorPickerDialogComponent } from './color-picker-dialog/color-picker-dialog.component';
 
 @Component({
   selector: 'app-data-analysis',
@@ -57,6 +58,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   nodes = new DataSet<Node>([] as unknown as Node[]);
   edges = new DataSet<Edge>([] as Edge[]);
   data: Data = { nodes: this.nodes, edges: this.edges };
+  selectedNodes = new Set<number>();
 
   constructor(
     private themeService: ThemeService,
@@ -120,6 +122,7 @@ export class DataAnalysisComponent implements AfterViewInit {
         const rightClickNodeInfoElem = document.getElementById(
           'right-click-node-info',
         ) as HTMLElement;
+
         rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
 
         // Custom logic for node right-click
@@ -132,10 +135,36 @@ export class DataAnalysisComponent implements AfterViewInit {
       }
     });
 
-    this.networkInstance.on('click', function (params) {
-      if (params.edges.length == 1) {
-        const nodeId = params.edges[0];
-        console.log(nodeId);
+    this.networkInstance.on('click', (params) => {
+      if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0];
+        params.event.target.dataset['nodeid'] = nodeId;
+
+        if (params.event.srcEvent.ctrlKey || params.event.srcEvent.metaKey) {
+          if (this.selectedNodes.has(nodeId)) {
+            this.selectedNodes.delete(nodeId);
+          } else {
+            this.selectedNodes.add(nodeId);
+            this.nodes.update({
+              id: nodeId,
+              image: getSvg('#123123'),
+            });
+          }
+        } else {
+          this.selectedNodes.clear();
+          this.selectedNodes.add(nodeId);
+          this.nodes.update({
+            id: nodeId,
+            image: getSvg('#123123'),
+          });
+        }
+
+        console.log(this.selectedNodes);
+      } else if (params.edges.length == 1) {
+        const edgeId = params.edges[0];
+        console.log('edge click: ', edgeId);
+      } else {
+        this.selectedNodes.clear();
       }
     });
   }
@@ -213,5 +242,31 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   clearGraph() {
     this.nodes.clear();
+  }
+
+  testtt() {
+    const dialogRef = this.dialog.open(ColorPickerDialogComponent, {
+      width: '250px',
+      data: { color: '#ff00ff' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && this.selectedNodes.size > 0) {
+        this.changeNodeColors(result);
+      }
+    });
+  }
+
+  changeNodeColors(color: string) {
+    this.selectedNodes.forEach((nodeId) => {
+      // Update the node with the new color by generating a new SVG
+      this.nodes.update({
+        id: nodeId,
+        image: getSvg(color), // Generate SVG with the selected color
+      });
+    });
+
+    // Optionally clear the selection after updating
+    this.selectedNodes.clear();
   }
 }
