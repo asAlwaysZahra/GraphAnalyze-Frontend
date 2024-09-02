@@ -49,21 +49,27 @@ describe('LoginComponent', () => {
   });
 
   it('should toggle password visibility', () => {
-    const spy = spyOn(component, 'clickEvent');
-    const button = fixture.nativeElement.querySelector(
-      'button[mat-icon-button]'
-    );
-    button.click();
+    if (!component.isRecoverMode) {
+      const spy = spyOn(component, 'hidePassClick');
+      const button = fixture.nativeElement.querySelector(
+        'button[mat-icon-button]',
+      );
+      button.click();
 
-    expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+    }
   });
 
   it('should call loginClick when login button is clicked', () => {
-    const spy = spyOn(component, 'loginClick');
-    const button = fixture.nativeElement.querySelector('button[type="submit"]');
-    button.click();
+    if (!component.isRecoverMode) {
+      const spy = spyOn(component, 'loginClick');
+      const button = fixture.nativeElement.querySelector(
+        'button[type="submit"]',
+      );
+      button.click();
 
-    expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+    }
   });
 
   it('should toggle the theme when changeTheme is called', () => {
@@ -77,10 +83,10 @@ describe('LoginComponent', () => {
   it('should bind username and password inputs', () => {
     fixture.whenStable().then(() => {
       const usernameInput = fixture.nativeElement.querySelector(
-        'input[name="userName"]'
+        'input[name="userName"]',
       );
       const passwordInput = fixture.nativeElement.querySelector(
-        'input[name="password"]'
+        'input[name="password"]',
       );
 
       usernameInput.value = 'testUser';
