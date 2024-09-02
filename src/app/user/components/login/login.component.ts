@@ -28,6 +28,10 @@ export class LoginComponent implements AfterViewInit {
   username = '';
   password = '';
   isLoading = false;
+  isRecoverMode = true;
+  login_container!: HTMLElement;
+  recover_email = '';
+  isTrueRecoverCode = false;
 
   constructor(
     private authService: AuthService,
@@ -87,7 +91,7 @@ export class LoginComponent implements AfterViewInit {
     });
   }
 
-  clickEvent(event: MouseEvent) {
+  hidePassClick(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
@@ -117,5 +121,18 @@ export class LoginComponent implements AfterViewInit {
       animation: true,
       scale: 0.1,
     });
+  }
+
+  changeRecoverLoginMode() {
+    this.isRecoverMode = !this.isRecoverMode;
+  }
+
+  recoverClick() {
+    console.log(1);
+  }
+
+  sendCodeClick() {
+    console.log(2);
+    this.isTrueRecoverCode = true;
   }
 }
