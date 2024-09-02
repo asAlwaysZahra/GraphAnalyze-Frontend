@@ -4,9 +4,14 @@
   align-items: flex-end;
   padding-bottom: 1rem;
 
+  form {
+    display: flex;
+    gap: 0.3rem;
+    align-items: flex-end;
+  }
+
   .form-field {
-    padding: 0;
-    padding-left: 1rem;
+    padding: 0 0 0 1rem;
   }
 
   .save-cat {

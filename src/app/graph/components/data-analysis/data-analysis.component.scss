@@ -12,7 +12,7 @@
       padding: 1rem;
       color: var(--mat-sidenav-content-text-color);
       background: var(--toolbar-bg-color);
-      border-radius: 4px;
+      border-radius: 1.8rem;
       z-index: 1;
       gap: 1rem;
       display: inline-flex;
@@ -26,6 +26,10 @@
 
       .toolbar-icons {
         height: 1.5rem;
+
+        &:hover {
+          color: var(--nav-link-text-color-active);
+        }
       }
 
       .toolbar-handle {

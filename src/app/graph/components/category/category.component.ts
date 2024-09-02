@@ -94,28 +94,30 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
-    this.loadingService.setLoading(true);
-    this.categoryService.createCategory(this.nameValue).subscribe({
-      next: () => {
-        this.categoryService.getCategories(this.pageSize, this.pageIndex);
-        this.isAdding = false;
-        this.nameValue = '';
-        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
-          data: 'Category created successfully.',
-          panelClass: ['notification-class-success'],
-          duration: 2000,
-        });
-        this.loadingService.setLoading(false);
-      },
-      error: (error) => {
-        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
-          data: error.error.message,
-          panelClass: ['notification-class-danger'],
-          duration: 2000,
-        });
-        this.loadingService.setLoading(false);
-      },
-    });
+    if (this.nameValue != '') {
+      this.loadingService.setLoading(true);
+      this.categoryService.createCategory(this.nameValue).subscribe({
+        next: () => {
+          this.categoryService.getCategories(this.pageSize, this.pageIndex);
+          this.isAdding = false;
+          this.nameValue = '';
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: 'Category created successfully.',
+            panelClass: ['notification-class-success'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
+    }
   }
 
   cancelNewCategory() {

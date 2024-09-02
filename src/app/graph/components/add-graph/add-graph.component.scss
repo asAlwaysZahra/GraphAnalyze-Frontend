@@ -77,9 +77,21 @@
   gap: 1rem;
   align-self: flex-end;
 }
+
 .table-container {
   width: 100%;
   overflow-x: scroll;
+
+  table {
+    tr {
+      font-family: Vazir, serif;
+
+      th,
+      td {
+        text-align: center;
+      }
+    }
+  }
 }
 
 .wrong-format {
