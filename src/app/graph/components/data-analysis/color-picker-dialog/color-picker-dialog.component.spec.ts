@@ -1,12 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ColorPickerDialogComponent } from './color-picker-dialog.component';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 describe('ColorPickerDialogComponent', () => {
   let component: ColorPickerDialogComponent;
@@ -18,10 +12,9 @@ describe('ColorPickerDialogComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ColorPickerDialogComponent],
-      imports: [CommonModule, FormsModule, MatDialogModule],
       providers: [
         { provide: MatDialogRef, useValue: dialogRefMock },
-        { provide: MAT_DIALOG_DATA, useValue: { color: '#ff0000' } },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();
 
@@ -33,22 +26,33 @@ describe('ColorPickerDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with the correct color', () => {
-    expect(component.selectedColor).toBe('#ff0000');
+  it('should have a default list of colors', () => {
+    expect(component.colors.length).toBeGreaterThan(0);
   });
 
-  it('should close the dialog with the selected color on confirm', () => {
-    component.selectedColor = '#00ff00';
-    component.onConfirm();
-    expect(dialogRefSpy.close).toHaveBeenCalledWith('#00ff00');
+  it('should close the dialog with the selected color when selectColor is called', () => {
+    const color = '#FF0000';
+    component.selectColor(color);
+    expect(dialogRefSpy.close).toHaveBeenCalledWith(color);
   });
 
-  it('should close the dialog with null on cancel', () => {
-    component.onCancel();
-    expect(dialogRefSpy.close).toHaveBeenCalledWith(null);
+  it('should have the same number of colors in the template as in the component', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const colorElements = compiled.querySelectorAll('.color-box');
+    expect(colorElements.length).toBe(component.colors.length);
+  });
+
+  it('should close the dialog with the correct color when a color box is clicked', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const colorElements = compiled.querySelectorAll('.color-box');
+
+    colorElements.forEach((element, index) => {
+      element.dispatchEvent(new Event('click'));
+      expect(dialogRefSpy.close).toHaveBeenCalledWith(component.colors[index]);
+    });
   });
 });

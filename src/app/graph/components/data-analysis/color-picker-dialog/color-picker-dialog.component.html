@@ -4,5 +4,8 @@
     [style.background-color]="color"
     class="color-box"
     (click)="selectColor(color)"
+    tabindex="0"
+    (keydown.enter)="selectColor(color)"
+    (keydown.space)="selectColor(color)"
   ></div>
 </div>
