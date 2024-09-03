@@ -11,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { getOptions, getSvg } from './graph-options';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import {
   animate,
@@ -283,11 +283,19 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.nodes.clear();
   }
 
-  testtt() {
-    const dialogRef = this.dialog.open(ColorPickerDialogComponent, {
-      width: '250px',
-      data: { color: '#ff00ff' },
-    });
+  testtt(event: MouseEvent) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: `${event.clientY + -150}px`,
+      left: `${event.clientX + -150}px`,
+    };
+    dialogConfig.data = { color: '#ff00ff' };
+    dialogConfig.width = '250px';
+
+    const dialogRef = this.dialog.open(
+      ColorPickerDialogComponent,
+      dialogConfig,
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.selectedNodes.size > 0) {
