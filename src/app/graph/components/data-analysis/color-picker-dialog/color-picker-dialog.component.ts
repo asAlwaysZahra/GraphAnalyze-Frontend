@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-color-picker-dialog',
@@ -34,13 +34,7 @@ export class ColorPickerDialogComponent {
   //   '#89B882', // Darker Soft Green
   // ];
 
-  constructor(
-    public dialogRef: MatDialogRef<ColorPickerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      color: string;
-    },
-  ) {}
+  constructor(public dialogRef: MatDialogRef<ColorPickerDialogComponent>) {}
 
   selectColor(color: string): void {
     this.dialogRef.close(color);

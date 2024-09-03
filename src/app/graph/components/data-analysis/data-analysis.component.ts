@@ -283,13 +283,12 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.nodes.clear();
   }
 
-  testtt(event: MouseEvent) {
+  openColorDialog(event: MouseEvent) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: `${event.clientY + -110}px`,
       left: `${event.clientX + -150}px`,
     };
-    dialogConfig.data = { color: '#ff00ff' };
     dialogConfig.width = '250px';
 
     const dialogRef = this.dialog.open(
