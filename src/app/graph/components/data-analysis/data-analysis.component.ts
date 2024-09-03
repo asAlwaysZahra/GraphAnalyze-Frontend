@@ -147,32 +147,65 @@ export class DataAnalysisComponent implements AfterViewInit {
         const nodeId = params.nodes[0];
 
         if (params.event.srcEvent.ctrlKey || params.event.srcEvent.metaKey) {
-          if (this.selectedNodes.has(nodeId)) {
-            this.selectedNodes.delete(nodeId);
-          } else {
-            this.selectedNodes.add(nodeId);
-            this.nodes.update({
-              id: nodeId,
-              image: getSvg(this.selectedNodeColor),
-            });
-          }
+          this.toggleNodeSelection(nodeId);
         } else {
-          this.selectedNodes.clear();
-          this.selectedNodes.add(nodeId);
-          this.nodes.update({
-            id: nodeId,
-            image: getSvg(this.selectedNodeColor),
-          });
+          this.handleSingleClick(nodeId);
         }
 
         console.log(this.selectedNodes);
-      } else if (params.edges.length == 1) {
-        const edgeId = params.edges[0];
-        console.log('edge click: ', edgeId);
+      } else if (params.edges.length === 1) {
+        this.handleEdgeClick(params.edges[0]);
       } else {
-        this.selectedNodes.clear();
+        this.clearAllSelections();
       }
     });
+  }
+
+  toggleNodeSelection(nodeId: number): void {
+    if (this.selectedNodes.has(nodeId)) {
+      this.deselectNode(nodeId);
+    } else {
+      this.selectNode(nodeId);
+    }
+  }
+
+  handleSingleClick(nodeId: number): void {
+    if (this.selectedNodes.has(nodeId)) {
+      this.deselectNode(nodeId);
+    } else {
+      this.clearAllSelections();
+      this.selectNode(nodeId);
+    }
+  }
+
+  selectNode(nodeId: number): void {
+    this.selectedNodes.add(nodeId);
+    this.nodes.update({
+      id: nodeId,
+      image: getSvg(this.selectedNodeColor),
+    });
+  }
+
+  deselectNode(nodeId: number): void {
+    this.selectedNodes.delete(nodeId);
+    this.nodes.update({
+      id: nodeId,
+      image: getSvg(this.nodeColor),
+    });
+  }
+
+  clearAllSelections(): void {
+    this.selectedNodes.forEach((selectedNodeId) => {
+      this.nodes.update({
+        id: selectedNodeId,
+        image: getSvg(this.nodeColor),
+      });
+    });
+    this.selectedNodes.clear();
+  }
+
+  handleEdgeClick(edgeId: number): void {
+    console.log('edge click: ', edgeId);
   }
 
   getInfo(
