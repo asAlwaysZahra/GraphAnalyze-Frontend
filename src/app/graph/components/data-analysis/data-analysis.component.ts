@@ -286,7 +286,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   testtt(event: MouseEvent) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
-      top: `${event.clientY + -150}px`,
+      top: `${event.clientY + -110}px`,
       left: `${event.clientX + -150}px`,
     };
     dialogConfig.data = { color: '#ff00ff' };
