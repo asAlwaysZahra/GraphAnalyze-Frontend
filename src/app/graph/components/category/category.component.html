@@ -34,13 +34,7 @@
           <div class="cat-forms">
             <mat-form-field appearance="fill" class="form-field edit-field">
               <mat-label>Name</mat-label>
-              <input
-                matInput
-                name="Name"
-                id="Name"
-                [value]="element.name"
-                [(ngModel)]="updateNameValue"
-              />
+              <input matInput name="Name" id="Name" [value]="element.name" />
             </mat-form-field>
             <button (click)="saveEditCategory(element)">
               <mat-icon mat-ripple class="save-cat">check</mat-icon>

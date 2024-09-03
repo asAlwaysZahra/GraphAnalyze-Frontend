@@ -42,7 +42,7 @@ export class AssignFileService {
   getFileUserAccess(id: number) {
     this.loadingService.setLoading(true);
     return this.httpClient.get<FileAccessUsers[]>(
-      this.apiUrl + `/files/${id}/access`,
+      this.apiUrl + `/files/users?fileId=${id}`,
       {
         withCredentials: true,
       },
@@ -65,7 +65,7 @@ export class AssignFileService {
     this.loadingService.setLoading(true);
     return this.httpClient
       .post<FileAccessUserResponse[]>(
-        this.apiUrl + `/files/${id}/access`,
+        this.apiUrl + `/files/access`,
         {
           userGuidIds: users.map((user) => user.id),
           fileId: id,

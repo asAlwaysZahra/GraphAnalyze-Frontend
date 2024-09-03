@@ -54,6 +54,9 @@ export class DataAnalysisComponent implements AfterViewInit {
   accounts: { id: number; entityName: string }[] = [];
   length!: number;
   pageIndex = 0;
+  isDarkMode!: boolean;
+  nodeColor!: string;
+  selectedNodeColor!: string;
 
   nodes = new DataSet<Node>([] as unknown as Node[]);
   edges = new DataSet<Edge>([] as Edge[]);
@@ -77,7 +80,11 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.createGraph();
-
+    this.themeService.theme$.subscribe((theme) => {
+      this.isDarkMode = theme == 'dark';
+      this.nodeColor = this.isDarkMode ? '#b5c4ff' : 'rgb(27, 89, 248)';
+      this.selectedNodeColor = this.isDarkMode ? 'rgb(27, 89, 248)' : '#b5c4ff';
+    });
     this.loadGraphService.nodesData$.subscribe({
       next: (data) => {
         this.accounts = data.items;
@@ -138,7 +145,6 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance.on('click', (params) => {
       if (params.nodes.length > 0) {
         const nodeId = params.nodes[0];
-        params.event.target.dataset['nodeid'] = nodeId;
 
         if (params.event.srcEvent.ctrlKey || params.event.srcEvent.metaKey) {
           if (this.selectedNodes.has(nodeId)) {
@@ -147,7 +153,7 @@ export class DataAnalysisComponent implements AfterViewInit {
             this.selectedNodes.add(nodeId);
             this.nodes.update({
               id: nodeId,
-              image: getSvg('#123123'),
+              image: getSvg(this.selectedNodeColor),
             });
           }
         } else {
@@ -155,7 +161,7 @@ export class DataAnalysisComponent implements AfterViewInit {
           this.selectedNodes.add(nodeId);
           this.nodes.update({
             id: nodeId,
-            image: getSvg('#123123'),
+            image: getSvg(this.selectedNodeColor),
           });
         }
 

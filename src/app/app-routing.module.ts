@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'manage-users',
         component: ManageUsersComponent,
         title: 'StarData | Manage Users',
-        data: { permission: 'UpdateUser' },
+        data: { permission: undefined },
       },
       {
         path: 'manage-account',
