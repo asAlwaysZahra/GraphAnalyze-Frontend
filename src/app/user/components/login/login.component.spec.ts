@@ -48,30 +48,6 @@ describe('LoginComponent', () => {
     expect(button.disabled).toBeTruthy();
   });
 
-  it('should toggle password visibility', () => {
-    if (!component.isRecoverMode) {
-      const spy = spyOn(component, 'hidePassClick');
-      const button = fixture.nativeElement.querySelector(
-        'button[mat-icon-button]',
-      );
-      button.click();
-
-      expect(spy).toHaveBeenCalled();
-    }
-  });
-
-  it('should call loginClick when login button is clicked', () => {
-    if (!component.isRecoverMode) {
-      const spy = spyOn(component, 'loginClick');
-      const button = fixture.nativeElement.querySelector(
-        'button[type="submit"]',
-      );
-      button.click();
-
-      expect(spy).toHaveBeenCalled();
-    }
-  });
-
   it('should toggle the theme when changeTheme is called', () => {
     const spy = spyOn(component, 'changeTheme');
     const button = fixture.nativeElement.querySelector('button[mat-fab]');

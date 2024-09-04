@@ -12,14 +12,33 @@ import { PermissionGuard } from './guards/permissions/permission.guard';
 import { AddGraphComponent } from './graph/components/add-graph/add-graph.component';
 import { AssignFileComponent } from './user/components/dashboard/assign-file/assign-file.component';
 import { CategoryComponent } from './graph/components/category/category.component';
+import { RecoverPassFormComponent } from './user/components/login/recover-pass-form/recover-pass-form.component';
+import { LoginFormComponent } from './user/components/login/login-form/login-form.component';
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
-    title: 'StarData | Login',
-    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'recover-password',
+        component: RecoverPassFormComponent,
+        title: 'StarData | Recover Password',
+      },
+      {
+        path: 'login',
+        component: LoginFormComponent,
+        title: 'StarData | Login',
+        // canActivate: [AuthGuard],
+      },
+    ],
   },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  //   title: 'StarData | Login',
+  //   canActivate: [AuthGuard],
+  // },
   {
     path: 'dashboard',
     component: DashboardComponent,
