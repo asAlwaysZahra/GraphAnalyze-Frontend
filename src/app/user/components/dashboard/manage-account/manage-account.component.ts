@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
-import { UserInformation } from '../../../interfaces/manage-users.interface';
+import { UserInformation } from '../../../models/manage-users.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';

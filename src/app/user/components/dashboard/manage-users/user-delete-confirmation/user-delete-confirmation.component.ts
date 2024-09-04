@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserData } from '../../../../interfaces/manage-users.interface';
+import { UserData } from '../../../../models/manage-users.interface';
 import { AdminService } from '../../../../services/admin/admin.service';
 
 @Component({
@@ -32,14 +32,14 @@ export class UserDeleteConfirmationComponent {
       pagSize: number;
       pageIndex: number;
     },
-    private adminService: AdminService
+    private adminService: AdminService,
   ) {}
 
   deleteUser() {
     this.adminService.deleteUser(
       this.pageData.user.guid,
       this.pageData.pagSize,
-      this.pageData.pageIndex
+      this.pageData.pageIndex,
     );
   }
 }
