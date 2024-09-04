@@ -78,7 +78,7 @@
     >
       @for (role of roles; track role.id) {
         <mat-radio-button name="role" value="{{ role.name }}"
-          >{{ role.name }}
+          >{{ role.name.replace("-", " ") }}
         </mat-radio-button>
       }
     </mat-radio-group>

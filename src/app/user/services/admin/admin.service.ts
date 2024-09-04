@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import { GetUserResponse } from '../../models/manage-users.interface';
+import { GetUserResponse } from '../../models/ManageUsers';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../api-config/api-url';
 import { LoadingService } from '../../../shared/services/loading.service';

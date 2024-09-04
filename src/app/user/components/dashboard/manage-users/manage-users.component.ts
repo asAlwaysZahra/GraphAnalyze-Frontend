@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  GetUserResponse,
-  UserData,
-} from '../../../models/manage-users.interface';
+import { GetUserResponse, UserData } from '../../../models/ManageUsers';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';

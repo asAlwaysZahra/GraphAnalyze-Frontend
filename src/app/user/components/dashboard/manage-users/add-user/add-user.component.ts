@@ -38,12 +38,21 @@ export class AddUserComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$',
+        ),
+      ]),
       confirmPassword: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'),
+      ]),
       phoneNumber: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[0-9]*$'),
+        Validators.pattern('^09\\d{9}$'),
       ]),
       roleName: new FormControl(),
     });

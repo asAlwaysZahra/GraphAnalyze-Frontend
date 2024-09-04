@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
-import { UserInformation } from '../../../models/manage-users.interface';
+import { UserInformation } from '../../../models/ManageUsers';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
@@ -14,6 +14,22 @@ import { DangerSuccessNotificationComponent } from '../../../../shared/component
 export class ManageAccountComponent implements OnInit {
   myForm: FormGroup;
   userInfo!: UserInformation;
+  focusedField!: string | null;
+
+  validationFields = [
+    { control: 'firstName', message: 'First name field should not be empty.' },
+    { control: 'lastName', message: 'Last name field should not be empty.' },
+    {
+      control: 'email',
+      message:
+        'Email format: example@domain.com (no spaces, one "@" symbol, and a valid domain).',
+    },
+    {
+      control: 'phoneNumber',
+      message:
+        'Phone number format: A 10-digit number starting with 09 (e.g. 0912345678).',
+    },
+  ];
 
   constructor(
     private userService: UserService,
@@ -23,10 +39,14 @@ export class ManageAccountComponent implements OnInit {
     this.myForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'),
+      ]),
       phoneNumber: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[0-9]*$'),
+        Validators.pattern('^09\\d{9}$'),
       ]),
     });
   }

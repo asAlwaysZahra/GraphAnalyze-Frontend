@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
 import { LoadingService } from '../../../shared/services/loading.service';
-import { UserInformation } from '../../models/manage-users.interface';
+import { UserInformation } from '../../models/ManageUsers';
 
 @Injectable({
   providedIn: 'root',

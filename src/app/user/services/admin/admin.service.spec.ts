@@ -7,7 +7,7 @@ import {
 import { AdminService } from './admin.service';
 import { LoadingService } from '../../../shared/services/loading.service';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import { GetUserResponse } from '../../models/manage-users.interface';
+import { GetUserResponse } from '../../models/ManageUsers';
 import { environment } from '../../../../../api-config/api-url';
 
 describe('AdminService', () => {
