@@ -1,7 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { AuthService } from '../../../services/auth/auth.service';
-import { Router } from '@angular/router';
-import { ThemeService } from '../../../../shared/services/theme.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
 

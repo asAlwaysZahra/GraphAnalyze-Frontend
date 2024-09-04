@@ -153,7 +153,7 @@ describe('DashboardHeaderComponent', () => {
     themeChangerIcon.id = 'theme-changer-icon';
     document.body.appendChild(themeChangerIcon);
 
-    (themeService.theme$ as any) = of('dark');
+    themeService.theme$ = of('dark');
 
     component.changeTheme();
 
