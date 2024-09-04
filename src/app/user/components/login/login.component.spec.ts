@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { LoginComponent } from './login.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,6 +25,7 @@ describe('LoginComponent', () => {
         MatInputModule,
         MatButtonModule,
         BrowserAnimationsModule,
+        RouterModule.forRoot([]),
       ],
       declarations: [LoginComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -40,46 +42,11 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a disabled login button when isLoading is true', () => {
-    component.isLoading = true;
-    fixture.detectChanges();
-
-    const button = fixture.nativeElement.querySelector('button[type="submit"]');
-    expect(button.disabled).toBeTruthy();
-  });
-
   it('should toggle the theme when changeTheme is called', () => {
     const spy = spyOn(component, 'changeTheme');
     const button = fixture.nativeElement.querySelector('button[mat-fab]');
     button.click();
 
     expect(spy).toHaveBeenCalled();
-  });
-
-  it('should bind username and password inputs', () => {
-    fixture.whenStable().then(() => {
-      const usernameInput = fixture.nativeElement.querySelector(
-        'input[name="userName"]',
-      );
-      const passwordInput = fixture.nativeElement.querySelector(
-        'input[name="password"]',
-      );
-
-      usernameInput.value = 'testUser';
-      passwordInput.value = 'testPassword';
-
-      usernameInput.dispatchEvent(new Event('input'));
-      passwordInput.dispatchEvent(new Event('input'));
-
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-
-      console.log(component.username);
-      console.log(component.password);
-
-      expect(component.username).toBe('testUser');
-      expect(component.password).toBe('testPassword');
-    });
   });
 });

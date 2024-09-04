@@ -94,7 +94,7 @@ export class CategoryComponent implements OnInit {
   }
 
   saveNewCategory() {
-    if (!this.nameValue) {
+    if (this.nameValue) {
       this.loadingService.setLoading(true);
       this.categoryService.createCategory(this.nameValue).subscribe({
         next: () => {

@@ -12,9 +12,6 @@ import { getOptions, GRAPH_EDGES, GRAPH_NODES } from './login-graph';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('network') el!: ElementRef;
   private networkInstance!: Network;
-  username = '';
-  password = '';
-  isLoading = false;
 
   constructor(
     private themeService: ThemeService,
