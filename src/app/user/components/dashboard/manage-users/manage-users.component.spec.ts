@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ValidationStatusComponent } from '../../../../shared/components/validation-status/validation-status.component';
 
 describe('ManageUsersComponent', () => {
   let component: ManageUsersComponent;
@@ -21,6 +22,7 @@ describe('ManageUsersComponent', () => {
         ManageUsersComponent,
         DashboardHeaderComponent,
         CardComponent,
+        ValidationStatusComponent,
       ],
       imports: [
         MatIconModule,

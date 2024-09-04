@@ -88,10 +88,10 @@ describe('AddUserComponent', () => {
       firstName: 'John',
       lastName: 'Doe',
       username: 'johndoe',
-      password: 'password',
-      confirmPassword: 'password',
+      password: 'passwordAa@12',
+      confirmPassword: 'passwordAa@12',
       email: 'john.doe@example.com',
-      phoneNumber: '1234567890',
+      phoneNumber: '09121112222',
       roleName: 'admin',
     });
 

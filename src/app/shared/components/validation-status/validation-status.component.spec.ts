@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidationStatusComponent } from './validation-status.component';
+import { CardComponent } from '../card/card.component';
 
 describe('ValidationStatusComponent', () => {
   let component: ValidationStatusComponent;
@@ -8,9 +9,8 @@ describe('ValidationStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ValidationStatusComponent]
-    })
-    .compileComponents();
+      declarations: [ValidationStatusComponent, CardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ValidationStatusComponent);
     component = fixture.componentInstance;
