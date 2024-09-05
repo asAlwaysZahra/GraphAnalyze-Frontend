@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Router,
   CanActivateChild,
   CanActivateFn,
+  Router,
 } from '@angular/router';
 import { catchError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,7 +18,10 @@ export const permissionGuard: CanActivateFn = (route, state) => {
   providedIn: 'root',
 })
 export class PermissionGuard implements CanActivateChild {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   canActivateChild(childRoute: ActivatedRouteSnapshot) {
     const requiredPermission = childRoute.data['permission'];
@@ -28,16 +31,12 @@ export class PermissionGuard implements CanActivateChild {
 
     return this.authService.getPermissions().pipe(
       map((permissions) => {
-        if (permissions?.permission.includes(requiredPermission)) {
-          return true;
-        } else {
-          return false;
-        }
+        return !!permissions?.permission.includes(requiredPermission);
       }),
       catchError(() => {
         this.router.navigate(['/login']);
         return [false];
-      })
+      }),
     );
   }
 }

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserData } from '../../../../interfaces/manage-users.interface';
+import { UserData } from '../../../../models/ManageUsers';
 
 @Component({
   selector: 'app-edit-user',
@@ -39,10 +39,11 @@ export class EditUserComponent implements OnInit {
       email: new FormControl(this.pageData.user.email, [
         Validators.required,
         Validators.email,
+        Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'),
       ]),
       phoneNumber: new FormControl(this.pageData.user.phoneNumber, [
         Validators.required,
-        Validators.pattern('^[0-9]*$'),
+        Validators.pattern('^09\\d{9}$'),
       ]),
       roleName: new FormControl(this.pageData.user.roleName),
     });

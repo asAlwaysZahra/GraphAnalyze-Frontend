@@ -20,12 +20,15 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
+  MatDialogModule,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { CategoryComponent } from './components/category/category.component';
 import { MatRippleModule } from '@angular/material/core';
 import { CatDeleteConfirmComponent } from './components/category/cat-delete-confirm/cat-delete-confirm.component';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { ColorPickerDialogComponent } from './components/data-analysis/color-picker-dialog/color-picker-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
     InfoDialogComponent,
     CategoryComponent,
     CatDeleteConfirmComponent,
+    ColorPickerDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +63,8 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
     MatRippleModule,
     CdkDrag,
     CdkDragHandle,
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
 })
 export class GraphModule {}

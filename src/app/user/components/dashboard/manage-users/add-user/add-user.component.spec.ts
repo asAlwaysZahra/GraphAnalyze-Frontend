@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 class MockAdminService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,6 +40,8 @@ describe('AddUserComponent', () => {
         BrowserAnimationsModule,
       ],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         { provide: AdminService, useClass: MockAdminService },
         { provide: MAT_DIALOG_DATA, useValue: { pagSize: 10, pageIndex: 1 } },
         { provide: MatDialogRef, useValue: {} },
@@ -69,7 +73,12 @@ describe('AddUserComponent', () => {
   it('should initialize the form with controls', () => {
     expect(component.myForm.contains('firstName')).toBeTruthy();
     expect(component.myForm.contains('lastName')).toBeTruthy();
-    // Add assertions for all form controls
+    expect(component.myForm.contains('username')).toBeTruthy();
+    expect(component.myForm.contains('password')).toBeTruthy();
+    expect(component.myForm.contains('confirmPassword')).toBeTruthy();
+    expect(component.myForm.contains('email')).toBeTruthy();
+    expect(component.myForm.contains('phoneNumber')).toBeTruthy();
+    expect(component.myForm.contains('roleName')).toBeTruthy();
   });
 
   it('should call createUser on valid form submission', () => {
@@ -79,10 +88,10 @@ describe('AddUserComponent', () => {
       firstName: 'John',
       lastName: 'Doe',
       username: 'johndoe',
-      password: 'password',
-      confirmPassword: 'password',
+      password: 'passwordAa@12',
+      confirmPassword: 'passwordAa@12',
       email: 'john.doe@example.com',
-      phoneNumber: '1234567890',
+      phoneNumber: '09121112222',
       roleName: 'admin',
     });
 

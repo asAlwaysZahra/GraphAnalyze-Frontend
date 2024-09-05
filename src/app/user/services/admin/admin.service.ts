@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, UpdateUserRequest } from '../../models/User';
-import { GetUserResponse } from '../../interfaces/manage-users.interface';
+import { GetUserResponse } from '../../models/ManageUsers';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../api-config/api-url';
 import { LoadingService } from '../../../shared/services/loading.service';
@@ -19,7 +19,7 @@ export class AdminService {
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   createUser(request: RegisterRequest, pageSize: number, pageIndex: number) {
@@ -51,10 +51,10 @@ export class AdminService {
     this.loadingService.setLoading(true);
     this.http
       .get<GetUserResponse>(
-        `${this.apiUrl}/GetUsersPagination?limit=${limit}&page=${page}`,
+        `${this.apiUrl}/users?limit=${limit}&page=${page}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe({
         next: (users) => {
@@ -74,7 +74,7 @@ export class AdminService {
   deleteUser(id: string, pageSize: number, pageIndex: number) {
     this.loadingService.setLoading(true);
     this.http
-      .delete(`${this.apiUrl}/DeleteUser?id=${id}`, {
+      .delete(`${this.apiUrl}/users/${id}`, {
         withCredentials: true,
       })
       .subscribe({
@@ -100,11 +100,11 @@ export class AdminService {
     id: string,
     request: UpdateUserRequest,
     pageSize: number,
-    pageIndex: number
+    pageIndex: number,
   ) {
     this.loadingService.setLoading(true);
     return this.http
-      .put(`${this.apiUrl}/UpdateUser?id=${id}`, request, {
+      .put(`${this.apiUrl}/users/${id}`, request, {
         withCredentials: true,
       })
       .subscribe({

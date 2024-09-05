@@ -41,3 +41,15 @@ export interface NewPasswordRequest {
   newPassword: 'string';
   confirmPassword: 'string';
 }
+
+export interface Role {
+  id: string;
+  name: string;
+  policy: string;
+}
+
+export interface GetRoleResponse {
+  roles: Role[];
+  count: number;
+  thisPage: number;
+}

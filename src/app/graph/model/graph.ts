@@ -1,22 +1,11 @@
 export interface AllNodes {
-  paginateList: string[];
+  items: { id: number; entityName: string }[];
   pageIndex: number;
-  totalCount: number;
-  typeCategory: string;
+  totalItems: number;
+  categoryName: string;
 }
 
 export interface Graph {
-  nodes: [
-    {
-      id: string;
-      lable: string;
-    }[]
-  ];
-  edges: [
-    {
-      from: string;
-      to: string;
-      id: string;
-    }[]
-  ];
+  nodes: { id: string; label: string }[];
+  edges: { from: number; to: number; id: number }[];
 }

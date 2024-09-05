@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  GetUserResponse,
-  UserData,
-} from '../../../interfaces/manage-users.interface';
+import { GetUserResponse, UserData } from '../../../models/ManageUsers';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './add-user/add-user.component';
 import { PageEvent } from '@angular/material/paginator';
@@ -42,7 +39,7 @@ export class ManageUsersComponent implements OnInit {
     private readonly dialog: MatDialog,
     private adminService: AdminService,
     private _snackBar: MatSnackBar,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {
     this.loadingService.setLoading(false);
   }

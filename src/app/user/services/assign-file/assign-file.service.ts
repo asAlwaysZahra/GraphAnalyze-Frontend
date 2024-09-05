@@ -22,18 +22,17 @@ export class AssignFileService {
 
   constructor(
     private httpClient: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   getFilesData(pageSize = 10, pageNumber = 0) {
     this.loadingService.setLoading(true);
     return this.httpClient
       .get<FileDataResponse>(
-        this.apiUrl +
-          `/GetFileForAccessingFile?page=${pageNumber}&limit=${pageSize}`,
+        this.apiUrl + `/files?page=${pageNumber}&limit=${pageSize}`,
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe((files) => {
         this.filesData.next(files);
@@ -43,20 +42,20 @@ export class AssignFileService {
   getFileUserAccess(id: number) {
     this.loadingService.setLoading(true);
     return this.httpClient.get<FileAccessUsers[]>(
-      this.apiUrl + `/WhoAccessToThisFile?fileId=${id}`,
+      this.apiUrl + `/files/users?fileId=${id}`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
   search(username: string) {
     this.loadingService.setLoading(true);
     return this.httpClient.get<FileAccessUserResponse[]>(
-      this.apiUrl + `/GetUsersForAccessingFile?username=${username}`,
+      this.apiUrl + `/users?username=${username}`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
@@ -66,11 +65,14 @@ export class AssignFileService {
     this.loadingService.setLoading(true);
     return this.httpClient
       .post<FileAccessUserResponse[]>(
-        this.apiUrl + `/AccessFileToUser?fileId=${id}`,
-        users.map((user) => user.id),
+        this.apiUrl + `/files/access`,
+        {
+          userGuidIds: users.map((user) => user.id),
+          fileId: id,
+        },
         {
           withCredentials: true,
-        }
+        },
       )
       .subscribe({
         next: () => {

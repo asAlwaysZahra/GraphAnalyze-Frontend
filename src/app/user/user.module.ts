@@ -35,6 +35,8 @@ import { AssignDialogComponent } from './components/dashboard/assign-file/assign
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoginFormComponent } from './components/login/login-form/login-form.component';
+import { RecoverPassFormComponent } from './components/login/recover-pass-form/recover-pass-form.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     EditUserComponent,
     AssignFileComponent,
     AssignDialogComponent,
+    LoginFormComponent,
+    RecoverPassFormComponent,
   ],
   imports: [
     CommonModule,

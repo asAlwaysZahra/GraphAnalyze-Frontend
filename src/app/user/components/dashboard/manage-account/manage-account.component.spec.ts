@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ValidationStatusComponent } from '../../../../shared/components/validation-status/validation-status.component';
 
 describe('ManageAccountComponent', () => {
   let component: ManageAccountComponent;
@@ -22,6 +23,7 @@ describe('ManageAccountComponent', () => {
         ManageAccountComponent,
         DashboardHeaderComponent,
         CardComponent,
+        ValidationStatusComponent,
       ],
       imports: [
         MatIconModule,

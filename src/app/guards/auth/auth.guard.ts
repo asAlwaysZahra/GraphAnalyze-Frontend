@@ -19,10 +19,13 @@ export const authGuard: CanActivateFn = (route, state) => {
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot
+    route: ActivatedRouteSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -45,7 +48,7 @@ export class AuthGuard implements CanActivate {
       catchError(() => {
         this.router.navigate(['/login']);
         return [false];
-      })
+      }),
     );
   }
 }

@@ -8,12 +8,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoadingService } from './services/loading.service';
 import { DangerSuccessNotificationComponent } from './components/danger-success-notification/danger-success-notification.component';
+import { ValidationStatusComponent } from './components/validation-status/validation-status.component';
 
 @NgModule({
   declarations: [
     CardComponent,
     DashboardHeaderComponent,
     DangerSuccessNotificationComponent,
+    ValidationStatusComponent,
   ],
   imports: [CommonModule, MatIconModule, AppRoutingModule, MatTooltipModule],
   providers: [ThemeService, LoadingService],
@@ -21,6 +23,7 @@ import { DangerSuccessNotificationComponent } from './components/danger-success-
     CardComponent,
     DashboardHeaderComponent,
     DangerSuccessNotificationComponent,
+    ValidationStatusComponent,
   ],
 })
 export class SharedModule {}

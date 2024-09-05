@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
 import { LoadingService } from '../../../shared/services/loading.service';
+import { UserInformation } from '../../models/ManageUsers';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   forgetPassword(request: ForgetPasswordRequest): Observable<void> {
@@ -30,25 +31,20 @@ export class UserService {
     });
   }
 
-  // getUsers(): Observable<User[]> {
-  //   return this.http.get<User[]>(`${this.apiUrl}`, { withCredentials: true });
-  // }
-  //
-  // getUserById(id: number): Observable<User> {
-  //   return this.http.get<User>(`${this.apiUrl}/${id}`, {
-  //     withCredentials: true,
-  //   });
-  // }
-  //
-  // updateUser(id: number, user: User): Observable<User> {
-  //   return this.http.put<User>(`${this.apiUrl}/${id}`, user, {
-  //     withCredentials: true,
-  //   });
-  // }
-  //
-  // deleteUser(id: number): Observable<void> {
-  //   return this.http.delete<void>(`${this.apiUrl}/${id}`, {
-  //     withCredentials: true,
-  //   });
-  // }
+  getLoginUserInfo() {
+    this.loadingService.setLoading(true);
+    return this.http.get<UserInformation>(
+      `${this.apiUrl}/get-user-information`,
+      {
+        withCredentials: true,
+      },
+    );
+  }
+
+  updateUser(userInfo: UserInformation) {
+    this.loadingService.setLoading(true);
+    return this.http.put(`${this.apiUrl}/update-user`, userInfo, {
+      withCredentials: true,
+    });
+  }
 }

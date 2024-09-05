@@ -10,8 +10,8 @@ import { LoadGraphService } from '../../services/load-graph/load-graph.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
-import { getOptions } from './graph-options';
-import { MatDialog } from '@angular/material/dialog';
+import { getOptions, getSvg } from './graph-options';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import {
   animate,
@@ -23,6 +23,7 @@ import {
 import { LoadingService } from '../../../shared/services/loading.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
+import { ColorPickerDialogComponent } from './color-picker-dialog/color-picker-dialog.component';
 
 @Component({
   selector: 'app-data-analysis',
@@ -50,13 +51,17 @@ export class DataAnalysisComponent implements AfterViewInit {
   public state = 'startRound';
 
   search = '';
-  accounts: string[] = [];
+  accounts: { id: number; entityName: string }[] = [];
   length!: number;
   pageIndex = 0;
+  isDarkMode!: boolean;
+  nodeColor!: string;
+  selectedNodeColor!: string;
 
   nodes = new DataSet<Node>([] as unknown as Node[]);
   edges = new DataSet<Edge>([] as Edge[]);
   data: Data = { nodes: this.nodes, edges: this.edges };
+  selectedNodes = new Set<number>();
 
   constructor(
     private themeService: ThemeService,
@@ -64,7 +69,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -75,11 +80,15 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.createGraph();
-
+    this.themeService.theme$.subscribe((theme) => {
+      this.isDarkMode = theme == 'dark';
+      this.nodeColor = this.isDarkMode ? '#b5c4ff' : 'rgb(27, 89, 248)';
+      this.selectedNodeColor = this.isDarkMode ? 'rgb(27, 89, 248)' : '#b5c4ff';
+    });
     this.loadGraphService.nodesData$.subscribe({
       next: (data) => {
-        this.accounts = data.paginateList;
-        this.length = data.totalCount;
+        this.accounts = data.items;
+        this.length = data.totalItems;
         this.pageIndex = data.pageIndex;
         this.loadingService.setLoading(false);
       },
@@ -100,7 +109,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance = new Network(
       this.el.nativeElement,
       this.data,
-      getOptions()
+      getOptions(),
     );
 
     // Listen for the context menu event (right-click)
@@ -118,8 +127,9 @@ export class DataAnalysisComponent implements AfterViewInit {
 
         this.changeDetector.detectChanges();
         const rightClickNodeInfoElem = document.getElementById(
-          'right-click-node-info'
+          'right-click-node-info',
         ) as HTMLElement;
+
         rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
 
         // Custom logic for node right-click
@@ -132,26 +142,89 @@ export class DataAnalysisComponent implements AfterViewInit {
       }
     });
 
-    this.networkInstance.on('click', function (params) {
-      if (params.edges.length == 1) {
-        const nodeId = params.edges[0];
-        console.log(nodeId);
+    this.networkInstance.on('click', (params) => {
+      if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0];
+
+        if (params.event.srcEvent.ctrlKey || params.event.srcEvent.metaKey) {
+          this.toggleNodeSelection(nodeId);
+        } else {
+          this.handleSingleClick(nodeId);
+        }
+
+        console.log(this.selectedNodes);
+      } else if (params.edges.length === 1) {
+        this.handleEdgeClick(params.edges[0]);
+      } else {
+        this.clearAllSelections();
       }
     });
   }
 
-  getInfo(account?: string) {
-    if (!account) {
-      account = (
-        document.getElementById('right-click-node-info') as HTMLElement
-      ).dataset['nodeid'];
+  toggleNodeSelection(nodeId: number): void {
+    if (this.selectedNodes.has(nodeId)) {
+      this.deselectNode(nodeId);
+    } else {
+      this.selectNode(nodeId);
     }
-    this.loadGraphService.getNodeInfo(account!).subscribe({
+  }
+
+  handleSingleClick(nodeId: number): void {
+    if (this.selectedNodes.has(nodeId)) {
+      this.deselectNode(nodeId);
+    } else {
+      this.clearAllSelections();
+      this.selectNode(nodeId);
+    }
+  }
+
+  selectNode(nodeId: number): void {
+    this.selectedNodes.add(nodeId);
+    this.nodes.update({
+      id: nodeId,
+      image: getSvg(this.selectedNodeColor),
+    });
+  }
+
+  deselectNode(nodeId: number): void {
+    this.selectedNodes.delete(nodeId);
+    this.nodes.update({
+      id: nodeId,
+      image: getSvg(this.nodeColor),
+    });
+  }
+
+  clearAllSelections(): void {
+    this.selectedNodes.forEach((selectedNodeId) => {
+      this.nodes.update({
+        id: selectedNodeId,
+        image: getSvg(this.nodeColor),
+      });
+    });
+    this.selectedNodes.clear();
+  }
+
+  handleEdgeClick(edgeId: number): void {
+    console.log('edge click: ', edgeId);
+  }
+
+  getInfo(
+    account: { id: number; entityName: string } = { id: 0, entityName: 'test' },
+  ) {
+    // todo: fix this
+    // if (!account) {
+    //   account = (
+    //     document.getElementById('right-click-node-info') as HTMLElement
+    //   ).dataset['nodeid'];
+    // }
+
+    this.loadGraphService.getNodeInfo(account.id).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
           width: '105rem',
           data,
         });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
@@ -164,8 +237,8 @@ export class DataAnalysisComponent implements AfterViewInit {
     });
   }
 
-  showAsGraph(account: string) {
-    this.nodes.add({ id: account, label: account });
+  showAsGraph(account: { id: number; entityName: string }) {
+    this.nodes.add({ id: account.id, label: account.entityName });
   }
 
   getGraph() {
@@ -173,10 +246,19 @@ export class DataAnalysisComponent implements AfterViewInit {
       document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
 
-    this.loadGraphService.getGraph(nodeId!).subscribe({
+    this.loadGraphService.getGraph(Number(nodeId)!).subscribe({
       next: (data) => {
-        this.nodes.add(data.nodes as Node);
-        this.edges.add(data.edges as Edge);
+        data.nodes.forEach((newNode: Node) => {
+          if (!this.nodes.get().find((n) => n.id == newNode.id)) {
+            this.nodes.add(newNode);
+          }
+        });
+        data.edges.forEach((newEdge: Edge) => {
+          if (!this.edges.get().find((e) => e.id == newEdge.id)) {
+            this.edges.add(newEdge);
+          }
+        });
+        this.loadingService.setLoading(false);
       },
       error: (error) => {
         this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
@@ -199,5 +281,38 @@ export class DataAnalysisComponent implements AfterViewInit {
 
   clearGraph() {
     this.nodes.clear();
+  }
+
+  openColorDialog(event: MouseEvent) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: `${event.clientY + -110}px`,
+      left: `${event.clientX + -150}px`,
+    };
+    dialogConfig.width = '250px';
+
+    const dialogRef = this.dialog.open(
+      ColorPickerDialogComponent,
+      dialogConfig,
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && this.selectedNodes.size > 0) {
+        this.changeNodeColors(result);
+      }
+    });
+  }
+
+  changeNodeColors(color: string) {
+    this.selectedNodes.forEach((nodeId) => {
+      // Update the node with the new color by generating a new SVG
+      this.nodes.update({
+        id: nodeId,
+        image: getSvg(color), // Generate SVG with the selected color
+      });
+    });
+
+    // Optionally clear the selection after updating
+    this.selectedNodes.clear();
   }
 }

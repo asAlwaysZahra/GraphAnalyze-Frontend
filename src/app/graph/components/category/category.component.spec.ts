@@ -26,7 +26,6 @@ describe('CategoryComponent', () => {
   let mockCategories$: BehaviorSubject<GetCategoriesResponse>;
 
   beforeEach(async () => {
-    // Create a mock observable for the categoriesData$
     mockCategories$ = new BehaviorSubject<GetCategoriesResponse>({
       paginateList: [{ id: 1, name: 'Category 1', totalNumber: 5 }],
       pageIndex: 0,
@@ -34,7 +33,7 @@ describe('CategoryComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      declarations: [CategoryComponent, CatDeleteConfirmComponent], // Include the dialog component
+      declarations: [CategoryComponent, CatDeleteConfirmComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -51,7 +50,7 @@ describe('CategoryComponent', () => {
                   pageIndex: 0,
                   totalCount: 1,
                 });
-                return of(); // Correctly return an observable
+                return of();
               }),
             createCategory: jasmine
               .createSpy('createCategory')
@@ -68,10 +67,9 @@ describe('CategoryComponent', () => {
           provide: MatDialog,
           useValue: {
             open: jasmine.createSpy('open').and.returnValue({
-              afterClosed: () => of(true), // Simulate user confirming the deletion
+              afterClosed: () => of(true),
               componentInstance: {
                 deleteUser: jasmine.createSpy('deleteUser').and.callFake(() => {
-                  // Here we simulate what happens in the deleteUser method of the component.
                   categoryService.deleteCategory(1).subscribe();
                 }),
               },
@@ -116,10 +114,10 @@ describe('CategoryComponent', () => {
     expect(component.isAdding).toBeTrue();
 
     const addButton = fixture.debugElement.query(By.css('.add-user'));
-    expect(addButton).toBeNull(); // Add button should be hidden
+    expect(addButton).toBeNull();
 
     const formField = fixture.debugElement.query(By.css('.form-field'));
-    expect(formField).not.toBeNull(); // Add form should be visible
+    expect(formField).not.toBeNull();
   });
 
   it('should call createCategory when saveNewCategory is called', () => {
@@ -127,7 +125,7 @@ describe('CategoryComponent', () => {
     component.nameValue = 'New Category';
     component.saveNewCategory();
     expect(categoryService.createCategory).toHaveBeenCalledWith('New Category');
-    expect(component.isAdding).toBeFalse(); // Should reset after saving
+    expect(component.isAdding).toBeFalse();
   });
 
   it('should show edit form when editCategory is called', () => {
@@ -136,39 +134,38 @@ describe('CategoryComponent', () => {
     expect(component.editingId).toBe(1);
 
     const editField = fixture.debugElement.query(By.css('.edit-field'));
-    expect(editField).not.toBeNull(); // Edit form should be visible
+    expect(editField).not.toBeNull();
   });
 
   it('should call updateCategory when saveEditCategory is called', () => {
     const category = { id: 1, name: 'Updated Category', totalNumber: 5 };
 
-    component.editingId = category.id; // Set editing mode
-    component.updateNameValue = category.name; // Simulate the user input
-    component.saveEditCategory(category); // Call the method
+    component.editingId = category.id;
+    component.updateNameValue = category.name;
+    component.saveEditCategory(category);
 
-    fixture.detectChanges(); // Ensure changes are picked up by Angular
+    fixture.detectChanges();
 
     expect(categoryService.updateCategory).toHaveBeenCalledWith(
       category.id,
       category.name,
-    ); // Check service method call
-    expect(component.editingId).toBe(-1); // Ensure editingId is reset after saving
+    );
+    expect(component.editingId).toBe(-1);
   });
 
   it('should call deleteCategory when deleteCategory is called', () => {
     const category = { id: 1, name: 'Category 1', totalNumber: 5 };
 
-    component.deleteCategory(category); // Trigger the method
-    fixture.detectChanges(); // Apply any changes after calling the method
+    component.deleteCategory(category);
+    fixture.detectChanges();
 
-    // Simulate the deletion confirmation in the dialog
     const dialogRef = dialog.open(CatDeleteConfirmComponent, {
       data: { category, pageSize: 10, pageIndex: 0 },
     });
     dialogRef.componentInstance.deleteUser();
 
-    expect(dialog.open).toHaveBeenCalled(); // Ensure the dialog was opened
-    expect(categoryService.deleteCategory).toHaveBeenCalledWith(1); // Ensure the service method is called with the correct id
+    expect(dialog.open).toHaveBeenCalled();
+    expect(categoryService.deleteCategory).toHaveBeenCalledWith(1);
   });
 
   it('should paginate categories', () => {

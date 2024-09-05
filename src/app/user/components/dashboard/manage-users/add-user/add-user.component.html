@@ -76,13 +76,11 @@
       class="radio-buttons"
       formControlName="roleName"
     >
-      <mat-radio-button name="role" value="admin">Admin</mat-radio-button>
-      <mat-radio-button name="role" value="datamanager"
-        >Data Manager</mat-radio-button
-      >
-      <mat-radio-button name="role" value="dataanalyst"
-        >Data Analyst</mat-radio-button
-      >
+      @for (role of roles; track role.id) {
+        <mat-radio-button name="role" value="{{ role.name }}"
+          >{{ role.name.replace("-", " ") }}
+        </mat-radio-button>
+      }
     </mat-radio-group>
     <div class="submit-button-container">
       <button type="submit" mat-flat-button class="mat-elevation-z5">
