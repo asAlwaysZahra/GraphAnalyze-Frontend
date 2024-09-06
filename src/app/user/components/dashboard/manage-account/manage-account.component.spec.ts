@@ -40,6 +40,14 @@ describe('ManageAccountComponent', () => {
 
     fixture = TestBed.createComponent(ManageAccountComponent);
     component = fixture.componentInstance;
+
+    component.userInfo = {
+      firstName: 'Kevin',
+      lastName: 'Smith',
+      email: 'kevin.smith@example.com',
+      phoneNumber: '+123456789'
+    };
+
     fixture.detectChanges();
   });
 
