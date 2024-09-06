@@ -12,6 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationStatusComponent } from '../../../../shared/components/validation-status/validation-status.component';
+import {ProfileHeaderComponent} from "./profile-header/profile-header.component";
 
 describe('ManageAccountComponent', () => {
   let component: ManageAccountComponent;
@@ -24,6 +25,7 @@ describe('ManageAccountComponent', () => {
         DashboardHeaderComponent,
         CardComponent,
         ValidationStatusComponent,
+        ProfileHeaderComponent
       ],
       imports: [
         MatIconModule,
