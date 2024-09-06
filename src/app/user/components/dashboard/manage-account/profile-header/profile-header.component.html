@@ -10,8 +10,8 @@
     </div>
   </div>
   <div class="profile-details">
-    <h1>Kevin Smith</h1>
-    <p>Advisor and Consultant at Stripe Inc.</p>
-    <p>📍 Saint-Petersburg, Russia</p>
+    <h1>{{ userInfo.firstName }} {{ userInfo.lastName }}</h1>
+    <p><mat-icon>email</mat-icon> {{ userInfo.email }}</p>
+    <p><mat-icon>phone</mat-icon>{{ userInfo.phoneNumber }}</p>
   </div>
 </app-card>

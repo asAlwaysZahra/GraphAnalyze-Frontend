@@ -11,13 +11,14 @@
   background-position: center;
   height: 300px;
   width: 100%;
+  border-radius: 0.5rem;
 }
 
 .profile-info {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: -100px;
+  bottom: -120px;
   left: 30px;
 }
 
@@ -49,7 +50,13 @@
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  padding-left: 300px;
+  padding-left: 270px;
+  gap: 0.5rem;
+
+  > p {
+    display: flex;
+    gap: 0.5rem;
+  }
 }
 
 .profile-details h1 {

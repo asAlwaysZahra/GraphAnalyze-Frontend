@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {UserInformation} from "../../../../models/ManageUsers";
 
 @Component({
   selector: 'app-profile-header',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './profile-header.component.scss'
 })
 export class ProfileHeaderComponent {
-
+  @Input({required: true}) userInfo!: UserInformation;
 }
