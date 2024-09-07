@@ -45,7 +45,7 @@ export class EditUserComponent implements OnInit {
         this.pageData.user.lastName,
         Validators.required
       ),
-      username: new FormControl(
+      userName: new FormControl(
         this.pageData.user.userName,
         Validators.required
       ),

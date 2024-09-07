@@ -32,7 +32,7 @@ describe('AdminService', () => {
     service = TestBed.inject(AdminService);
     httpTestingController = TestBed.inject(HttpTestingController);
     loadingServiceSpy = TestBed.inject(
-      LoadingService,
+      LoadingService
     ) as jasmine.SpyObj<LoadingService>;
   });
 
@@ -63,7 +63,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const postReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/register`,
+      `${environment.apiUrl}/api/Admin/register`
     );
     expect(postReq.request.method).toEqual('POST');
     expect(postReq.request.body).toEqual(request);
@@ -73,7 +73,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
@@ -97,7 +97,7 @@ describe('AdminService', () => {
       users: [
         {
           guid: '1',
-          username: 'user1',
+          userName: 'user1',
           firstName: 'User',
           lastName: 'One',
           email: 'user1@example.com',
@@ -106,7 +106,7 @@ describe('AdminService', () => {
         },
         {
           guid: '2',
-          username: 'user2',
+          userName: 'user2',
           firstName: 'User',
           lastName: 'Two',
           email: 'user2@example.com',
@@ -125,7 +125,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users?limit=${limit}&page=${page}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${limit}&page=${page}`
     );
     expect(req.request.method).toEqual('GET');
     expect(req.request.withCredentials).toBeTrue();
@@ -149,7 +149,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const deleteReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users/${id}`,
+      `${environment.apiUrl}/api/Admin/users/${id}`
     );
     expect(deleteReq.request.method).toEqual('DELETE');
     expect(deleteReq.request.withCredentials).toBeTrue();
@@ -158,7 +158,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
@@ -195,7 +195,7 @@ describe('AdminService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const putReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users/${id}`,
+      `${environment.apiUrl}/api/Admin/users/${id}`
     );
     expect(putReq.request.method).toEqual('PUT');
     expect(putReq.request.body).toEqual(request);
@@ -205,7 +205,7 @@ describe('AdminService', () => {
 
     // Handle the GET request triggered by getUsers
     const getReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`,
+      `${environment.apiUrl}/api/Admin/users?limit=${pageSize}&page=${pageIndex}`
     );
     expect(getReq.request.method).toEqual('GET');
     expect(getReq.request.withCredentials).toBeTrue();
@@ -242,11 +242,11 @@ describe('AdminService', () => {
     service.createUser(request, pageSize, pageIndex);
 
     const postReq = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Admin/register`,
+      `${environment.apiUrl}/api/Admin/register`
     );
     postReq.flush(
       { error: { message: errorMessage } },
-      { status: 400, statusText: 'Bad Request' },
+      { status: 400, statusText: 'Bad Request' }
     );
 
     service.notification$.subscribe((notification) => {

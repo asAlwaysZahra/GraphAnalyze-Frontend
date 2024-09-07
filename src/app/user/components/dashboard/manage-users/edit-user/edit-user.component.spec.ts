@@ -32,7 +32,7 @@ describe('EditUserComponent', () => {
               guid: '12345',
               firstName: 'John',
               lastName: 'Doe',
-              username: 'johndoe',
+              userName: 'johndoe',
               email: 'john.doe@example.com',
               phoneNumber: '1234567890',
               roleName: 'admin',

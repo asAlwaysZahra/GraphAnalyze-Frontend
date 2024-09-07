@@ -55,7 +55,7 @@ describe('AddUserComponent', () => {
     component.myForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
-      username: new FormControl(''),
+      userName: new FormControl(''),
       password: new FormControl(''),
       confirmPassword: new FormControl(''),
       email: new FormControl(''),
@@ -73,7 +73,7 @@ describe('AddUserComponent', () => {
   it('should initialize the form with controls', () => {
     expect(component.myForm.contains('firstName')).toBeTruthy();
     expect(component.myForm.contains('lastName')).toBeTruthy();
-    expect(component.myForm.contains('username')).toBeTruthy();
+    expect(component.myForm.contains('userName')).toBeTruthy();
     expect(component.myForm.contains('password')).toBeTruthy();
     expect(component.myForm.contains('confirmPassword')).toBeTruthy();
     expect(component.myForm.contains('email')).toBeTruthy();
@@ -87,7 +87,7 @@ describe('AddUserComponent', () => {
     component.myForm.setValue({
       firstName: 'John',
       lastName: 'Doe',
-      username: 'johndoe',
+      userName: 'johndoe',
       password: 'passwordAa@12',
       confirmPassword: 'passwordAa@12',
       email: 'john.doe@example.com',
