@@ -13,6 +13,7 @@ export interface UserInformation {
   lastName: string;
   email: string;
   phoneNumber: string;
+  image: string;
 }
 
 export interface GetUserResponse {

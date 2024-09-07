@@ -72,6 +72,7 @@ describe('ManageAccountComponent', () => {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       phoneNumber: '09123456789',
+      image: 'image.jpg',
     };
 
     userServiceSpy.getLoginUserInfo.and.returnValue(of(mockUserInfo));
@@ -88,6 +89,7 @@ describe('ManageAccountComponent', () => {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       phoneNumber: '09123456789',
+      image: 'image.jpg',
     };
 
     userServiceSpy.getLoginUserInfo.and.returnValue(of(mockUserInfo));
@@ -135,6 +137,7 @@ describe('ManageAccountComponent', () => {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       phoneNumber: '09123456789',
+      image: 'image.jpg',
     };
 
     component.myForm.patchValue({
