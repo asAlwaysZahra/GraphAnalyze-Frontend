@@ -31,7 +31,7 @@ describe('UserDeleteConfirmationComponent', () => {
           useValue: {
             user: {
               guid: '12345',
-              username: 'testuser', // Mock data with username
+              userName: 'testuser', // Mock data with username
             },
             pagSize: 10,
             pageIndex: 1,

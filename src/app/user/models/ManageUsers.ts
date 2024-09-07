@@ -4,7 +4,7 @@ export interface UserData {
   lastName: string;
   email: string;
   phoneNumber: string;
-  username: string;
+  userName: string;
   roleName: string;
 }
 
@@ -13,6 +13,7 @@ export interface UserInformation {
   lastName: string;
   email: string;
   phoneNumber: string;
+  image: string;
 }
 
 export interface GetUserResponse {

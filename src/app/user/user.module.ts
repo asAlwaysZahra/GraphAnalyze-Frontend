@@ -37,6 +37,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { RecoverPassFormComponent } from './components/login/recover-pass-form/recover-pass-form.component';
+import { ProfileHeaderComponent } from './components/dashboard/manage-account/profile-header/profile-header.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { RecoverPassFormComponent } from './components/login/recover-pass-form/r
     AssignDialogComponent,
     LoginFormComponent,
     RecoverPassFormComponent,
+    ProfileHeaderComponent,
   ],
   imports: [
     CommonModule,

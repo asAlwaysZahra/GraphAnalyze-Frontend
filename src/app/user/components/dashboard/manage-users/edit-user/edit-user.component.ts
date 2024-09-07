@@ -3,6 +3,8 @@ import { AdminService } from '../../../../services/admin/admin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserData } from '../../../../models/ManageUsers';
+import { RoleService } from '../../../../services/role/role.service';
+import { Role } from '../../../../models/User';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,29 +14,40 @@ import { UserData } from '../../../../models/ManageUsers';
 export class EditUserComponent implements OnInit {
   constructor(
     private adminService: AdminService,
+    private roleService: RoleService,
     @Inject(MAT_DIALOG_DATA)
     protected pageData: {
       user: UserData;
       pagSize: number;
       pageIndex: number;
-    },
+    }
   ) {}
 
   myForm: FormGroup = new FormGroup({});
+  roles!: Role[];
 
   ngOnInit() {
+    this.roleService.getRoles(0, 100).subscribe({
+      next: (data) => {
+        this.roles = data.roles;
+      },
+      error: () => {
+        this.roles = [];
+      },
+    });
+
     this.myForm = new FormGroup({
       firstName: new FormControl(
         this.pageData.user.firstName,
-        Validators.required,
+        Validators.required
       ),
       lastName: new FormControl(
         this.pageData.user.lastName,
-        Validators.required,
+        Validators.required
       ),
-      username: new FormControl(
-        this.pageData.user.username,
-        Validators.required,
+      userName: new FormControl(
+        this.pageData.user.userName,
+        Validators.required
       ),
       email: new FormControl(this.pageData.user.email, [
         Validators.required,
@@ -55,7 +68,7 @@ export class EditUserComponent implements OnInit {
         this.pageData.user.guid,
         this.myForm.value,
         this.pageData.pagSize,
-        this.pageData.pageIndex,
+        this.pageData.pageIndex
       );
     }
   }
