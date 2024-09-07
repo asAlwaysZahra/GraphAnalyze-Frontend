@@ -6,10 +6,10 @@
 
 .header {
   position: relative;
-  background-image: url('https://i.postimg.cc/J4fR2XfB/header-bg.jpg');
+  background-image: url("https://i.postimg.cc/J4fR2XfB/header-bg.jpg");
   background-size: cover;
   background-position: center;
-  height: 300px;
+  height: 19rem;
   width: 100%;
   border-radius: 0.5rem;
 }
@@ -23,11 +23,11 @@
 }
 
 .profile-pic {
-  width: 250px;
-  height: 250px;
+  width: 15.5rem;
+  height: 15.5rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 5px solid var(--card-background-color);
+  border: 0.3rem solid var(--card-background-color);
 }
 
 .edit-btn {
@@ -60,11 +60,7 @@
 }
 
 .profile-details h1 {
-  font-size: 24px;
-}
-
-.profile-details p {
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 .profile-actions {
@@ -83,7 +79,7 @@
   }
 
   .profile-details h1 {
-    font-size: 20px;
+    font-size: 1.25rem;
     text-align: center;
   }
 
