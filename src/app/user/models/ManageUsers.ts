@@ -4,7 +4,7 @@ export interface UserData {
   lastName: string;
   email: string;
   phoneNumber: string;
-  username: string;
+  userName: string;
   roleName: string;
 }
 
