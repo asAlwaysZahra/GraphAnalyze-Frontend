@@ -69,7 +69,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   handlePageEvent(e: PageEvent) {
@@ -109,7 +109,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     this.networkInstance = new Network(
       this.el.nativeElement,
       this.data,
-      getOptions(),
+      getOptions()
     );
 
     // Listen for the context menu event (right-click)
@@ -127,7 +127,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
         this.changeDetector.detectChanges();
         const rightClickNodeInfoElem = document.getElementById(
-          'right-click-node-info',
+          'right-click-node-info'
         ) as HTMLElement;
 
         rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
@@ -208,17 +208,15 @@ export class DataAnalysisComponent implements AfterViewInit {
     console.log('edge click: ', edgeId);
   }
 
-  getInfo(
-    account: { id: number; entityName: string } = { id: 0, entityName: 'test' },
-  ) {
+  getInfo(account?: number) {
     // todo: fix this
-    // if (!account) {
-    //   account = (
-    //     document.getElementById('right-click-node-info') as HTMLElement
-    //   ).dataset['nodeid'];
-    // }
+    if (!account) {
+      account = (
+        document.getElementById('right-click-node-info') as HTMLElement
+      ).dataset['nodeid'] as unknown as number;
+    }
 
-    this.loadGraphService.getNodeInfo(account.id).subscribe({
+    this.loadGraphService.getNodeInfo(account).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
           width: '105rem',
@@ -293,7 +291,7 @@ export class DataAnalysisComponent implements AfterViewInit {
 
     const dialogRef = this.dialog.open(
       ColorPickerDialogComponent,
-      dialogConfig,
+      dialogConfig
     );
 
     dialogRef.afterClosed().subscribe((result) => {
