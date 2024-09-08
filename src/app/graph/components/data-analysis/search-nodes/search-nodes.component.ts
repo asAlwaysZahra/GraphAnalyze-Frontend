@@ -18,6 +18,7 @@ export class SearchNodesComponent implements AfterViewInit {
   @Output() showGraph = new EventEmitter<Account>();
 
   searchInput = '';
+  searchType = 'contain';
   accounts: Account[] = [];
   length!: number;
   pageIndex = 0;
@@ -55,9 +56,7 @@ export class SearchNodesComponent implements AfterViewInit {
     this.nodeName$ = this.searchText$.pipe(debounceTime(500));
 
     this.nodeName$.subscribe((searchInput) => {
-      console.log(searchInput);
-
-      this.loadGraphService.search(searchInput).subscribe({
+      this.loadGraphService.search(searchInput, this.searchType).subscribe({
         next: (data) => {
           this.accounts = data.items;
           this.length = data.totalItems;
@@ -76,13 +75,13 @@ export class SearchNodesComponent implements AfterViewInit {
     });
   }
 
-  searchNodes(searchInput: string) {
+  searchNodes() {
     this.loadingService.setLoading(true);
-    if (!searchInput) {
+    if (!this.searchInput) {
       this.loadGraphService.getAllNodes();
       return;
     }
-    this.searchText$.next(searchInput);
+    this.searchText$.next(this.searchInput);
   }
 
   showAsGraph(account: Account) {

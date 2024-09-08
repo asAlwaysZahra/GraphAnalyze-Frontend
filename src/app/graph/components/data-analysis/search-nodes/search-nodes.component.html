@@ -1,11 +1,23 @@
 <form class="form">
+  <mat-form-field appearance="outline" class="search-type">
+    <mat-label>Search type</mat-label>
+    <mat-select
+      [(ngModel)]="searchType"
+      name="searchType"
+      (ngModelChange)="searchNodes()"
+    >
+      <mat-option value="startswith">Start With</mat-option>
+      <mat-option value="endswith">End With</mat-option>
+      <mat-option value="contain">Contain</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Search</mat-label>
     <input
       name="searchInput"
       matInput
       [(ngModel)]="searchInput"
-      (ngModelChange)="searchNodes(searchInput)"
+      (ngModelChange)="searchNodes()"
     />
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>

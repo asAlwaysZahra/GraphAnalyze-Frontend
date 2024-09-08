@@ -56,13 +56,13 @@ export class LoadGraphService {
     );
   }
 
-  search(searchInput: string, pageIndex = 0) {
+  search(searchInput: string, searchType: string, pageIndex = 0) {
     this.loadingService.setLoading(true);
     const pageSize = 10;
 
     return this.http.get<AllNodes>(
       this.apiUrl +
-        `/Search?searchInput=${searchInput}&searchType=contain&pageIndex=${pageIndex}&pageSize=${pageSize}`,
+        `/Search?searchInput=${searchInput}&searchType=${searchType}&pageIndex=${pageIndex}&pageSize=${pageSize}`,
       {
         withCredentials: true,
       }

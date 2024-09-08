@@ -6,9 +6,15 @@
 
   .form {
     width: 100%;
+    display: flex;
+    gap: 0.5rem;
 
     .search-field {
       width: 100%;
+    }
+
+    .search-type {
+      width: 67%;
     }
   }
 
