@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../../../shared/shared.module';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { SearchNodesComponent } from './search-nodes/search-nodes.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 describe('DataAnalysisComponent', () => {
   let component: DataAnalysisComponent;
@@ -17,7 +20,7 @@ describe('DataAnalysisComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DataAnalysisComponent],
+      declarations: [DataAnalysisComponent, SearchNodesComponent],
       imports: [
         MatFormFieldModule,
         MatPaginatorModule,
@@ -26,6 +29,8 @@ describe('DataAnalysisComponent', () => {
         MatInputModule,
         BrowserAnimationsModule,
         SharedModule,
+        MatSelectModule,
+        FormsModule,
       ],
       providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
