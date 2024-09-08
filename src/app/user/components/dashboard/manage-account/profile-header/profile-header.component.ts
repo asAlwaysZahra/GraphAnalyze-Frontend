@@ -16,14 +16,14 @@ export class ProfileHeaderComponent {
   constructor(
     private userService: UserService,
     private _snackBar: MatSnackBar,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-
+      
       this.userService.uploadImage(file).subscribe({
         next: () => {
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
