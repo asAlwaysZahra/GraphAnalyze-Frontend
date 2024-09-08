@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { LoadGraphService } from '../../../services/load-graph/load-graph.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { Account } from '../../../model/graph';
+import { debounceTime, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search-nodes',
@@ -13,16 +15,20 @@ import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
   styleUrl: './search-nodes.component.scss',
 })
 export class SearchNodesComponent implements AfterViewInit {
+  @Output() showGraph = new EventEmitter<Account>();
+
   searchInput = '';
-  accounts: { id: number; entityName: string }[] = [];
+  accounts: Account[] = [];
   length!: number;
   pageIndex = 0;
+
+  private searchText$ = new Subject<string>();
+  nodeName$!: Observable<string>;
 
   constructor(
     private _snackBar: MatSnackBar,
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
-    private changeDetector: ChangeDetectorRef,
     private loadingService: LoadingService
   ) {}
 
@@ -43,24 +49,47 @@ export class SearchNodesComponent implements AfterViewInit {
         this.loadingService.setLoading(false);
       },
     });
+
     this.loadGraphService.getAllNodes();
+
+    this.nodeName$ = this.searchText$.pipe(debounceTime(500));
+
+    this.nodeName$.subscribe((searchInput) => {
+      console.log(searchInput);
+
+      this.loadGraphService.search(searchInput).subscribe({
+        next: (data) => {
+          this.accounts = data.items;
+          this.length = data.totalItems;
+          this.pageIndex = data.pageIndex;
+          this.loadingService.setLoading(false);
+        },
+        error: (error) => {
+          this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+            data: error.error.message,
+            panelClass: ['notification-class-danger'],
+            duration: 2000,
+          });
+          this.loadingService.setLoading(false);
+        },
+      });
+    });
   }
 
-  searchNodes(arg: string) {
-    console.log(arg);
-  }
-
-  showAsGraph(account: { id: number; entityName: string }) {
-    console.log(account);
-  }
-
-  getInfo(account?: number) {
-    if (!account) {
-      account = (
-        document.getElementById('right-click-node-info') as HTMLElement
-      ).dataset['nodeid'] as unknown as number;
+  searchNodes(searchInput: string) {
+    this.loadingService.setLoading(true);
+    if (!searchInput) {
+      this.loadGraphService.getAllNodes();
+      return;
     }
+    this.searchText$.next(searchInput);
+  }
 
+  showAsGraph(account: Account) {
+    this.showGraph.emit(account);
+  }
+
+  getInfo(account: number) {
     this.loadGraphService.getNodeInfo(account).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {

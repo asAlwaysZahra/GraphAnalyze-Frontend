@@ -23,6 +23,7 @@ import { LoadingService } from '../../../shared/services/loading.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DangerSuccessNotificationComponent } from '../../../shared/components/danger-success-notification/danger-success-notification.component';
 import { ColorPickerDialogComponent } from './color-picker-dialog/color-picker-dialog.component';
+import { Account } from '../../model/graph';
 
 @Component({
   selector: 'app-data-analysis',
@@ -179,12 +180,10 @@ export class DataAnalysisComponent implements AfterViewInit {
     console.log('edge click: ', edgeId);
   }
 
-  getInfo(account?: number) {
-    if (!account) {
-      account = (
-        document.getElementById('right-click-node-info') as HTMLElement
-      ).dataset['nodeid'] as unknown as number;
-    }
+  getInfo() {
+    const account = (
+      document.getElementById('right-click-node-info') as HTMLElement
+    ).dataset['nodeid'] as unknown as number;
 
     this.loadGraphService.getNodeInfo(account).subscribe({
       next: (data) => {
@@ -205,7 +204,7 @@ export class DataAnalysisComponent implements AfterViewInit {
     });
   }
 
-  showAsGraph(account: { id: number; entityName: string }) {
+  showAsGraph(account: Account) {
     this.nodes.add({ id: account.id, label: account.entityName });
   }
 

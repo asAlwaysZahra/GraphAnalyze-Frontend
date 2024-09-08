@@ -13,11 +13,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       </div>
       }
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions>
       <button mat-button mat-dialog-close>Close</button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
-        Show As Graph
-      </button>
     </mat-dialog-actions>`,
   styles: [
     `

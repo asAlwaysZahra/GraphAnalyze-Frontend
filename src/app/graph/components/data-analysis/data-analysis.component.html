@@ -31,7 +31,10 @@
     <div #menuTrigger [matMenuTriggerFor]="menu"></div>
   </app-card>
   <app-card class="side-bard" [@sidebar-fly]="state">
-    <app-search-nodes class="search-component"></app-search-nodes>
+    <app-search-nodes
+      class="search-component"
+      (showGraph)="showAsGraph($event)"
+    ></app-search-nodes>
   </app-card>
   <mat-menu #menu="matMenu" id="right-click-node-info">
     <button mat-menu-item (click)="getInfo()">Show node information</button>
