@@ -140,7 +140,7 @@ export class CategoryComponent implements OnInit {
           this.editingId = -1;
           this.updateNameValue = '';
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
-            data: 'Category created successfully.',
+            data: 'Category updated successfully.',
             panelClass: ['notification-class-success'],
             duration: 2000,
           });

@@ -52,8 +52,8 @@ export class CategoryService {
     console.log(name);
 
     return this.httpClient.put(
-      this.apiUrl + `?id=${id}`,
-      { name: name },
+      this.apiUrl,
+      { id: id, name: name },
       {
         withCredentials: true,
       }
