@@ -7,10 +7,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     <hr />
     <mat-dialog-content class="info">
       @for (key of objectKeys(data); track $index) {
-        <div class="info-row">
-          <p class="info-header">{{ key }}</p>
-          <p>{{ data[key] }}</p>
-        </div>
+      <div class="info-row">
+        <p class="info-header">{{ key }}</p>
+        <p class="info-content">{{ data[key] }}</p>
+      </div>
       }
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -33,6 +33,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         .info-header {
           width: 40%;
           font-weight: 600;
+        }
+
+        .info-content {
+          width: 60%;
         }
       }
 
