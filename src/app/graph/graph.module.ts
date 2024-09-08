@@ -29,6 +29,7 @@ import { CatDeleteConfirmComponent } from './components/category/cat-delete-conf
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { ColorPickerDialogComponent } from './components/data-analysis/color-picker-dialog/color-picker-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchNodesComponent } from './components/data-analysis/search-nodes/search-nodes.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CategoryComponent,
     CatDeleteConfirmComponent,
     ColorPickerDialogComponent,
+    SearchNodesComponent,
   ],
   imports: [
     CommonModule,

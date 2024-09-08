@@ -22,7 +22,7 @@ export class AssignFileService {
 
   constructor(
     private httpClient: HttpClient,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   getFilesData(pageSize = 10, pageNumber = 0) {
@@ -32,7 +32,7 @@ export class AssignFileService {
         this.apiUrl + `/files?page=${pageNumber}&limit=${pageSize}`,
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe((files) => {
         this.filesData.next(files);
@@ -45,7 +45,7 @@ export class AssignFileService {
       this.apiUrl + `/files/users?fileId=${id}`,
       {
         withCredentials: true,
-      },
+      }
     );
   }
 
@@ -55,13 +55,11 @@ export class AssignFileService {
       this.apiUrl + `/users?username=${username}`,
       {
         withCredentials: true,
-      },
+      }
     );
   }
 
   setFileAccess(users: FileAccessUsers[], id: number) {
-    console.log(users.map((user) => user.id));
-
     this.loadingService.setLoading(true);
     return this.httpClient
       .post<FileAccessUserResponse[]>(
@@ -72,7 +70,7 @@ export class AssignFileService {
         },
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe({
         next: () => {

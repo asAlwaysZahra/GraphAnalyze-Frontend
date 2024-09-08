@@ -19,7 +19,6 @@ export class MainPageComponent implements AfterContentInit {
   ) {}
 
   ngAfterContentInit(): void {
-    this.loadingService.setLoading(false);
     this.authService.getPermissions().subscribe({
       next: (data) => {
         this.fullName = `${data?.firstName} ${data?.lastName}`;

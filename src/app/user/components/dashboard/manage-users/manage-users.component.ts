@@ -41,7 +41,6 @@ export class ManageUsersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private loadingService: LoadingService,
   ) {
-    this.loadingService.setLoading(false);
   }
 
   ngOnInit(): void {

@@ -7,17 +7,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     <hr />
     <mat-dialog-content class="info">
       @for (key of objectKeys(data); track $index) {
-        <div class="info-row">
-          <p class="info-header">{{ key }}</p>
-          <p>{{ data[key] }}</p>
-        </div>
+      <div class="info-row">
+        <p class="info-header">{{ key }}</p>
+        <p class="info-content">{{ data[key] }}</p>
+      </div>
       }
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions>
       <button mat-button mat-dialog-close>Close</button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
-        Show As Graph
-      </button>
     </mat-dialog-actions>`,
   styles: [
     `
@@ -33,6 +30,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         .info-header {
           width: 40%;
           font-weight: 600;
+        }
+
+        .info-content {
+          width: 60%;
         }
       }
 

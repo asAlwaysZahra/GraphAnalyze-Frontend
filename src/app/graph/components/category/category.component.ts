@@ -130,7 +130,6 @@ export class CategoryComponent implements OnInit {
   }
 
   saveEditCategory(categoryData: CategoryData) {
-    console.log(categoryData);
     this.loadingService.setLoading(true);
     this.categoryService
       .updateCategory(categoryData.id, this.updateNameValue)

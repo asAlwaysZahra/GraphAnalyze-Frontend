@@ -11,7 +11,6 @@ import { LoadingService } from '../../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../../shared/components/danger-success-notification/danger-success-notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-assign-dialog',
@@ -59,10 +58,7 @@ export class AssignDialogComponent implements OnInit {
       },
     });
 
-    this.userName$ = this.searchText$.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    );
+    this.userName$ = this.searchText$.pipe(debounceTime(500));
 
     this.userName$.subscribe((searchInput) => {
       this.assignFileService.search(searchInput).subscribe({
@@ -83,8 +79,10 @@ export class AssignDialogComponent implements OnInit {
   }
 
   search(userName: string) {
+    this.loadingService.setLoading(true);
     if (!userName) {
       this.reset();
+      this.loadingService.setLoading(false);
       return;
     }
     if (userName == '[object Object]') {

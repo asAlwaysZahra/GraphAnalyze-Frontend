@@ -17,7 +17,7 @@ export class LoadGraphService {
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   getAllNodes(pageIndex = 0, category = '') {
@@ -29,7 +29,7 @@ export class LoadGraphService {
         `${this.apiUrl}/nodes?pageIndex=${pageIndex}&pageSize=${pageSize}&category=${category}`,
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe((nodes) => {
         this.nodesData.next(nodes);
@@ -42,7 +42,7 @@ export class LoadGraphService {
       `${this.apiUrl}/nodes/${headerUniqueId}/attributes?id=${headerUniqueId}`,
       {
         withCredentials: true,
-      },
+      }
     );
   }
 
@@ -52,7 +52,20 @@ export class LoadGraphService {
       `${this.apiUrl}/nodes-relation?nodeId=${nodeId}`,
       {
         withCredentials: true,
-      },
+      }
+    );
+  }
+
+  search(searchInput: string, searchType: string, pageIndex = 0) {
+    this.loadingService.setLoading(true);
+    const pageSize = 10;
+
+    return this.http.get<AllNodes>(
+      this.apiUrl +
+        `/Search?searchInput=${searchInput}&searchType=${searchType}&pageIndex=${pageIndex}&pageSize=${pageSize}`,
+      {
+        withCredentials: true,
+      }
     );
   }
 }
