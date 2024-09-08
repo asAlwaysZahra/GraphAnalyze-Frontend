@@ -80,9 +80,11 @@ export class AssignDialogComponent implements OnInit {
         },
       });
     });
+    this.loadingService.setLoading(true);
   }
 
   search(userName: string) {
+    this.loadingService.setLoading(true);
     if (!userName) {
       this.reset();
       return;

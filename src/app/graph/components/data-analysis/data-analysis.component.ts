@@ -102,7 +102,6 @@ export class DataAnalysisComponent implements AfterViewInit {
       },
     });
     this.loadGraphService.getAllNodes();
-    this.loadingService.setLoading(false);
   }
 
   private createGraph() {

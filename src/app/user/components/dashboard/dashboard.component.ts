@@ -14,9 +14,7 @@ export class DashboardComponent {
     private authService: AuthService,
     private router: Router,
     private loadingService: LoadingService
-  ) {
-    this.loadingService.setLoading(false);
-  }
+  ) {}
 
   logoutClick() {
     this.loadingService.setLoading(true);

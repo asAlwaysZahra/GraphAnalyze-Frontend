@@ -16,7 +16,7 @@ export class ProfileHeaderComponent {
   constructor(
     private userService: UserService,
     private _snackBar: MatSnackBar,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   onFileSelected(event: Event): void {
@@ -24,7 +24,6 @@ export class ProfileHeaderComponent {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
-      console.log('Selected file:', file);
       this.userService.uploadImage(file).subscribe({
         next: () => {
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
@@ -37,7 +36,6 @@ export class ProfileHeaderComponent {
             .getLoginUserInfo()
             .subscribe((data: UserInformation) => {
               this.userInfo = data;
-              console.log(11, this.userInfo);
             });
         },
         error: (error) => {

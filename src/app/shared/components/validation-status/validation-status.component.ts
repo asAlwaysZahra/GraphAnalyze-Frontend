@@ -8,18 +8,14 @@ import { FormGroup } from '@angular/forms';
       <h2>Validation Status</h2>
       <hr />
       @for (field of fields; track field) {
-        <div>
-          <mat-icon
-            [class]="
-              myForm.controls[field.control]?.valid ? 'success' : 'error'
-            "
-          >
-            {{
-              myForm.controls[field.control]?.valid ? 'check_circle' : 'cancel'
-            }}
-          </mat-icon>
-          {{ field.message }}
-        </div>
+      <div>
+        <mat-icon
+          [class]="myForm.controls[field.control].valid ? 'success' : 'error'"
+        >
+          {{ myForm.controls[field.control].valid ? 'check_circle' : 'cancel' }}
+        </mat-icon>
+        {{ field.message }}
+      </div>
       }
     </app-card>
   `,

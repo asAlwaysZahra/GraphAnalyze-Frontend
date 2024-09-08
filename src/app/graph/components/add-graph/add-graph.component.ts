@@ -39,9 +39,7 @@ export class AddGraphComponent {
     private _snackBar: MatSnackBar,
     private addGraphService: AddGraphService,
     private loadingService: LoadingService
-  ) {
-    this.loadingService.setLoading(false);
-  }
+  ) {}
 
   loadCategory() {
     this.addGraphService.getCategories().subscribe({
