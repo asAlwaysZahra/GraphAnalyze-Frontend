@@ -45,12 +45,12 @@ import { Account } from '../../model/graph';
 export class DataAnalysisComponent implements AfterViewInit {
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
   @ViewChild('menuTrigger', { read: ElementRef }) menuTrigger!: ElementRef;
-  @ViewChild('network') el!: ElementRef;
+  @ViewChild('network', { static: true }) el!: ElementRef;
 
   private networkInstance!: Network;
   public state = 'startRound';
 
-  isDarkMode!: boolean;
+  isDarkMode = false;
   nodeColor!: string;
   selectedNodeColor!: string;
 

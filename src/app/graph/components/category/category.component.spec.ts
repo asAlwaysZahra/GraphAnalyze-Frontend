@@ -18,7 +18,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CatDeleteConfirmComponent } from './cat-delete-confirm/cat-delete-confirm.component';
 import { GetCategoriesResponse } from '../../model/Category';
 
-fdescribe('CategoryComponent', () => {
+describe('CategoryComponent', () => {
   let component: CategoryComponent;
   let fixture: ComponentFixture<CategoryComponent>;
   let categoryService: CategoryService;

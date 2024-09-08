@@ -12,7 +12,6 @@ import { DangerSuccessNotificationComponent } from '../../../shared/components/d
 import { SharedModule } from '../../../shared/shared.module';
 import { of, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Papa } from 'ngx-papaparse';
 import { LoadingService } from '../../../shared/services/loading.service';
 
 describe('AddGraphComponent', () => {
@@ -21,7 +20,6 @@ describe('AddGraphComponent', () => {
   let mockAddGraphService: jasmine.SpyObj<AddGraphService>;
   let mockSnackBar: jasmine.SpyObj<MatSnackBar>;
   let mockLoadingService: jasmine.SpyObj<LoadingService>;
-  let mockPapa: jasmine.SpyObj<Papa>;
 
   beforeEach(async () => {
     mockAddGraphService = jasmine.createSpyObj<AddGraphService>([
@@ -31,7 +29,6 @@ describe('AddGraphComponent', () => {
     ]);
     mockSnackBar = jasmine.createSpyObj<MatSnackBar>(['openFromComponent']);
     mockLoadingService = jasmine.createSpyObj<LoadingService>(['setLoading']);
-    mockPapa = jasmine.createSpyObj<Papa>(['parse']);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -47,7 +44,6 @@ describe('AddGraphComponent', () => {
         { provide: AddGraphService, useValue: mockAddGraphService },
         { provide: MatSnackBar, useValue: mockSnackBar },
         { provide: LoadingService, useValue: mockLoadingService },
-        { provide: Papa, useValue: mockPapa },
       ],
     }).compileComponents();
 

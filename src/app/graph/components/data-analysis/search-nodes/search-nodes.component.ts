@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { LoadGraphService } from '../../../services/load-graph/load-graph.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ import { debounceTime, Observable, Subject } from 'rxjs';
   templateUrl: './search-nodes.component.html',
   styleUrl: './search-nodes.component.scss',
 })
-export class SearchNodesComponent implements AfterViewInit {
+export class SearchNodesComponent implements OnInit {
   @Output() showGraph = new EventEmitter<Account>();
 
   searchInput = '';
@@ -33,7 +33,7 @@ export class SearchNodesComponent implements AfterViewInit {
     private loadingService: LoadingService
   ) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.loadGraphService.nodesData$.subscribe({
       next: (data) => {
         this.accounts = data.items;
