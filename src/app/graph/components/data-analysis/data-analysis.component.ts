@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Data, DataSet, Edge, Network, Node } from 'vis';
 import { LoadGraphService } from '../../services/load-graph/load-graph.service';
-import { PageEvent } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { getOptions, getSvg } from './graph-options';
@@ -50,10 +49,6 @@ export class DataAnalysisComponent implements AfterViewInit {
   private networkInstance!: Network;
   public state = 'startRound';
 
-  search = '';
-  accounts: { id: number; entityName: string }[] = [];
-  length!: number;
-  pageIndex = 0;
   isDarkMode!: boolean;
   nodeColor!: string;
   selectedNodeColor!: string;
@@ -72,12 +67,6 @@ export class DataAnalysisComponent implements AfterViewInit {
     private loadingService: LoadingService
   ) {}
 
-  handlePageEvent(e: PageEvent) {
-    this.pageIndex = e.pageIndex;
-    this.length = e.length;
-    this.loadGraphService.getAllNodes(e.pageIndex);
-  }
-
   ngAfterViewInit() {
     this.createGraph();
     this.themeService.theme$.subscribe((theme) => {
@@ -85,23 +74,6 @@ export class DataAnalysisComponent implements AfterViewInit {
       this.nodeColor = this.isDarkMode ? '#b5c4ff' : 'rgb(27, 89, 248)';
       this.selectedNodeColor = this.isDarkMode ? 'rgb(27, 89, 248)' : '#b5c4ff';
     });
-    this.loadGraphService.nodesData$.subscribe({
-      next: (data) => {
-        this.accounts = data.items;
-        this.length = data.totalItems;
-        this.pageIndex = data.pageIndex;
-        this.loadingService.setLoading(false);
-      },
-      error: (error) => {
-        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
-          data: error.error.message,
-          panelClass: ['notification-class-danger'],
-          duration: 2000,
-        });
-        this.loadingService.setLoading(false);
-      },
-    });
-    this.loadGraphService.getAllNodes();
   }
 
   private createGraph() {
@@ -208,7 +180,6 @@ export class DataAnalysisComponent implements AfterViewInit {
   }
 
   getInfo(account?: number) {
-    // todo: fix this
     if (!account) {
       account = (
         document.getElementById('right-click-node-info') as HTMLElement
