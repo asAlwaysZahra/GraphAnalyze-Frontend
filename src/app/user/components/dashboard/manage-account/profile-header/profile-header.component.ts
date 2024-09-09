@@ -23,7 +23,7 @@ export class ProfileHeaderComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      
+
       this.userService.uploadImage(file).subscribe({
         next: () => {
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
@@ -31,12 +31,18 @@ export class ProfileHeaderComponent {
             panelClass: ['notification-class-success'],
             duration: 2000,
           });
-          this.loadingService.setLoading(false);
-          this.userService
-            .getLoginUserInfo()
-            .subscribe((data: UserInformation) => {
+
+          this.userService.getLoginUserInfo().subscribe({
+            next: (data: UserInformation) => {
               this.userInfo = data;
-            });
+              this.loadingService.setLoading(false);
+            },
+            error: () => {
+              this.loadingService.setLoading(false);
+            },
+          });
+
+          this.loadingService.setLoading(false);
         },
         error: (error) => {
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {

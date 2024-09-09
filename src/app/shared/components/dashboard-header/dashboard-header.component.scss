@@ -21,9 +21,11 @@
     color: var(--mat-optgroup-label-text-color);
 
     .profile-image {
-      max-height: 2rem;
+      //max-height: 2rem;
       background-color: #ccc;
-      border-radius: 100%;
+      border-radius: 50%;
+      width: 2rem !important;
+      height: 2rem !important;
     }
 
     .icon {
