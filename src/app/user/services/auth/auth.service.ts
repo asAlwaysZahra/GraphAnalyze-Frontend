@@ -34,9 +34,7 @@ export class AuthService {
         })
         .pipe(
           tap((response) => {
-            if (response.firstName) {
-              this.permissions.next(response);
-            }
+            this.permissions.next(response);
           })
         );
     }

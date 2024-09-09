@@ -6,7 +6,6 @@ import { MainPageComponent } from './user/components/dashboard/main-page/main-pa
 import { ManageAccountComponent } from './user/components/dashboard/manage-account/manage-account.component';
 import { DataAnalysisComponent } from './graph/components/data-analysis/data-analysis.component';
 import { ManageUsersComponent } from './user/components/dashboard/manage-users/manage-users.component';
-import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { PermissionGuard } from './guards/permissions/permission.guard';
 import { AddGraphComponent } from './graph/components/add-graph/add-graph.component';
@@ -15,11 +14,14 @@ import { CategoryComponent } from './graph/components/category/category.componen
 import { RecoverPassFormComponent } from './user/components/login/recover-pass-form/recover-pass-form.component';
 import { LoginFormComponent } from './user/components/login/login-form/login-form.component';
 import { ResetPasswordComponent } from './user/components/login/reset-password/reset-password.component';
+import { LoginGuard } from './guards/auth/login.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: '',
     component: LoginComponent,
+    canActivate: [LoginGuard],
     children: [
       {
         path: 'recover-password',
@@ -30,16 +32,9 @@ const routes: Routes = [
         path: 'login',
         component: LoginFormComponent,
         title: 'StarData | Login',
-        // canActivate: [AuthGuard],
       },
     ],
   },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  //   title: 'StarData | Login',
-  //   canActivate: [AuthGuard],
-  // },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -56,7 +51,7 @@ const routes: Routes = [
         path: 'manage-users',
         component: ManageUsersComponent,
         title: 'StarData | Manage Users',
-        data: { permission: undefined },
+        data: { permission: 'Register' },
       },
       {
         path: 'manage-account',
@@ -67,21 +62,25 @@ const routes: Routes = [
         path: 'data-analysis',
         component: DataAnalysisComponent,
         title: 'StarData | Data Analysis',
+        data: { permission: 'GetNodesAsync' },
       },
       {
         path: 'add-graph',
         component: AddGraphComponent,
         title: 'StarData | Add Graph',
+        data: { permission: 'UploadNodeFile' },
       },
       {
         path: 'assign-file',
         component: AssignFileComponent,
         title: 'StarData | Assign File',
+        data: { permission: 'AccessFileToUser' },
       },
       {
         path: 'manage-category',
         component: CategoryComponent,
         title: 'StarData | Manage Category',
+        data: { permission: 'GetCategories' },
       },
     ],
   },
@@ -89,11 +88,6 @@ const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent,
     title: 'StarData | Reset Password',
-  },
-  {
-    path: '',
-    component: AppComponent,
-    canActivate: [AuthGuard],
   },
 ];
 

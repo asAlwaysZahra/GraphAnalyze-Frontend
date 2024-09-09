@@ -5,12 +5,12 @@ import {
   UrlSegment,
   UrlTree,
 } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
-import { AuthGuard } from './auth.guard';
+import { Observable, of } from 'rxjs';
+import { LoginGuard } from './login.guard';
 import { AuthService } from '../../user/services/auth/auth.service';
 
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
+  let guard: LoginGuard;
   let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
   let route: ActivatedRouteSnapshot;
@@ -24,13 +24,13 @@ describe('AuthGuard', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        AuthGuard,
+        LoginGuard,
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
       ],
     });
 
-    guard = TestBed.inject(AuthGuard);
+    guard = TestBed.inject(LoginGuard);
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
@@ -66,7 +66,7 @@ describe('AuthGuard', () => {
     }
   }
 
-  it('should allow access to the dashboard if the user has permissions', (done) => {
+  it('should redirect to /dashboard if the user has permissions but tries to access another page', (done) => {
     const mockPermissions = {
       permission: ['viewDashboard'],
       firstName: 'John',
@@ -74,9 +74,10 @@ describe('AuthGuard', () => {
       image: 'some-image-url',
     };
 
-    route.url = [createMockUrlSegment('dashboard')];
+    route.url = [createMockUrlSegment('otherPage')];
 
     authService.getPermissions.and.returnValue(of(mockPermissions));
+    router.parseUrl.and.returnValue('/dashboard' as unknown as UrlTree);
 
     const result = guard.canActivate();
 
@@ -99,22 +100,5 @@ describe('AuthGuard', () => {
     const result = guard.canActivate();
 
     handleResult(result, done);
-  });
-
-  it('should navigate to login on error', (done) => {
-    route.url = [createMockUrlSegment('dashboard')];
-    authService.getPermissions.and.returnValue(throwError('Error'));
-
-    const result = guard.canActivate();
-
-    if (result instanceof Observable) {
-      result.subscribe((value) => {
-        expect(value).toBe(false);
-        expect(router.navigate).toHaveBeenCalledWith(['/login']);
-        done();
-      });
-    } else {
-      done.fail('Expected an Observable to be returned');
-    }
   });
 });
