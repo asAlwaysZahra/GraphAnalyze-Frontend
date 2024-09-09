@@ -148,7 +148,7 @@ describe('CategoryComponent', () => {
 
     expect(categoryService.updateCategory).toHaveBeenCalledWith(
       category.id,
-      category.name,
+      category.name
     );
     expect(component.editingId).toBe(-1);
   });
@@ -172,5 +172,23 @@ describe('CategoryComponent', () => {
     const paginator = fixture.debugElement.query(By.css('mat-paginator'));
     paginator.triggerEventHandler('page', { pageIndex: 1, pageSize: 10 });
     expect(categoryService.getCategories).toHaveBeenCalledWith(10, 1);
+  });
+
+  it('cancelNewCategory SHOULD reset form WHEN called', () => {
+    // Arrange
+    component.isAdding = true;
+    component.nameValue = 'test';
+    component.cancelNewCategory();
+    // Assert
+    expect(component.isAdding).toBeFalse();
+    expect(component.nameValue).toBeFalsy();
+  });
+
+  it('cancelEditCategory SHOULD reset form WHEN called', () => {
+    // Arrange
+    component.editingId = 2;
+    component.cancelEditCategory();
+    // Assert
+    expect(component.editingId).toBe(-1);
   });
 });

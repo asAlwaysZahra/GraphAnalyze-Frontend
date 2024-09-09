@@ -10,71 +10,19 @@
         <h2 class="title-text">StarData</h2>
       </div>
       <mat-nav-list class="nav-link-list">
+        @for (link of links; track link) {
+        @if(permissions.includes(link.permission)){
         <a
           class="nav-link"
           matRipple
-          [routerLink]="['/dashboard/']"
+          [routerLink]="[link.url]"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
         >
-          <mat-icon>home</mat-icon>
-          Dashboard
+          <mat-icon>{{ link.icon }}</mat-icon>
+          {{ link.name }}
         </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['manage-category']"
-          routerLinkActive="active"
-        >
-          <mat-icon>category</mat-icon>
-          Manage Categories
-        </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['add-graph']"
-          routerLinkActive="active"
-        >
-          <mat-icon>post_add</mat-icon>
-          Add Graph
-        </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['assign-file']"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <mat-icon>contact_page</mat-icon>
-          Assign Files
-        </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['data-analysis']"
-          routerLinkActive="active"
-        >
-          <mat-icon>query_stats</mat-icon>
-          Data Analysis
-        </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['manage-users']"
-          routerLinkActive="active"
-        >
-          <mat-icon>manage_accounts</mat-icon>
-          Manage Users
-        </a>
-        <a
-          class="nav-link"
-          matRipple
-          [routerLink]="['manage-account']"
-          routerLinkActive="active"
-        >
-          <mat-icon>settings</mat-icon>
-          Manage Account
-        </a>
+        } }
         <button
           class="nav-link logout-button"
           matRipple

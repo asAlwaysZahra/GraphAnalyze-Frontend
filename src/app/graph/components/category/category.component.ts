@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
     private readonly dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private categoryService: CategoryService,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class CategoryComponent implements OnInit {
         if (data.status) {
           this.dialog.closeAll();
         }
-      },
+      }
     );
 
     this.categoryService.getCategories(this.pageSize, this.pageIndex);
@@ -80,6 +80,7 @@ export class CategoryComponent implements OnInit {
 
   editCategory(categoryData: CategoryData) {
     this.editingId = categoryData.id;
+    this.updateNameValue = categoryData.name;
   }
 
   deleteCategory(categoryData: CategoryData) {
@@ -139,7 +140,7 @@ export class CategoryComponent implements OnInit {
           this.editingId = -1;
           this.updateNameValue = '';
           this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
-            data: 'Category created successfully.',
+            data: 'Category updated successfully.',
             panelClass: ['notification-class-success'],
             duration: 2000,
           });

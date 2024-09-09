@@ -19,7 +19,7 @@ export class CategoryService {
 
   constructor(
     private httpClient: HttpClient,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {}
 
   getCategories(pageSize = 10, pageNumber = 0) {
@@ -29,7 +29,7 @@ export class CategoryService {
         this.apiUrl + `?pageNumber=${pageNumber}&pageSize=${pageSize}`,
         {
           withCredentials: true,
-        },
+        }
       )
       .subscribe((cats) => {
         this.categoriesData.next(cats);
@@ -43,18 +43,20 @@ export class CategoryService {
       { name: name },
       {
         withCredentials: true,
-      },
+      }
     );
   }
 
   updateCategory(id: number, name: string) {
     this.loadingService.setLoading(true);
+    console.log(name);
+
     return this.httpClient.put(
-      this.apiUrl + `?id=${id}`,
-      { name: name },
+      this.apiUrl,
+      { id: id, name: name },
       {
         withCredentials: true,
-      },
+      }
     );
   }
 

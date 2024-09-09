@@ -31,7 +31,7 @@ describe('CategoryService', () => {
     service = TestBed.inject(CategoryService);
     httpTestingController = TestBed.inject(HttpTestingController);
     loadingServiceSpy = TestBed.inject(
-      LoadingService,
+      LoadingService
     ) as jasmine.SpyObj<LoadingService>;
   });
 
@@ -55,7 +55,7 @@ describe('CategoryService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories?pageNumber=0&pageSize=10`,
+      `${environment.apiUrl}/api/Categories?pageNumber=0&pageSize=10`
     );
     expect(req.request.method).toEqual('GET');
     req.flush(mockResponse);
@@ -73,7 +73,7 @@ describe('CategoryService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories`,
+      `${environment.apiUrl}/api/Categories`
     );
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ name: categoryName });
@@ -88,10 +88,10 @@ describe('CategoryService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories?id=1`,
+      `${environment.apiUrl}/api/Categories`
     );
     expect(req.request.method).toEqual('PUT');
-    expect(req.request.body).toEqual({ name: category.name });
+    expect(req.request.body).toEqual({ id: category.id, name: category.name });
     req.flush({});
   });
 
@@ -103,7 +103,7 @@ describe('CategoryService', () => {
     expect(loadingServiceSpy.setLoading).toHaveBeenCalledWith(true);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories/1`,
+      `${environment.apiUrl}/api/Categories/1`
     );
     expect(req.request.method).toEqual('DELETE');
     req.flush({});
@@ -119,7 +119,7 @@ describe('CategoryService', () => {
     service.getCategories(10, 0);
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories?pageNumber=0&pageSize=10`,
+      `${environment.apiUrl}/api/Categories?pageNumber=0&pageSize=10`
     );
     req.flush(mockResponse);
 
@@ -135,7 +135,7 @@ describe('CategoryService', () => {
     service.createCategory(categoryName).subscribe();
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/api/Categories`,
+      `${environment.apiUrl}/api/Categories`
     );
     req.flush(mockResponse);
 
