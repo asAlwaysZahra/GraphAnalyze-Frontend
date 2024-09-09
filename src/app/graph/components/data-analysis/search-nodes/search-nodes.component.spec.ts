@@ -16,7 +16,7 @@ import { of, Subject } from 'rxjs';
 import { AllNodes } from '../../../model/graph';
 import { By } from '@angular/platform-browser';
 
-fdescribe('SearchNodesComponent', () => {
+describe('SearchNodesComponent', () => {
   let component: SearchNodesComponent;
   let fixture: ComponentFixture<SearchNodesComponent>;
   let mockMatSnackBar: jasmine.SpyObj<MatSnackBar>;
