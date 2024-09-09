@@ -183,9 +183,9 @@ export class DataAnalysisComponent implements AfterViewInit {
   getInfo() {
     const account = (
       document.getElementById('right-click-node-info') as HTMLElement
-    ).dataset['nodeid'] as unknown as number;
+    ).dataset['nodeid'];
 
-    this.loadGraphService.getNodeInfo(account).subscribe({
+    this.loadGraphService.getNodeInfo(account!).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
           width: '105rem',
@@ -213,7 +213,7 @@ export class DataAnalysisComponent implements AfterViewInit {
       document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
 
-    this.loadGraphService.getGraph(Number(nodeId)!).subscribe({
+    this.loadGraphService.getGraph(nodeId!).subscribe({
       next: (data) => {
         data.nodes.forEach((newNode: Node) => {
           if (!this.nodes.get().find((n) => n.id == newNode.id)) {

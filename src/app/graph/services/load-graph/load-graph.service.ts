@@ -36,7 +36,7 @@ export class LoadGraphService {
       });
   }
 
-  getNodeInfo(headerUniqueId: string | number) {
+  getNodeInfo(headerUniqueId: string) {
     this.loadingService.setLoading(true);
     return this.http.get<unknown>(
       `${this.apiUrl}/nodes/${headerUniqueId}/attributes?id=${headerUniqueId}`,
@@ -46,7 +46,7 @@ export class LoadGraphService {
     );
   }
 
-  getGraph(nodeId: number) {
+  getGraph(nodeId: string) {
     this.loadingService.setLoading(true);
     return this.http.get<Graph>(
       `${this.apiUrl}/nodes-relation?nodeId=${nodeId}`,

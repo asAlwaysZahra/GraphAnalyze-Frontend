@@ -1,16 +1,16 @@
 export interface AllNodes {
-  items: { id: number; entityName: string }[];
+  items: { id: string; entityName: string }[];
   pageIndex: number;
   totalItems: number;
-  categoryName: string;
+  categoryName: string | null;
 }
 
 export interface Graph {
   nodes: { id: string; label: string }[];
-  edges: { from: number; to: number; id: number }[];
+  edges: { from: string; to: string; id: string }[];
 }
 
 export interface Account {
-  id: number;
+  id: string;
   entityName: string;
 }

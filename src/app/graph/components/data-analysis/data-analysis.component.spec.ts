@@ -20,15 +20,14 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { AllNodes } from '../../model/graph';
 
-fdescribe('DataAnalysisComponent', () => {
+describe('DataAnalysisComponent', () => {
   let component: DataAnalysisComponent;
   let fixture: ComponentFixture<DataAnalysisComponent>;
-  let searchComponent: SearchNodesComponent;
-  let searchFixture: ComponentFixture<SearchNodesComponent>;
   let mockMatSnackBar: jasmine.SpyObj<MatSnackBar>;
   let mockMatDialog: jasmine.SpyObj<MatDialog>;
   let mockLoadingService: jasmine.SpyObj<LoadingService>;
   let themeSubject: BehaviorSubject<string>;
+  let mockLoadGraphService: jasmine.SpyObj<LoadGraphService>;
   let nodesData: Subject<AllNodes>;
 
   beforeEach(async () => {
@@ -36,8 +35,14 @@ fdescribe('DataAnalysisComponent', () => {
     mockMatDialog = jasmine.createSpyObj<MatDialog>(['open']);
     mockLoadingService = jasmine.createSpyObj<LoadingService>(['setLoading']);
     themeSubject = new BehaviorSubject<string>('light');
-
+    mockLoadGraphService = jasmine.createSpyObj<LoadGraphService>([
+      'getAllNodes',
+      'getNodeInfo',
+      'nodesData$',
+      'getGraph',
+    ]);
     nodesData = new Subject<AllNodes>();
+    mockLoadGraphService.nodesData$ = nodesData.asObservable();
 
     await TestBed.configureTestingModule({
       declarations: [DataAnalysisComponent, SearchNodesComponent],
@@ -58,24 +63,7 @@ fdescribe('DataAnalysisComponent', () => {
         { provide: MatSnackBar, useValue: mockMatSnackBar },
         {
           provide: LoadGraphService,
-          useValue: {
-            getNodeInfo: jasmine
-              .createSpy('getNodeInfo')
-              .and.returnValue(of({ name: 'mamad', age: 23 })),
-            nodesData$: nodesData.asObservable(),
-            getAllNodes: jasmine
-              .createSpy('getAllNodes')
-              .and.returnValue(of({})),
-            getGraph: jasmine.createSpy('getGraph').and.returnValue(
-              of({
-                nodes: [
-                  { id: 1, label: 'node 1' },
-                  { id: 2, label: 'node 2' },
-                ],
-                edges: [{ from: 1, to: 2, id: 1 }],
-              })
-            ),
-          },
+          useValue: mockLoadGraphService,
         },
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: LoadingService, useValue: mockLoadingService },
@@ -87,11 +75,7 @@ fdescribe('DataAnalysisComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DataAnalysisComponent);
-    searchFixture = TestBed.createComponent(SearchNodesComponent);
     component = fixture.componentInstance;
-    searchComponent = searchFixture.componentInstance;
-    component.ngAfterViewInit();
-    searchComponent.ngOnInit();
     fixture.detectChanges();
 
     spyOn(document, 'getElementById').and.returnValue({
@@ -111,6 +95,9 @@ fdescribe('DataAnalysisComponent', () => {
 
   it('getInfo SHOULD show info WHEN get data successfully', () => {
     // Arrange
+    mockLoadGraphService.getNodeInfo
+      .withArgs('123')
+      .and.returnValue(of({ name: 'mamad', id: 1 }));
     // Act
     component.getInfo();
     // Assert
@@ -122,7 +109,7 @@ fdescribe('DataAnalysisComponent', () => {
     spyOn(component.nodes, 'add');
     // Act
     component.showAsGraph({
-      id: 1,
+      id: '1',
       entityName: 'mamad',
     });
     // Assert
@@ -131,13 +118,40 @@ fdescribe('DataAnalysisComponent', () => {
 
   it('getGraph SHOULD get data WHEN called', () => {
     // Arrange
+    const getGraphResponse = {
+      nodes: [
+        {
+          id: 'e73813ee-5f00-4d3d-b0e1-2050c370804a',
+          label: '3084026274',
+        },
+        {
+          id: '43f45cbb-53d2-4c87-b5ea-30d4b256a4f9',
+          label: '4727992815',
+        },
+        {
+          id: '1b450254-dbbf-4735-8c73-4947158a9883',
+          label: '7434776097',
+        },
+      ],
+      edges: [
+        {
+          from: '43f45cbb-53d2-4c87-b5ea-30d4b256a4f9',
+          to: 'e73813ee-5f00-4d3d-b0e1-2050c370804a',
+          id: '4a3231bb-835e-48ee-ac65-0ad2bf021588',
+        },
+        {
+          from: '43f45cbb-53d2-4c87-b5ea-30d4b256a4f9',
+          to: '1b450254-dbbf-4735-8c73-4947158a9883',
+          id: 'bb4c8c15-ed87-44a8-888a-e7080c91e478',
+        },
+      ],
+    };
+    mockLoadGraphService.getGraph.and.returnValue(of(getGraphResponse));
     // Act
     component.getGraph();
     // Assert
-    expect(component.nodes.get()).toEqual([
-      { id: 1, label: 'node 1' },
-      { id: 2, label: 'node 2' },
-    ]);
+    expect(component.edges.get()).toEqual(getGraphResponse.edges);
+    expect(component.nodes.get()).toEqual(getGraphResponse.nodes);
   });
 
   it('changeState SHOULD change animation state WHEN called', () => {

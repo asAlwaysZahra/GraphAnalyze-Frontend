@@ -88,7 +88,7 @@ export class SearchNodesComponent implements OnInit {
     this.showGraph.emit(account);
   }
 
-  getInfo(account: number) {
+  getInfo(account: string) {
     this.loadGraphService.getNodeInfo(account).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
