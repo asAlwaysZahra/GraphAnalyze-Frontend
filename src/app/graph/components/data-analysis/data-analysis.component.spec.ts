@@ -26,7 +26,6 @@ fdescribe('DataAnalysisComponent', () => {
   let searchComponent: SearchNodesComponent;
   let searchFixture: ComponentFixture<SearchNodesComponent>;
   let mockMatSnackBar: jasmine.SpyObj<MatSnackBar>;
-  let mockLoadGraphService: jasmine.SpyObj<LoadGraphService>;
   let mockMatDialog: jasmine.SpyObj<MatDialog>;
   let mockLoadingService: jasmine.SpyObj<LoadingService>;
   let themeSubject: BehaviorSubject<string>;
@@ -34,10 +33,6 @@ fdescribe('DataAnalysisComponent', () => {
 
   beforeEach(async () => {
     mockMatSnackBar = jasmine.createSpyObj<MatSnackBar>(['openFromComponent']);
-    mockLoadGraphService = jasmine.createSpyObj<LoadGraphService>([
-      'getGraph',
-      'getNodeInfo',
-    ]);
     mockMatDialog = jasmine.createSpyObj<MatDialog>(['open']);
     mockLoadingService = jasmine.createSpyObj<LoadingService>(['setLoading']);
     themeSubject = new BehaviorSubject<string>('light');
@@ -64,11 +59,22 @@ fdescribe('DataAnalysisComponent', () => {
         {
           provide: LoadGraphService,
           useValue: {
-            mockLoadGraphService,
+            getNodeInfo: jasmine
+              .createSpy('getNodeInfo')
+              .and.returnValue(of({ name: 'mamad', age: 23 })),
             nodesData$: nodesData.asObservable(),
             getAllNodes: jasmine
               .createSpy('getAllNodes')
               .and.returnValue(of({})),
+            getGraph: jasmine.createSpy('getGraph').and.returnValue(
+              of({
+                nodes: [
+                  { id: 1, label: 'node 1' },
+                  { id: 2, label: 'node 2' },
+                ],
+                edges: [{ from: 1, to: 2, id: 1 }],
+              })
+            ),
           },
         },
         { provide: MatDialog, useValue: mockMatDialog },
@@ -87,6 +93,10 @@ fdescribe('DataAnalysisComponent', () => {
     component.ngAfterViewInit();
     searchComponent.ngOnInit();
     fixture.detectChanges();
+
+    spyOn(document, 'getElementById').and.returnValue({
+      dataset: { nodeid: '123' },
+    } as unknown as HTMLElement);
   });
 
   it('should create', () => {
@@ -97,5 +107,62 @@ fdescribe('DataAnalysisComponent', () => {
     expect(component.isDarkMode).toBeFalse();
     themeSubject.next('dark');
     expect(component.isDarkMode).toBeTrue();
+  });
+
+  it('getInfo SHOULD show info WHEN get data successfully', () => {
+    // Arrange
+    // Act
+    component.getInfo();
+    // Assert
+    expect(mockMatDialog.open).toHaveBeenCalled();
+  });
+
+  it('showAsGraph SHOULD add node WHEN called', () => {
+    // Arrange
+    spyOn(component.nodes, 'add');
+    // Act
+    component.showAsGraph({
+      id: 1,
+      entityName: 'mamad',
+    });
+    // Assert
+    expect(component.nodes.add).toHaveBeenCalled();
+  });
+
+  it('getGraph SHOULD get data WHEN called', () => {
+    // Arrange
+    // Act
+    component.getGraph();
+    // Assert
+    expect(component.nodes.get()).toEqual([
+      { id: 1, label: 'node 1' },
+      { id: 2, label: 'node 2' },
+    ]);
+  });
+
+  it('changeState SHOULD change animation state WHEN called', () => {
+    component.state = 'startRound';
+    component.changeState();
+    expect(component.state).toBe('endRound');
+    component.changeState();
+    expect(component.state).toBe('startRound');
+  });
+
+  it('closeSearchBar SHOULD call changeState WHEN called', () => {
+    // Arrange
+    spyOn(component, 'changeState');
+    // Act
+    component.closeSearchBar();
+    // Assert
+    expect(component.changeState).toHaveBeenCalledTimes(1);
+  });
+
+  it('clearGraph SHOULD clear all nodes WHEN called', () => {
+    // Arrange
+    spyOn(component.nodes, 'clear');
+    // Act
+    component.clearGraph();
+    // Assert
+    expect(component.nodes.clear).toHaveBeenCalledTimes(1);
   });
 });
