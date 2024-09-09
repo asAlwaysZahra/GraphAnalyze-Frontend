@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { LoginRequest, UserPermissions } from '../../models/User';
 import { environment } from '../../../../../api-config/api-url';
 import { LoadingService } from '../../../shared/services/loading.service';
@@ -18,9 +18,9 @@ export class AuthService {
     private loadingService: LoadingService
   ) {}
 
-  login(loginRequest: LoginRequest): Observable<void> {
+  login(loginRequest: LoginRequest) {
     this.loadingService.setLoading(true);
-    return this.http.post<void>(this.apiUrl + '/login', loginRequest, {
+    return this.http.post(this.apiUrl + '/login', loginRequest, {
       withCredentials: true,
     });
   }

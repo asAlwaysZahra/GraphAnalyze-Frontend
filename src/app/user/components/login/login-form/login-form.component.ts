@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginRequest } from '../../../models/User';
 import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -12,7 +12,7 @@ import { LoadingService } from '../../../../shared/services/loading.service';
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
-  hide = signal(true);
+  hide = true;
   checked = false;
   username = '';
   password = '';
@@ -22,7 +22,7 @@ export class LoginFormComponent {
     private authService: AuthService,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {
     this.loadingService.setLoading(false);
   }
@@ -58,8 +58,7 @@ export class LoginFormComponent {
     });
   }
 
-  hidePassClick(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
+  hidePassClick() {
+    this.hide = !this.hide;
   }
 }
