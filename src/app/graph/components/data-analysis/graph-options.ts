@@ -25,7 +25,6 @@ export function getOptions() {
   return {
     physics: false,
     edges: {
-      width: 0.7,
       smooth: { enabled: false, type: 'vertical', roundness: 0 },
       arrows: {
         to: {

@@ -38,6 +38,7 @@ describe('DataAnalysisComponent', () => {
     mockLoadGraphService = jasmine.createSpyObj<LoadGraphService>([
       'getAllNodes',
       'getNodeInfo',
+      'getEdgeInfo',
       'nodesData$',
       'getGraph',
     ]);
@@ -79,7 +80,7 @@ describe('DataAnalysisComponent', () => {
     fixture.detectChanges();
 
     spyOn(document, 'getElementById').and.returnValue({
-      dataset: { nodeid: '123' },
+      dataset: { nodeid: '123', edgeid: '123' },
     } as unknown as HTMLElement);
   });
 
@@ -93,13 +94,24 @@ describe('DataAnalysisComponent', () => {
     expect(component.isDarkMode).toBeTrue();
   });
 
-  it('getInfo SHOULD show info WHEN get data successfully', () => {
+  it('getNodeInfo SHOULD show info WHEN get data successfully', () => {
     // Arrange
     mockLoadGraphService.getNodeInfo
       .withArgs('123')
       .and.returnValue(of({ name: 'mamad', id: 1 }));
     // Act
-    component.getInfo();
+    component.getNodeInfo();
+    // Assert
+    expect(mockMatDialog.open).toHaveBeenCalled();
+  });
+
+  it('getEdgeInfo SHOULD show info WHEN get data successfully', () => {
+    // Arrange
+    mockLoadGraphService.getEdgeInfo
+      .withArgs('123')
+      .and.returnValue(of({ name: 'mamad', id: 1 }));
+    // Act
+    component.getEdgeInfo();
     // Assert
     expect(mockMatDialog.open).toHaveBeenCalled();
   });
