@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../user/services/auth/auth.service';
 import { DangerSuccessNotificationComponent } from '../danger-success-notification/danger-success-notification.component';
 import { LoadingService } from '../../services/loading.service';
+import { UserInformation } from '../../../user/models/ManageUsers';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -12,18 +13,20 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class DashboardHeaderComponent implements AfterViewInit {
   @Input({ required: true }) title = '';
+  @Input() userInfo!: UserInformation;
   profilePic = 'empty-profile.png';
 
   constructor(
     private themeService: ThemeService,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   ngAfterViewInit(): void {
     this.authService.getPermissions().subscribe({
       next: (data) => {
+        console.log(123, data);
         this.profilePic =
           data?.image == 'default-image-url' || !data?.image
             ? 'empty-profile.png'
@@ -45,7 +48,7 @@ export class DashboardHeaderComponent implements AfterViewInit {
     this.themeService.changeThemeState();
     this.themeService.theme$.subscribe((data) => {
       const themeChanger = document.getElementById(
-        'theme-changer-icon'
+        'theme-changer-icon',
       ) as HTMLElement;
       themeChanger.textContent = data === 'dark' ? 'light_mode' : 'dark_mode';
     });
@@ -58,7 +61,7 @@ export class DashboardHeaderComponent implements AfterViewInit {
       {
         duration: 2000,
         panelClass: ['info-notification'],
-      }
+      },
     );
   }
 }
