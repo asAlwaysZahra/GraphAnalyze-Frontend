@@ -1,6 +1,15 @@
 <app-dashboard-header [title]="'Assign Files'"></app-dashboard-header>
 <app-card>
   <table mat-table [dataSource]="filesData">
+    <tr class="mat-row" *matNoDataRow>
+      <td
+        class="mat-cell"
+        [attr.colspan]="displayedColumns.length"
+        style="padding: 1rem"
+      >
+        No file found!
+      </td>
+    </tr>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">{{ element.fileName }}</td>
