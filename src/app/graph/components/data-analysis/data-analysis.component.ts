@@ -53,6 +53,7 @@ export class DataAnalysisComponent implements AfterViewInit {
   isDarkMode = false;
   nodeColor!: string;
   selectedNodeColor!: string;
+  isNode!: boolean;
 
   nodes = new DataSet<Node>([] as unknown as Node[]);
   edges = new DataSet<Edge>([] as Edge[]);
@@ -92,6 +93,7 @@ export class DataAnalysisComponent implements AfterViewInit {
       const edgeId = this.networkInstance.getEdgeAt(params.pointer.DOM);
 
       if (nodeId !== undefined) {
+        this.isNode = true;
         this.menuTrigger.nativeElement.style.left = params.event.clientX + 'px';
         this.menuTrigger.nativeElement.style.top = params.event.clientY + 'px';
         this.menuTrigger.nativeElement.style.position = 'fixed';
@@ -103,14 +105,20 @@ export class DataAnalysisComponent implements AfterViewInit {
         ) as HTMLElement;
 
         rightClickNodeInfoElem.dataset['nodeid'] = nodeId.toString();
-
-        // Custom logic for node right-click
       } else if (edgeId !== undefined) {
+        this.isNode = false;
         console.log('Right-clicked edge:', edgeId);
-        // Custom logic for edge right-click
-      } else {
-        console.log('Right-clicked on empty space');
-        // Custom logic for right-click on empty space
+        this.menuTrigger.nativeElement.style.left = params.event.clientX + 'px';
+        this.menuTrigger.nativeElement.style.top = params.event.clientY + 'px';
+        this.menuTrigger.nativeElement.style.position = 'fixed';
+        this.matMenuTrigger.openMenu();
+
+        this.changeDetector.detectChanges();
+        const rightClickNodeInfoElem = document.getElementById(
+          'right-click-node-info'
+        ) as HTMLElement;
+
+        rightClickNodeInfoElem.dataset['edgeid'] = edgeId.toString();
       }
     });
 
@@ -180,12 +188,36 @@ export class DataAnalysisComponent implements AfterViewInit {
     console.log('edge click: ', edgeId);
   }
 
-  getInfo() {
+  getNodeInfo() {
     const account = (
       document.getElementById('right-click-node-info') as HTMLElement
     ).dataset['nodeid'];
 
     this.loadGraphService.getNodeInfo(account!).subscribe({
+      next: (data) => {
+        this.dialog.open(InfoDialogComponent, {
+          width: '105rem',
+          data,
+        });
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
+  }
+
+  getEdgeInfo() {
+    const account = (
+      document.getElementById('right-click-node-info') as HTMLElement
+    ).dataset['edgeid'];
+
+    this.loadGraphService.getEdgeInfo(account!).subscribe({
       next: (data) => {
         this.dialog.open(InfoDialogComponent, {
           width: '105rem',

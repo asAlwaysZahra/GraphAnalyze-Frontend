@@ -39,7 +39,17 @@ export class LoadGraphService {
   getNodeInfo(headerUniqueId: string) {
     this.loadingService.setLoading(true);
     return this.http.get<unknown>(
-      `${this.apiUrl}/nodes/${headerUniqueId}/attributes?id=${headerUniqueId}`,
+      `${this.apiUrl}/nodes/${headerUniqueId}/attributes`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  getEdgeInfo(headerUniqueId: string) {
+    this.loadingService.setLoading(true);
+    return this.http.get<unknown>(
+      `${this.apiUrl}/edges/${headerUniqueId}/attributes?id=${headerUniqueId}`,
       {
         withCredentials: true,
       }
