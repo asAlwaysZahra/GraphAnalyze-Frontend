@@ -1,6 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
+import { UserService } from '../../../services/user/user.service';
+import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recover-pass-form',
@@ -8,33 +11,43 @@ import { LoadingService } from '../../../../shared/services/loading.service';
   styleUrl: './recover-pass-form.component.scss',
 })
 export class RecoverPassFormComponent {
-  hide = signal(true);
   username = '';
   password = '';
   isLoading = false;
   recover_email = '';
-  isTrueRecoverCode = false;
 
   constructor(
     private _snackBar: MatSnackBar,
     private loadingService: LoadingService,
+    private userService: UserService,
+    private router: Router,
   ) {
     this.loadingService.setLoading(false);
   }
 
   recoverClick(event: Event) {
     event.preventDefault();
-    console.log(1);
-  }
-
-  sendCodeClick(event: Event) {
-    event.preventDefault();
-    console.log(2);
-    this.isTrueRecoverCode = true;
-  }
-
-  hidePassClick(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
+    this.isLoading = true;
+    this.userService.requestResetPassword(this.recover_email).subscribe({
+      next: () => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: 'Password reset link sent to your email.\nPlease check your email.',
+          panelClass: ['notification-class-success'],
+          duration: 5000,
+        });
+        this.router.navigate(['/login']);
+        this.loadingService.setLoading(false);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+        this.isLoading = false;
+      },
+    });
   }
 }

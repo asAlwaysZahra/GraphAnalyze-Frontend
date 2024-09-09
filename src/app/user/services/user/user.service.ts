@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ForgetPasswordRequest, NewPasswordRequest} from '../../models/User';
-import {environment} from '../../../../../api-config/api-url';
-import {LoadingService} from '../../../shared/services/loading.service';
-import {UserInformation} from '../../models/ManageUsers';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ForgetPasswordRequest, NewPasswordRequest } from '../../models/User';
+import { environment } from '../../../../../api-config/api-url';
+import { LoadingService } from '../../../shared/services/loading.service';
+import { UserInformation } from '../../models/ManageUsers';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +15,20 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService,
-  ) {
+  ) {}
+
+  requestResetPassword(email: string) {
+    this.loadingService.setLoading(true);
+    return this.http.post(
+      `${this.apiUrl}/request-reset-password`,
+      { email },
+      {
+        withCredentials: true,
+      },
+    );
   }
 
-  forgetPassword(request: ForgetPasswordRequest): Observable<void> {
+  resetPassword(request: ForgetPasswordRequest): Observable<void> {
     this.loadingService.setLoading(true);
     return this.http.post<void>(`${this.apiUrl}/reset-password`, request, {
       withCredentials: true,
