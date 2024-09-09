@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('RecoverPassFormComponent', () => {
   let component: RecoverPassFormComponent;
@@ -25,6 +27,7 @@ describe('RecoverPassFormComponent', () => {
         MatButtonModule,
         BrowserAnimationsModule,
       ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RecoverPassFormComponent);
