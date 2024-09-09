@@ -9,3 +9,8 @@ export interface GetCategoriesResponse {
   pageIndex: number;
   totalCount: number;
 }
+
+export interface AllCategories {
+  id: number;
+  name: string;
+}

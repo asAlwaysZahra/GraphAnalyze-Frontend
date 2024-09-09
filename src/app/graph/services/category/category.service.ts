@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../api-config/api-url';
 import { Subject } from 'rxjs';
-import { GetCategoriesResponse } from '../../model/Category';
+import { AllCategories, GetCategoriesResponse } from '../../model/Category';
 import { LoadingService } from '../../../shared/services/loading.service';
 
 @Injectable({
@@ -65,5 +65,15 @@ export class CategoryService {
     return this.httpClient.delete(this.apiUrl + `/${id}`, {
       withCredentials: true,
     });
+  }
+
+  getAllCategories() {
+    this.loadingService.setLoading(true);
+    return this.httpClient.get<AllCategories[]>(
+      this.apiUrl + `/all-category-without-pagination`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
