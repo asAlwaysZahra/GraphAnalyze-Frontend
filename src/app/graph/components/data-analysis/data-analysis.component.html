@@ -37,7 +37,11 @@
     ></app-search-nodes>
   </app-card>
   <mat-menu #menu="matMenu" id="right-click-node-info">
-    <button mat-menu-item (click)="getInfo()">Show node information</button>
+    @if (isNode) {
+    <button mat-menu-item (click)="getNodeInfo()">Show node information</button>
     <button mat-menu-item (click)="getGraph()">Show as graph</button>
+    } @else {
+    <button mat-menu-item (click)="getEdgeInfo()">Show edge information</button>
+    }
   </mat-menu>
 </div>

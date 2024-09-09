@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { CanActivate, CanActivateFn, Router, UrlTree } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../user/services/auth/auth.service';
 
+export const loginGuard: CanActivateFn = (route, state) => {
+  if (route && state) return true;
+  return true;
+};
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate():
@@ -18,14 +23,13 @@ export class AuthGuard implements CanActivate {
     return this.authService.getPermissions().pipe(
       map((permissions) => {
         if (permissions?.permission.length) {
-          return true;
+          return this.router.parseUrl('/dashboard');
         } else {
-          return this.router.parseUrl('/login');
+          return true;
         }
       }),
       catchError(() => {
-        this.router.navigate(['/login']);
-        return [false];
+        return [true];
       })
     );
   }

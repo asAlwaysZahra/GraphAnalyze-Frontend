@@ -16,17 +16,15 @@ export function getOptions() {
 
   const svgDataUrl =
     'data:image/svg+xml;charset=UTF-8,' +
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"
-         fill="${labelColor}"/>
-      </svg>
+    encodeURIComponent(`      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="${labelColor}" >
+        <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/>
+        </svg>
     `);
 
   return {
     physics: false,
     edges: {
-      width: 0.7,
       smooth: { enabled: false, type: 'vertical', roundness: 0 },
       arrows: {
         to: {
@@ -40,13 +38,11 @@ export function getOptions() {
         color: textColor,
         strokeWidth: 0,
         face: 'MyCustomFont',
-        size: 6,
       },
     },
     nodes: {
       shape: 'image',
       image: svgDataUrl,
-      size: 8,
       color: {
         background: labelColor,
         border: labelBorder,
@@ -59,7 +55,6 @@ export function getOptions() {
         align: 'center',
         color: textColor,
         face: 'MyCustomFont',
-        size: 6,
       },
     },
   } as Options;
@@ -69,10 +64,9 @@ export function getSvg(color: string, borderColor = color) {
   return (
     'data:image/svg+xml;charset=UTF-8,' +
     encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"
-         fill="${color}" stroke-width="2" stroke="${borderColor}"/>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="${color}"  stroke-width="2" stroke="${borderColor}">
+        <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/>
+        </svg>
     `)
   );
 }
