@@ -32,14 +32,16 @@ export interface UpdateUserRequest {
 }
 
 export interface ForgetPasswordRequest {
-  newPassword: 'string';
-  confirmPassword: 'string';
+  email: string;
+  resetPasswordToken: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
 export interface NewPasswordRequest {
-  oldPassword: 'string';
-  newPassword: 'string';
-  confirmPassword: 'string';
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
 export interface Role {

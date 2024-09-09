@@ -4,52 +4,24 @@
     <h2 class="logo-text">StarData</h2>
   </div>
   <h2>Recover Password</h2>
+  <p class="sub-title">
+    Enter your email address and we will send you a link to reset your password.
+  </p>
   <form>
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>Recovery Email</mat-label>
-      <input
-        [(ngModel)]="recover_email"
-        matInput
-        name="email"
-        disabled="{{ isTrueRecoverCode }}"
-      />
+      <input [(ngModel)]="recover_email" matInput name="email" />
     </mat-form-field>
-    @if (isTrueRecoverCode) {
-      <mat-form-field class="form-field">
-        <mat-label>New Password</mat-label>
-        <input
-          placeholder="at least 8 chracters"
-          [(ngModel)]="password"
-          matInput
-          [type]="hide() ? 'password' : 'text'"
-          name="password"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="hidePassClick($event)"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide()"
-          type="button"
-        >
-          <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
-        </button>
-      </mat-form-field>
-    }
     <button
       type="button"
       mat-flat-button
       [disabled]="isLoading"
-      (click)="isTrueRecoverCode ? recoverClick($event) : sendCodeClick($event)"
+      (click)="recoverClick($event)"
     >
       @if (isLoading) {
         Processing...
       } @else {
-        @if (isTrueRecoverCode) {
-          Recover
-        } @else {
-          Send Code
-        }
+        Send Email
       }
     </button>
 
