@@ -20,8 +20,6 @@ RUN apt-get update && apt-get install -y \
 
 ENV CHROME_BIN="/usr/bin/google-chrome"
 
-# TODO: Use cache
-
 COPY . .
 
 RUN ng lint
