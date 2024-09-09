@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { DangerSuccessNotificationComponent } from '../../../../shared/components/danger-success-notification/danger-success-notification.component';
 
-fdescribe('LoginFormComponent', () => {
+describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
   let mockAuthService: jasmine.SpyObj<AuthService>;
