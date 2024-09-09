@@ -77,7 +77,7 @@ describe('LoadGraphService', () => {
     });
 
     const req = httpMock.expectOne(
-      `${apiUrl}/nodes/${headerUniqueId}/attributes?id=${headerUniqueId}`,
+      `${apiUrl}/nodes/${headerUniqueId}/attributes`,
     );
     expect(req.request.method).toBe('GET');
     expect(req.request.withCredentials).toBeTrue();
