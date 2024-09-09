@@ -8,6 +8,8 @@ import { DangerSuccessNotificationComponent } from '../../../../shared/component
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { Account } from '../../../model/graph';
 import { debounceTime, Observable, Subject } from 'rxjs';
+import { CategoryService } from '../../../services/category/category.service';
+import { AllCategories } from '../../../model/Category';
 
 @Component({
   selector: 'app-search-nodes',
@@ -22,15 +24,18 @@ export class SearchNodesComponent implements OnInit {
   accounts: Account[] = [];
   length!: number;
   pageIndex = 0;
+  allCategories: AllCategories[] = [];
 
   private searchText$ = new Subject<string>();
   nodeName$!: Observable<string>;
+  category = '';
 
   constructor(
     private _snackBar: MatSnackBar,
     private loadGraphService: LoadGraphService,
     private dialog: MatDialog,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -73,6 +78,21 @@ export class SearchNodesComponent implements OnInit {
         },
       });
     });
+
+    this.categoryService.getAllCategories().subscribe({
+      next: (data) => {
+        this.allCategories = data;
+        this.loadingService.setLoading(false);
+      },
+      error: (error) => {
+        this._snackBar.openFromComponent(DangerSuccessNotificationComponent, {
+          data: error.error.message,
+          panelClass: ['notification-class-danger'],
+          duration: 2000,
+        });
+        this.loadingService.setLoading(false);
+      },
+    });
   }
 
   searchNodes() {
@@ -112,5 +132,9 @@ export class SearchNodesComponent implements OnInit {
     this.pageIndex = e.pageIndex;
     this.length = e.length;
     this.loadGraphService.getAllNodes(e.pageIndex);
+  }
+
+  categoryChanged() {
+    this.loadGraphService.getAllNodes(0, this.category);
   }
 }
