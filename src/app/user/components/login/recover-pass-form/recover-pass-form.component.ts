@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
   styleUrl: './recover-pass-form.component.scss',
 })
 export class RecoverPassFormComponent {
-  username = '';
-  password = '';
   isLoading = false;
   recover_email = '';
 
