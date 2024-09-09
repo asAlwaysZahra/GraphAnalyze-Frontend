@@ -14,6 +14,7 @@ import { AssignFileComponent } from './user/components/dashboard/assign-file/ass
 import { CategoryComponent } from './graph/components/category/category.component';
 import { RecoverPassFormComponent } from './user/components/login/recover-pass-form/recover-pass-form.component';
 import { LoginFormComponent } from './user/components/login/login-form/login-form.component';
+import { ResetPasswordComponent } from './user/components/login/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,11 @@ const routes: Routes = [
         title: 'StarData | Manage Category',
       },
     ],
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    title: 'StarData | Reset Password',
   },
   {
     path: '',
