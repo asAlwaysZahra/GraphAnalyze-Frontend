@@ -1,6 +1,7 @@
 # DataAnalysis
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
+project documents: [link](https://star-academy.github.io/codestar-documents/docs/project)
 
 ## Development server
 
